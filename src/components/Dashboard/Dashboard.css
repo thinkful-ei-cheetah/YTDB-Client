@@ -1,0 +1,36 @@
+.dashboard_container {
+    display: flex; /* or inline-flex */
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+    align-content: stretch;
+
+  }
+
+  .dashboard_boxes{
+    width: 40%;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+
+  }
+
+  .red_box{
+
+    background-color: darkred;
+  }
+
+  .blue_box{
+
+    background-color: darkblue;
+  }
+
+  .golden_box{
+
+    background-color: goldenrod;
+  }
+
+  .green_box{
+
+    background-color: green;
+  }

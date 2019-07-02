@@ -29,7 +29,10 @@ class App extends Component {
             <p>There was an error! Oh no!</p>
           )}
         <Switch>
-            <PrivateRoute
+            <PublicOnlyRoute
+            // set to Public for testing purposes
+            // <PrivateRoute
+            //
               exact
               path={'/'}
               component={DashboardRoute}
