@@ -27,6 +27,7 @@ fieldset {
 
 .form-label {
   display: block;
+  text-align: left;
 }
 
 .login{ 
