@@ -6,12 +6,13 @@ class LandingList extends Component {
     this.state = {};
   }
   render() {
+    let channel = this.props.channel
     return (
-      <li>
-        <p>{this.props.avatar}</p>
-        <p>{this.props.title}</p>
-        <p>{this.props.rating}</p>
-      </li>
+      <div>
+        <h3>{channel.channelTitle}</h3>
+        <img src={channel.thumbnails.default.url} alt={`thumbnail for ${channel.title}`} />
+        <p>{channel.description}</p>
+      </div>
     );
   }
 }

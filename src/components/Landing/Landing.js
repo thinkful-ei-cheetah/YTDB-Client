@@ -12,24 +12,31 @@ import {
   faStar as farstar,
   faSmile
 } from '@fortawesome/free-regular-svg-icons';
-// import YTContext from '../../contexts/YTContext';
+import YTContext from '../../contexts/YTContext';
+import LandingList from './LandingList'
 
 class Landing extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      channels: []
-    };
-  }
-  //   static contextType = YTContext;
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     channels: []
+  //   };
+  // }
+  static contextType = YTContext;
   firstInput = React.createRef();
 
   handleSubmit = event => {
     event.preventDefault();
     const { search } = event.target;
 
-    //Search from context?
+    SearchApiService.SearchChannels(search.value)
+      .then(results => {
+        let filteredResults = results.items.map(item => {
+          return item.snippet
+        })
+        this.context.setChannels(filteredResults)
+      })
   };
 
   componentDidMount() {
@@ -37,6 +44,11 @@ class Landing extends Component {
   }
 
   render() {
+    let results = this.context.channels.map(channel => {
+      return <div key={channel.channelId}>
+          <LandingList channel={channel} />
+        </div>
+    })
     return (
       <div className='landing_container'>
         <div className='landing_select_container'>
@@ -71,7 +83,8 @@ class Landing extends Component {
             </button>
           </form>
         </div>
-        <div className='landing_boxes red_box'>
+        {results}
+        {/* <div className='landing_boxes red_box'>
           <div className='landing_box_container'>
             <div className='landing_left_box'>
               <FontAwesomeIcon icon={faSmile} />
@@ -135,7 +148,7 @@ class Landing extends Component {
               <FontAwesomeIcon icon={farstar} />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
