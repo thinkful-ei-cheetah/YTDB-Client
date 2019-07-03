@@ -5,7 +5,7 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute';
 import RegistrationRoute from '../../routes/RegistrationRoute/RegistrationRoute';
 import LoginRoute from '../../routes/LoginRoute/LoginRoute';
-import DashboardRoute from '../../routes/DashboardRoute/DashboardRoute';
+import LandingRoute from '../../routes/LandingRoute/LandingRoute';
 import ChannelRoute from '../../routes/ChannelRoute/ChannelRoute';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
 import './App.css';
@@ -35,7 +35,7 @@ class App extends Component {
             //
               exact
               path={'/'}
-              component={DashboardRoute}
+              component={LandingRoute}
             />
             <PrivateRoute
               path={'/channel'}
