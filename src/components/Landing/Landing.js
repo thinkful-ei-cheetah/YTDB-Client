@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import SearchApiService from '../../services/search-api-service'
 import './Landing.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons'
 
 class Landing extends Component {
- 
+  
   render() {
     return (
       <div className='landing_container'>
@@ -28,6 +29,7 @@ class Landing extends Component {
 
             </select>
             <input className='keyword_input' />
+            <button type='submit'>Search</button>
         </div>
         <div className='landing_boxes red_box'>
             <div className='landing_box_container'>
