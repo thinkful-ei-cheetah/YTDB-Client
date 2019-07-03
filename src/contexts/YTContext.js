@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
 const YTContext = React.createContext({
-    // TBA
+    channels: [],
+    setChannels: () => {},
 })
 export default YTContext;
 
@@ -9,15 +10,18 @@ export class YTProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        // TBA
+        channels: []
     }
   }
 
-
+  setChannels = arr => {
+    this.setState({ channels: arr })
+  }
 
   render() {
     const value = {
-        // TBA
+        channels: this.state.channels,
+        setChannels: this.setChannels,
     }
 
     return (
