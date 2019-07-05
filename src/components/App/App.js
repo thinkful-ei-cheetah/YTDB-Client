@@ -37,8 +37,8 @@ class App extends Component {
               path={'/'}
               component={LandingRoute}
             />
-            <PrivateRoute
-              path={'/channel'}
+            <PublicOnlyRoute
+              path={'/channel/:id'}
               component={ChannelRoute}
             />
             <PublicOnlyRoute

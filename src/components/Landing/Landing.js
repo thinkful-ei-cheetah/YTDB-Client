@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import config from '../../config';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons'
+import axios from 'axios';
 import SearchApiService from '../../services/search-api-service'
-import './Landing.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faStar,
-  faCheckSquare,
-  faCaretDown
-} from '@fortawesome/free-solid-svg-icons';
-import {
-  faStar as farstar,
-  faSmile
-} from '@fortawesome/free-regular-svg-icons';
 import YTContext from '../../contexts/YTContext';
 import LandingList from './LandingList'
+import './Landing.css';
+
+const KEY = process.env.REACT_APP_YTAPI;
 
 class Landing extends Component {
+ 
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     channels: []
-  //   };
-  // }
+    handleSubmit = async () => {
+       
+        axios.get('https://www.googleapis.com/youtube/v3/search', {
+            params: {
+                q: 'The Onion',
+                part: 'snippet',
+                maxResults: 5,
+                key: KEY,
+                type: 'channel'
+            }
+          }).then(res => {
+            console.log(res)
+          })
+
+    }
   static contextType = YTContext;
   firstInput = React.createRef();
 
@@ -51,6 +62,9 @@ class Landing extends Component {
     })
     return (
       <div className='landing_container'>
+        <button onClick={this.handleSubmit}>
+          Activate Lasers
+        </button>
         <div className='landing_select_container'>
           <select className='category_select'>
             <option value='' disabled selected>

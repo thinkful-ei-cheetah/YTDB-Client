@@ -1,4 +1,3 @@
 export default {
-  API_ENDPOINT: '',
-  TOKEN_KEY: '',
+  REACT_APP_YTAPI: process.env.REACT_APP_YTAPI,
 }

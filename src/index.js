@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
+import config from './config';
 import { UserProvider } from './contexts/UserContext'
 import { YTProvider } from './contexts/YTContext'
 import './index.css';
@@ -16,3 +17,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root'),
 )
+
