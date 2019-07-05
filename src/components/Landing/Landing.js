@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import config from '../../config';
 import './Landing.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons'
 import axios from 'axios';
-const KEY = 'AIzaSyA18qBIdJxvFaX35Tr8YWC5exJ4NQb6eH4';
+const KEY = process.env.REACT_APP_YTAPI;
 
 
 
