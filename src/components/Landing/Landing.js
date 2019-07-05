@@ -4,12 +4,45 @@ import './Landing.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons'
+import axios from 'axios';
+const KEY = 'AIzaSyA18qBIdJxvFaX35Tr8YWC5exJ4NQb6eH4';
+
+
 
 class Landing extends Component {
  
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+
+    handleSubmit = async () => {
+       
+        axios.get('https://www.googleapis.com/youtube/v3/search', {
+            params: {
+                q: 'The Onion',
+                part: 'snippet',
+                maxResults: 5,
+                key: KEY,
+                type: 'channel'
+            }
+          }).then(res => {
+            console.log(res)
+          })
+
+    }
+   
   render() {
+
+
     return (
+
+
+
       <div className='landing_container'>
+      <button onClick={this.handleSubmit}>
+      Activate Lasers
+    </button>
         
         <div className='landing_select_container'>
             <select className='category_select'>

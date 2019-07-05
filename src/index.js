@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 // import { UserProvider } from './contexts/UserContext'
+import config from './config';
 import './index.css';
 import App from './components/App/App';
 
@@ -11,3 +12,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root'),
 )
+

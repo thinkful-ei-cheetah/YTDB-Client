@@ -3,45 +3,50 @@ import './Channel.css';
 class Channel extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      id: props.id
+    };
   }
   render() {
+
     return (
       <>
+       {this.props.channel.snippet &&
         <main role='main' className='channel_main'>
           <section>
-            <img alt='logo' src={this.props.channel.avatar} />
+            <img alt='logo' src={this.props.channel.snippet.thumbnails.medium.url}/>
             <h2 className='channel_meta_data long_form'>
-              {this.props.channel.channel_name}
+            {this.props.channel.snippet.title}
             </h2>
           </section>
           <section>
             <div>
-              <span className='channel_meta_data'>Total Videos:</span>
-              <span className='channel_meta_data'>Comment Count</span>
+              <p className='channel_meta_data'>Total Videos: {this.props.channel.statistics.videoCount}</p>
+              <p className='channel_meta_data'>Comment Count: ((waiting))</p>
             </div>
             <div>
-              <span className='channel_meta_data'>Average Rating</span>
-              <span className='channel_meta_data'>Keywords</span>
+              <p className='channel_meta_data'>Average Rating ((waiting))</p>
+              <p className='channel_meta_data'>Keywords ((waiting))</p>
             </div>
             <div>
-              <span className='channel_meta_data'>Total Views</span>
-              <span className='channel_meta_data'>Links</span>
+              <p className='channel_meta_data'>Total Views {this.props.channel.statistics.viewCount}</p>
+              <p className='channel_meta_data'>Links ((waiting))</p>
             </div>
             <div>
-              <span className='channel_meta_data'>Subs</span>
-              <span className='channel_meta_data'>Default Language</span>
+              <p className='channel_meta_data'>Subscribers: {this.props.channel.statistics.subscriberCount}</p>
+              <p className='channel_meta_data'>Default Language</p>
             </div>
           </section>
           <section>
             <div>
-              <p className='channel_meta_data long_form'>Descriptions</p>
+              <p className='channel_meta_data long_form'>  {this.props.channel.snippet.description}</p>
             </div>
             <div>
-              <p className='channel_meta_data long_form'>Reviews</p>
+              <p className='channel_meta_data long_form'>Reviews: ((waiting))</p>
             </div>
           </section>
         </main>
+       }
       </>
     );
   }
