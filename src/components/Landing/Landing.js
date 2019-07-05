@@ -8,6 +8,7 @@ import axios from 'axios';
 import SearchApiService from '../../services/search-api-service'
 import YTContext from '../../contexts/YTContext';
 import LandingList from './LandingList'
+import topicIds from '../Channel/channel-helper'
 import './Landing.css';
 
 const KEY = process.env.REACT_APP_YTAPI;
@@ -40,19 +41,34 @@ class Landing extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { search } = event.target;
-
-    SearchApiService.SearchChannels(search.value)
+    if(this.context.topicSelect !== null || this.context.topicSelect !== ''){
+      SearchApiService.SearchChannelsByTopic(search.value, this.context.topicSelect)
       .then(results => {
         let filteredResults = results.items.map(item => {
           return item.snippet
         })
         this.context.setChannels(filteredResults)
       })
+    }
+    else{
+      SearchApiService.SearchChannels(search.value)
+      .then(results => {
+        let filteredResults = results.items.map(item => {
+          return item.snippet
+        })
+        this.context.setChannels(filteredResults)
+      })
+    }
   };
+
+  handleTopic = event => {
+    this.context.setTopicSelect(event.target.value)
+  }
 
   componentDidMount() {
     this.firstInput.current.focus();
     this.context.setActiveChannel(null)
+    this.context.setTopicSelect(null)
   }
 
   render() {
@@ -61,25 +77,28 @@ class Landing extends Component {
           <LandingList channel={channel} />
         </div>
     })
+    let topics = []
+    Object.entries(topicIds).forEach(
+      ([key, value]) => topics.push(<option value={key}>{value}</option>)
+    );
     return (
       <div className='landing_container'>
         {/* <button onClick={e => this.handleSubmit(e)}>
           Activate Lasers
         </button> */}
         <div className='landing_select_container'>
-          <select className='category_select'>
-            <option value='' disabled selected>
+          <select className='category_select' defaultValue=''>
+            <option value=''>
               Category
             </option>
             <option value='1'>1</option>
             <option value='2'>2</option>
           </select>
-          <select className='category_select'>
-            <option value='' disabled selected>
-              Search Terms
+          <select className='category_select' defaultValue='' onChange={e => this.handleTopic(e)}>
+            <option value=''>
+              Topics
             </option>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
+            {topics}
           </select>
           <form
             className='search_form'
@@ -89,7 +108,7 @@ class Landing extends Component {
               placeholder='Search'
               name='search'
               id='search-input'
-              req
+              required
               ref={this.firstInput}
               className='keyword_input'
             />
