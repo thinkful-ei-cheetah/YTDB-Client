@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
+import SearchApiService from '../../services/search-api-service'
+import YTContext from '../../contexts/YTContext';
 import './Channel.css';
 class Channel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: props.id
-    };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     id: props.id
+  //   };
+  // }
+  static contextType = YTContext;
+
+  componentDidMount(){
+    if(this.context.activeChannel === null){
+      
+    }
   }
+
   render() {
 
     return (
