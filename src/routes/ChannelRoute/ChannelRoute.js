@@ -31,7 +31,7 @@ class ChannelRoute extends Component {
 
     axios.get('https://www.googleapis.com/youtube/v3/channels', {
       params: {
-          id: this.state.id, 
+          id: "UCfAOh2t5DpxVrgS9NQKjC7A",
           part: 'snippet,contentDetails,statistics',
           maxResults: 1,
           key: KEY,
