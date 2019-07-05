@@ -19,21 +19,21 @@ class Landing extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
       }
 
-    handleSubmit = async () => {
+    // handleSubmit = async () => {
        
-        axios.get('https://www.googleapis.com/youtube/v3/search', {
-            params: {
-                q: 'The Onion',
-                part: 'snippet',
-                maxResults: 5,
-                key: KEY,
-                type: 'channel'
-            }
-          }).then(res => {
-            console.log(res)
-          })
+    //     axios.get('https://www.googleapis.com/youtube/v3/search', {
+    //         params: {
+    //             q: 'The Onion',
+    //             part: 'snippet',
+    //             maxResults: 5,
+    //             key: KEY,
+    //             type: 'channel'
+    //         }
+    //       }).then(res => {
+    //         console.log(res)
+    //       })
 
-    }
+    // }
   static contextType = YTContext;
   firstInput = React.createRef();
 
@@ -52,6 +52,7 @@ class Landing extends Component {
 
   componentDidMount() {
     this.firstInput.current.focus();
+    this.context.setActiveChannel(null)
   }
 
   render() {
@@ -62,9 +63,9 @@ class Landing extends Component {
     })
     return (
       <div className='landing_container'>
-        <button onClick={this.handleSubmit}>
+        {/* <button onClick={e => this.handleSubmit(e)}>
           Activate Lasers
-        </button>
+        </button> */}
         <div className='landing_select_container'>
           <select className='category_select'>
             <option value='' disabled selected>
