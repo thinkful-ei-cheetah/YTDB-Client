@@ -14,9 +14,9 @@ class LandingList extends Component {
         <img src={channel.thumbnails.default.url} alt={`thumbnail for ${channel.title}`} />
         <p>{channel.description}</p>
         <Link to={`/channel/${channel.channelId}`} className='link-channel'>
-          <buttom>
+          <button>
             Details
-          </buttom>
+          </button>
         </Link>
       </div>
     );
