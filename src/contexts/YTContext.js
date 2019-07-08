@@ -9,6 +9,7 @@ const YTContext = React.createContext({
     setActiveChannel: () => {},
     setTopicSelect: () => {},
     addFavorite: () => {},
+    removeFavorite: () => {},
 })
 export default YTContext;
 
@@ -18,25 +19,7 @@ export class YTProvider extends Component {
     this.state = {
         activeChannel: null,
         channels: [],
-      favorites: [{
-        channelId: "UCVtCq_mSA6YpVV7FG5dYM-g",
-        channelTitle: "Testing The Chicken",
-        description: "Chicken here! Come join the battle as we storm the beaches! Daily Boom Beach & Brawl Stars content! Operations, high level tactics troop guides, daily events.",
-        liveBroadcastContent: "upcoming",
-        publishedAt: "2015-06-04T20:18:59.000Z",
-        thumbnails: {
-          default: {
-            url: "https://yt3.ggpht.com/-StiNmLeRBcs/AAAAAAAAAAI/AAAAAAAAAAA/Cyaq2aSOnJ8/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
-          },
-          high: {
-            url: "https://yt3.ggpht.com/-StiNmLeRBcs/AAAAAAAAAAI/AAAAAAAAAAA/Cyaq2aSOnJ8/s800-c-k-no-mo-rj-c0xffffff/photo.jpg"
-          },
-          medium: {
-            url: "https://yt3.ggpht.com/-StiNmLeRBcs/AAAAAAAAAAI/AAAAAAAAAAA/Cyaq2aSOnJ8/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
-          },
-          title: "Testing The Chicken",
-        }
-      }],
+        favorites: [],
         topicSelect: null,
     }
   }
@@ -45,8 +28,15 @@ export class YTProvider extends Component {
     this.setState({ channels: arr })
   }
 
-  addFavorite = arr => {
-    this.setState({ favorites: [...this.state.favorites, arr] })
+  addFavorite = obj => {
+
+    this.setState({ favorites: [...this.state.favorites, obj] })
+  }
+
+  removeFavorite = obj => {
+    this.setState({ 
+      favorites: this.state.favorites.filter(favorite => favorite !== obj)
+    })
   }
   
   setActiveChannel = obj => {
@@ -67,6 +57,7 @@ export class YTProvider extends Component {
         setChannels: this.setChannels,
         addFavorite: this.addFavorite,
         setTopicSelect: this.setTopicSelect,
+        removeFavorite: this.removeFavorite,
     }
 
     return (
