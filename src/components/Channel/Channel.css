@@ -1,9 +1,14 @@
 .channel_meta_data {
   border: 1px solid gray;
   padding: 4px;
+
 }
 
-.long_form {
+
+.channel_main {
+
   width: 50%;
   margin: auto;
+  margin-top: 20px;
+
 }

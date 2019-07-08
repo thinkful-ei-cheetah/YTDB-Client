@@ -117,7 +117,11 @@ class Landing extends Component {
             </button>
           </form>
         </div>
+        <div className='results_container'>
+
         {results}
+
+        </div>
         {/* <div className='landing_boxes red_box'>
           <div className='landing_box_container'>
             <div className='landing_left_box'>
