@@ -8,6 +8,7 @@ import LoginRoute from '../../routes/LoginRoute/LoginRoute';
 import LandingRoute from '../../routes/LandingRoute/LandingRoute';
 import ChannelRoute from '../../routes/ChannelRoute/ChannelRoute';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
+import DashboardRoute from '../../routes/DashboardRoute/DashboardRoute';
 import './App.css';
 
 class App extends Component {
@@ -48,6 +49,10 @@ class App extends Component {
             <PublicOnlyRoute
               path={'/login'}
               component={LoginRoute}
+            />
+            <PublicOnlyRoute
+              path={'/dashboard'}
+              component={DashboardRoute}
             />
             <Route
               component={NotFoundRoute}
