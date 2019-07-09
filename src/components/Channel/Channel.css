@@ -7,8 +7,110 @@
 
 .channel_main {
 
-  width: 50%;
+  width: 100%;
+  background-color: #FDFDFD;
+}
+
+
+.landing_main_banner{
+
+  color: white;
+  background-color: #2B3A5C;
+  width: 100%;
   margin: auto;
-  margin-top: 20px;
+  padding: 30px;
 
 }
+
+.channel_header {
+  display: flex; 
+  flex-direction: row;
+}
+
+
+.channel_title {
+ margin-top: 50px;
+ margin-left: 100px;
+ font-size: 2rem;
+}
+
+
+.channel_image {
+  padding: 25px;  
+}
+
+.channel_rating {
+
+  font-size: 25px;
+  margin-top: 50px;
+  margin-left: 100px;
+
+}
+
+.channel_main_body {
+  display: flex; 
+  flex-direction: row;
+  align-items: stretch;
+  flex-wrap:wrap;
+
+}
+
+.left_col {
+
+  padding: 30px;
+  width: 55%;
+}
+
+
+ .channel_description {
+  padding: 30px;
+  font-size: 1rem;
+  font-weight: 200;
+  line-height: 28px !important;
+  color: rgb(0, 0, 0) !important;
+  text-align: left !important;
+ }
+ 
+
+ .channel_col_headers {
+
+  text-align: left;
+  font-weight: 800 !important;
+  font-size: 20px;
+ }
+
+ .about {
+  text-align: left;
+  font-weight: 700;
+  border-bottom-color: rgba(0, 0, 0, 0.05);
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  padding: 20px;
+ }
+
+
+
+
+
+.right_col {
+
+
+  width: 40%;
+  position: relative;
+  top: -40px;
+ }
+
+ .right_col_top_box {
+ text-align: left;
+  word-wrap: break-word;
+  padding: 10px;
+  margin-right: 20px;
+  margin-top: 24px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 5px 16px 0px;
+
+  border-radius: 10px;
+  background-color: #fff;
+ }
+
+
+

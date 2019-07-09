@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import config from '../../config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { faStar as farstar, faSmile } from '@fortawesome/free-regular-svg-icons'
+import { faStar as farstar } from '@fortawesome/free-regular-svg-icons'
 import YTContext from '../../contexts/YTContext';
 import DashboardList from './DashboardList'
 import './Dashboard.css';
