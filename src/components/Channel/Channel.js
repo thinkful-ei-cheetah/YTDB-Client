@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import SearchApiService from '../../services/search-api-service';
 import YTContext from '../../contexts/YTContext';
 import topicIds from './channel-helper';
+import AddReview from '../AddReview/addreview';
+
+
 import './Channel.css';
 class Channel extends Component {
   constructor(props) {
@@ -69,6 +72,14 @@ class Channel extends Component {
             </div>
             <div>
               <p className='channel_meta_data long_form'>Reviews: ((waiting))</p>
+            </div>
+
+            <div>
+              <p className='channel_meta_data long_form'>Add a Review</p>
+            </div>
+
+            <div>
+              <AddReview />
             </div>
           </section>
         </main>
