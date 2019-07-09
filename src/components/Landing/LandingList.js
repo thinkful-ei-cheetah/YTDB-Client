@@ -25,7 +25,6 @@ class LandingList extends Component {
           Add Favorite
         </button>
         <p>{channel.description}</p>
-        
       </div>
     );
   }
