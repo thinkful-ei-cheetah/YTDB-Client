@@ -5,7 +5,6 @@ import axios from 'axios';
 const KEY = process.env.REACT_APP_YTAPI;
 
 class ChannelRoute extends Component {
-
   constructor(props) {
     super(props);
     //console.log(props.match.params.id)
@@ -27,8 +26,6 @@ class ChannelRoute extends Component {
     }).then(res => {
       console.log(res)
     }) */
-
-
     axios.get('https://www.googleapis.com/youtube/v3/channels', {
       params: {
           id: "UCfAOh2t5DpxVrgS9NQKjC7A",
@@ -40,12 +37,8 @@ class ChannelRoute extends Component {
       this.setState({
         channel: res.data.items[0]
        });
-
     })
-
   }
-
-
 
   render() {
     return (

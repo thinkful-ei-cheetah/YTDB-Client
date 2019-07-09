@@ -46,7 +46,9 @@ class Nav extends Component {
             YTDB
           </Link>
         </h1>
+        
         <div className='header-menu'>
+          <Link to='/dashboard'>Favorites</Link>
           {TokenService.hasAuthToken()
             ? this.renderLogoutLink()
             : this.renderLoginLink()}

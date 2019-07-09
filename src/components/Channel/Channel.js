@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import SearchApiService from '../../services/search-api-service'
+import SearchApiService from '../../services/search-api-service';
 import YTContext from '../../contexts/YTContext';
-import topicIds from './channel-helper'
+import topicIds from './channel-helper';
 import './Channel.css';
 class Channel extends Component {
   constructor(props) {
@@ -12,8 +12,8 @@ class Channel extends Component {
   }
   static contextType = YTContext;
 
-  componentDidMount(){
-    if(this.context.activeChannel === null){
+  componentDidMount() {
+    if (this.context.activeChannel === null) {
       console.log(this.props.id)
       SearchApiService.ChannelsDirtyDetails(this.props.id)
         .then(res => {
@@ -22,17 +22,18 @@ class Channel extends Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.context.setActiveChannel(null)
   }
 
   render() {
     let topicDetails
-    if(this.context.activeChannel){
+    if (this.context.activeChannel) {
       topicDetails = this.context.activeChannel.topicDetails.topicIds.map(topic => {
         return topicIds[topic] ? topicIds[topic] : topic
       })
     }
+    
     return (
       <>
        {this.context.activeChannel &&
