@@ -1,6 +1,19 @@
 .button {
-  background: black;
-  padding: 7px;
+  background:rgb(245, 43, 123);
+ 
   color: white;
-  border-radius: 5px;
+  border: none;
+  padding: 15px 30px 15px 30px;
+  transition: 0.2s;
+  transition-timing-function: cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 12px 0px;
+  background:rgb(247, 5, 103);
+  
 }

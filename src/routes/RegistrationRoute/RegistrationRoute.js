@@ -16,9 +16,6 @@ class RegistrationRoute extends Component {
   render() {
     return (
       <section className='register'>
-        <p>
-          Register HERE for brainFuck!
-        </p>
         <h2>Sign up</h2>
         <RegistrationForm
           onRegistrationSuccess={this.handleRegistrationSuccess}
