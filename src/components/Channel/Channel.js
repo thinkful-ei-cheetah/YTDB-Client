@@ -4,6 +4,9 @@ import YTContext from '../../contexts/YTContext';
 import topicIds from './channel-helper';
 import AddReview from '../AddReview/addreview';
 import AddRating from '../AddRating/addrating';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faStar as farstar, faSmile } from '@fortawesome/free-regular-svg-icons'
 
 import './Channel.css';
 class Channel extends Component {
@@ -41,56 +44,91 @@ class Channel extends Component {
       <>
        {this.context.activeChannel &&
         <main role='main' className='channel_main'>
+          <div  className='landing_main_banner'>
           <section>
-            <img alt='logo' src={this.context.activeChannel.snippet.thumbnails.default.url}/>
-            <h2 className='channel_meta_data long_form'>
-            {this.context.activeChannel.snippet.title}
-            </h2>
-          </section>
-          <section>
-            <div>
-              <p className='channel_meta_data'>Total Videos: {this.context.activeChannel.statistics.videoCount}</p>
-              <p className='channel_meta_data'>Comment Count: {this.context.activeChannel.statistics.commentCount}</p>
-            </div>
-            <div>
-              <p className='channel_meta_data'>Average Rating ((waiting))</p>
-              <p className='channel_meta_data'>Keywords: {this.context.activeChannel.brandingSettings.channel.keywords}</p>
-            </div>
-            <div>
-              <p className='channel_meta_data'>Total Views: {this.context.activeChannel.statistics.viewCount}</p>
-              <p className='channel_meta_data'><a href={`http://www.youtube.com/channel/${this.props.id}`} target='blank'>Link</a></p>
-            </div>
-            <div>
-              <p className='channel_meta_data'>Subscribers: {this.context.activeChannel.statistics.subscriberCount}</p>
-              <p className='channel_meta_data'>Topics: {topicDetails.join(', ')}</p>
-              {/* <p className='channel_meta_data'>Default Language</p> */}
-            </div>
-          </section>
-          <section>
-            <div>
-              <p className='channel_meta_data long_form'>  {this.context.activeChannel.snippet.description}</p>
-            </div>
-            <div>
-              <p className='channel_meta_data long_form'>Reviews: ((waiting))</p>
-            </div>
+            <div className='channel_header'>
+              <div className='channel_image'>
+                <img alt='logo' src={this.context.activeChannel.snippet.thumbnails.default.url}/>
+              </div>
+              <h2 className='channel_title'>
+              {this.context.activeChannel.snippet.title}
+              </h2>
+              <div className='channel_rating' >
+                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
+                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
+                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
+                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
+                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
 
-            <div>
-              <p className='channel_meta_data long_form'>Add a Review</p>
+              </div>
+            </div>
+          </section>
+          </div>
+
+
+
+          <section className='channel_main_body'>
+            <div className='left_col'> 
+
+
+      
+            <div className='about' > 
+                 About
+                </div>
+
+                <div className='channel_description' > 
+                  {this.context.activeChannel.snippet.description}
+                </div>
+
+
+            <div className='channel_col_headers' >
+            What People Are Saying
             </div>
 
             <div>
               <AddReview />
             </div>
 
-            <div>
-              <p className='channel_meta_data long_form'>Add a Rating</p>
+            <div className='channel_col_headers' >
+             Add a Rating
             </div>
 
             <div>
               <AddRating />
             </div>
 
+            </div>
+            <div className='right_col'>
+
+              <div className='right_col_top_box'>
+              Total Videos: {this.context.activeChannel.statistics.videoCount}
+
+              </div>
+
+              <div className='right_col_top_box'>
+              Comment Count: {this.context.activeChannel.statistics.commentCount}
+
+              </div>
+
+
+              <div className='right_col_top_box'>
+              Keywords: {this.context.activeChannel.brandingSettings.channel.keywords}
+              Total Views: {this.context.activeChannel.statistics.viewCount}
+              Subscribers: {this.context.activeChannel.statistics.subscriberCount}
+              Topics: {topicDetails.join(', ')}
+              </div>
+
+              <div className='right_col_top_box'>
+              <a href={`http://www.youtube.com/channel/${this.props.id}`} target='blank'>Link</a>
+
+              </div>
+
+             
+            </div>
           </section>
+
+
+
         </main>
        }
       </>
