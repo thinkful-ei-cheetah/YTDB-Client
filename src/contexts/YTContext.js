@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import FavoritesService from '../services/favorites-service'
 
 const YTContext = React.createContext({
     channels: [],
@@ -10,6 +11,7 @@ const YTContext = React.createContext({
     setTopicSelect: () => {},
     addFavorite: () => {},
     removeFavorite: () => {},
+    setFavorites: () => {},
 })
 export default YTContext;
 
@@ -28,15 +30,20 @@ export class YTProvider extends Component {
     this.setState({ channels: arr })
   }
 
-  addFavorite = obj => {
-
-    this.setState({ favorites: [...this.state.favorites, obj] })
+  setFavorites = arr => {
+    this.setState({ favorites: arr });
+  }
+  
+  addFavorite = async obj => {
+    await this.setState({ favorites: [...this.state.favorites, obj] })
+    FavoritesService.saveFavorites(this.state.favorites);
   }
 
-  removeFavorite = obj => {
-    this.setState({ 
+  removeFavorite = async obj => {
+    await this.setState({ 
       favorites: this.state.favorites.filter(favorite => favorite !== obj)
     })
+    FavoritesService.saveFavorites(this.state.favorites);
   }
   
   setActiveChannel = obj => {
@@ -58,6 +65,7 @@ export class YTProvider extends Component {
         addFavorite: this.addFavorite,
         setTopicSelect: this.setTopicSelect,
         removeFavorite: this.removeFavorite,
+        setFavorites: this.setFavorites,
     }
 
     return (

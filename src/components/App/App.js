@@ -50,7 +50,7 @@ class App extends Component {
               path={'/login'}
               component={LoginRoute}
             />
-            <PublicOnlyRoute
+            <PrivateRoute
               path={'/dashboard'}
               component={DashboardRoute}
             />
