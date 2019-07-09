@@ -33,7 +33,7 @@ class Nav extends Component {
       <nav role='navigation' className='header-menu-link'>
         <Link to='/login'>Login</Link>
         {' '}
-        <Link to='/register'>Sign up</Link>
+        <Link className='register-link' to='/register'>Sign up</Link>
       </nav>
     )
   }
@@ -46,7 +46,9 @@ class Nav extends Component {
             YTDB
           </Link>
         </h1>
+        
         <div className='header-menu'>
+          <Link to='/dashboard'>Favorites</Link>
           {TokenService.hasAuthToken()
             ? this.renderLogoutLink()
             : this.renderLoginLink()}
