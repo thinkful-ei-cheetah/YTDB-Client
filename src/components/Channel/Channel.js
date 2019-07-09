@@ -81,6 +81,15 @@ class Channel extends Component {
             <div>
               <AddReview />
             </div>
+
+            <div>
+              <p className='channel_meta_data long_form'>Add a Rating</p>
+            </div>
+
+            <div>
+              <p className='channel_meta_data long_form'><AddRating /></p>
+            </div>
+
           </section>
         </main>
        }
