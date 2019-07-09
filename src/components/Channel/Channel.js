@@ -3,7 +3,7 @@ import SearchApiService from '../../services/search-api-service';
 import YTContext from '../../contexts/YTContext';
 import topicIds from './channel-helper';
 import AddReview from '../AddReview/addreview';
-
+import AddRating from '../AddRating/addrating';
 
 import './Channel.css';
 class Channel extends Component {
@@ -87,7 +87,7 @@ class Channel extends Component {
             </div>
 
             <div>
-              <p className='channel_meta_data long_form'><AddRating /></p>
+              <AddRating />
             </div>
 
           </section>
