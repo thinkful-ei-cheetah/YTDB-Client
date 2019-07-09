@@ -45,4 +45,4 @@ const SearchApiService = {
   }
 }
 
-export default SearchApiService
+export default SearchApiService;
