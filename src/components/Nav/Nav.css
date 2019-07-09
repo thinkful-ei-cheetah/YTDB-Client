@@ -37,3 +37,10 @@ h1 {
   text-align: left;
   margin-left: 15px;
 }
+
+.register-link{
+  color: white;
+  font-size: 16px;
+  padding: 6px;
+ background-color: #EF1362;
+}

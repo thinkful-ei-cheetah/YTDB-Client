@@ -33,7 +33,7 @@ class Nav extends Component {
       <nav role='navigation' className='header-menu-link'>
         <Link to='/login'>Login</Link>
         {' '}
-        <Link to='/register'>Sign up</Link>
+        <Link className='register-link' to='/register'>Sign up</Link>
       </nav>
     )
   }

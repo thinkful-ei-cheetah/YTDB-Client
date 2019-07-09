@@ -7,8 +7,10 @@ import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
 import SearchApiService from '../../services/search-api-service'
 import YTContext from '../../contexts/YTContext';
-import LandingList from './LandingList';
-import topicIds from '../Channel/channel-helper';
+import LandingList from './LandingList'
+import Autocomplete from "../Autocomplete/Autocomplete";
+import topicIds from '../Channel/channel-helper'
+
 import './Landing.css';
 
 const KEY = process.env.REACT_APP_YTAPI;
@@ -80,10 +82,33 @@ class Landing extends Component {
     );
     return (
       <div className='landing_container'>
+        <div className='landing_main_banner'>
+          <h3>RATE AND REVIEW YOUR FAVORITE YOUTUBE CHANNEL</h3>
+
+          <form
+           
+            onSubmit={event => this.handleSubmit(event)}
+          >
+            <input
+              placeholder='Search'
+              name='search'
+              id='search-input'
+              required
+              ref={this.firstInput}
+              className='autocomplete'
+              
+            />
+            <button type='submit'>
+              Search
+            </button>
+          </form>
+  
+        </div>
+
         {/* <button onClick={e => this.handleSubmit(e)}>
           Activate Lasers
         </button> */}
-        <div className='landing_select_container'>
+{/*         <div className='landing_select_container'>
           <select className='category_select' defaultValue=''>
             <option value=''>
               Category
@@ -97,23 +122,8 @@ class Landing extends Component {
             </option>
             {topics}
           </select>
-          <form
-            className='search_form'
-            onSubmit={event => this.handleSubmit(event)}
-          >
-            <input
-              placeholder='Search'
-              name='search'
-              id='search-input'
-              required
-              ref={this.firstInput}
-              className='keyword_input'
-            />
-            <button className='search-submit' type='submit'>
-              Submit
-            </button>
-          </form>
-        </div>
+
+        </div> */}
         <div className='results_container'>
 
         {results}
