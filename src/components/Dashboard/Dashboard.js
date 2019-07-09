@@ -11,29 +11,26 @@ import './Dashboard.css';
 const KEY = process.env.REACT_APP_YTAPI;
 
 class Dashboard extends Component {
+  static contextType = YTContext;
+  
+  render() {
+    let results = this.context.favorites.map(favorite => {
+      return <div key={favorite.channelId}>
+        <DashboardList favorite={favorite} />
+      </div>
+    })
+    
+    return (
+      <>
+        <h2> My Favorites </h2>
+        <div className='results_container'>
 
-    static contextType = YTContext;
+          { results }
 
-    render() {
-        let results = this.context.favorites.map(favorite => {
-            return <div key={favorite.channelId}>
-                <DashboardList favorite={favorite} />
-            </div>
-        })
-        
-        return (
-            <>
-                <h2> My Favorites </h2>
-                <div className='results_container'>
-
-                    { results }
-
-                </div>
-            </>
-        );
-    }
-
+        </div>
+      </>
+    );
+  }
 }
-
 
 export default Dashboard;
