@@ -27,11 +27,11 @@ const FavoritesService = {
     // }]
     
     return fetch(`${config.API_ENDPOINT}/dashboard`, {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'content-type': 'application/json',
+        'authorization': `Bearer ${config.TOKEN_KEY}`,
       },
-      body: JSON.stringify(id)
     })
       .then(res =>
         (!res.ok)

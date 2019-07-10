@@ -8,7 +8,6 @@ import YTContext from '../../contexts/YTContext';
 import DashboardList from './DashboardList'
 import FavoritesService from '../../services/favorites-service';
 import './Dashboard.css';
-import UserContext from '../../contexts/UserContext';
 
 const KEY = process.env.REACT_APP_YTAPI;
 
@@ -16,7 +15,7 @@ class Dashboard extends Component {
   static contextType = YTContext;
   
   componentDidMount = async() => {
-    const favorites = await FavoritesService.getFavorites(this.props.id);
+    const favorites = await FavoritesService.getFavorites();
     
     this.context.setFavorites(favorites);
   }
