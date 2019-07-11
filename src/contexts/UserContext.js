@@ -108,11 +108,6 @@ export class UserProvider extends Component {
       })
   }
 
-  fetchUserLanguges = () => {
-    // call auth api to fetch languagegs
-    //  this.setState({ languages })
-  }
-
   render() {
     const value = {
       user: this.state.user,

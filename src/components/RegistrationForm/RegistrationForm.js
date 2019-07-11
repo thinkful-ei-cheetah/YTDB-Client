@@ -1,18 +1,51 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Input, Required, Label } from '../Form/Form';
 import AuthApiService from '../../services/auth-api-service';
 import Button from '../Button/Button';
 import './RegistrationForm.css';
 
 class RegistrationForm extends Component {
+  static defaultProps = {
+    onRegistrationSuccess: () => { }
+  }
+
+  state = { error: null }
+  firstInput = React.createRef()
+
+  handleSubmit = ev => {
+    ev.preventDefault()
+    const { name, username, password } = ev.target
+    AuthApiService.postUser({
+      name: name.value,
+      username: username.value,
+      password: password.value,
+    })
+      .then(user => {
+        name.value = ''
+        username.value = ''
+        password.value = ''
+        this.props.onRegistrationSuccess()
+      })
+      .catch(res => {
+        this.setState({ error: res.error })
+      })
+  }
+
+  componentDidMount() {
+    this.firstInput.current.focus()
+  }
+
   render() {
+    const { error } = this.state
     return (
       <fieldset>
         <form
           className='RegisterForm'
           onSubmit={this.handleSubmit}
         >
+          <div role='alert'>
+            {error && <p>{ error }</p>}
+          </div>
           <div>
             <Label htmlFor='registration-name-input' className='register-label'>
               Full name<Required />
@@ -58,4 +91,5 @@ class RegistrationForm extends Component {
     )
   }
 }
-export default RegistrationForm
+
+export default RegistrationForm;
