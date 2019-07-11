@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import YTContext from '../../contexts/YTContext';
 import StarRatings from 'react-star-ratings';
+import RatingsService from '../../services/ratings-service';
 
 class AddRating extends Component {
   
@@ -13,6 +14,7 @@ class AddRating extends Component {
 
       static contextType = YTContext;
       changeRating( newRating, name ) {      
+        
         console.log(newRating, name)
       }
 
