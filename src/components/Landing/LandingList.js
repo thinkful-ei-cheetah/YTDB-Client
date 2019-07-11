@@ -42,5 +42,11 @@ class LandingList extends Component {
     );
   }
 }
+// title: channel.snippet.channelTitle,
+// "yt_id": channel.id.channelId,
+// thumbnail: channel.snippet.thumbnails.default.url,
+// description: channel.snippet.description,
+// "rating_total": null,
+// "rating_count": null
 
 export default LandingList;
