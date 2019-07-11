@@ -7,47 +7,43 @@ import './LoginForm.css';
 
 class LoginForm extends Component {
   static defaultProps = {
-    onLoginSuccess: () => { }
-  }
+    onLoginSuccess: () => {}
+  };
 
-  static contextType = UserContext
-  state = { error: null }
-  firstInput = React.createRef()
+  static contextType = UserContext;
+  state = { error: null };
+  firstInput = React.createRef();
 
   handleSubmit = ev => {
-    ev.preventDefault()
-    const { username, password } = ev.target
-    this.setState({ error: null })
+    ev.preventDefault();
+    const { username, password } = ev.target;
+    this.setState({ error: null });
     AuthApiService.postLogin({
       username: username.value,
-      password: password.value,
+      password: password.value
     })
       .then(res => {
-        username.value = ''
-        password.value = ''
-        this.context.processLogin(res.authToken)
-        this.props.onLoginSuccess()
+        username.value = '';
+        password.value = '';
+        this.context.processLogin(res.authToken);
+        this.context.setUser(res.user);
+        this.props.onLoginSuccess();
       })
       .catch(res => {
-        this.setState({ error: res.error })
-      })
-  }
+        this.setState({ error: res.error });
+      });
+  };
 
   componentDidMount() {
-    this.firstInput.current.focus()
+    this.firstInput.current.focus();
   }
-  
+
   render() {
-    const { error } = this.state
+    const { error } = this.state;
     return (
       <fieldset>
-        <form
-          className='LoginForm'
-          onSubmit={this.handleSubmit}
-        >
-          <div role='alert'>
-            {error && <p>{ error }</p>}
-          </div>
+        <form className='LoginForm' onSubmit={this.handleSubmit}>
+          <div role='alert'>{error && <p>{error}</p>}</div>
           <div>
             <Label htmlFor='login-username-input' className='form-label'>
               Username
@@ -77,7 +73,7 @@ class LoginForm extends Component {
           </Button>
         </form>
       </fieldset>
-    )
+    );
   }
 }
 
