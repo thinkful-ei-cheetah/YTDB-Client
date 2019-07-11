@@ -3,11 +3,14 @@ import TokenService from './token-service';
 
 const RatingsService = {
 
-    getRatings() {
+    getRating(id) {
+        console.log('getting rating for channel:', id)
+        
         return fetch(`${config.API_ENDPOINT}/rating`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
+                'id': id,
             },
         })
             .then(res =>

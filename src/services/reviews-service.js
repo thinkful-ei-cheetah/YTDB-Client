@@ -3,11 +3,14 @@ import TokenService from './token-service';
 
 const ReviewsService = {
 
-    getReviews() {
+    getReviews(id) {
+        console.log('getting reviews for channel:', id)
+
         return fetch(`${config.API_ENDPOINT}/review`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
+                'id': id,
             },
         })
             .then(res =>
