@@ -129,24 +129,25 @@
   display: flex; /* or inline-flex */
   flex-wrap: wrap;
   justify-content: center;
-
+  flex-direction: column;
   align-content: stretch;
   height: 100%;
+  width: 100%;
   background-color: #F2F2F2;
  
 }
 
 .ind_results {
-  width: 200px;  /* Or whatever */
+  width: 70%;  
   margin: auto;
+  text-align: left;
   word-wrap: break-word;
-  padding: 10px;
-  margin-right: 20px;
-  margin-top: 24px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  flex-grow: 1;
-  border-radius: 10px;
   background-color: #fff;
+  margin-top: 20px;
+  padding: 0px;
+
+
 }
 
 .autocomplete {
@@ -162,4 +163,42 @@
   margin: auto;
   padding: 30px;
 
+}
+
+.ind_results_top{
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 0px;
+  margin: 0px;
+}
+
+.ind_results_bottom{
+  
+ width: 100%;
+ padding: 10px;
+}
+
+
+.ind_results_channel_title {
+  font-size: 18px;
+  font-weight: 700;
+  width: 100%;
+}
+
+.ind_results_channel_right_top {
+  padding: 20px;
+}
+
+.ind_results_channel_description {
+  font-weight: 300;
+  font-size: 14px;
+}
+
+/* below is for the revised channel display */
+
+.link-channel {
+
+  text-decoration: none;
+   color: inherit;
 }
