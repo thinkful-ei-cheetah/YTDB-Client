@@ -14,7 +14,7 @@ class AddRating extends Component {
 
       static contextType = YTContext;
       changeRating( newRating, name ) {      
-        
+        RatingsService.addRating(newRating);
         console.log(newRating, name)
       }
 

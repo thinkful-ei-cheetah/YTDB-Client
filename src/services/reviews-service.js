@@ -1,9 +1,10 @@
 import config from '../config';
+import TokenService from './token-service';
 
 const ReviewsService = {
 
     getReviews() {
-        return fetch(`${config.API_ENDPOINT}/dashboard`, {
+        return fetch(`${config.API_ENDPOINT}/review`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -15,14 +16,16 @@ const ReviewsService = {
                     : res.json()
             )
     },
-
-    saveReview(arr) {
-        return fetch(`${config.API_ENDPOINT}/dashboard`, {
+    
+    addReview(review) {
+        console.log(review);
+        return fetch(`${config.API_ENDPOINT}/review`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                'authorization': `basic ${TokenService.getAuthToken()}`
             },
-            body: JSON.stringify(arr)
+            body: JSON.stringify(review)
         })
             .then(res =>
                 (!res.ok)
