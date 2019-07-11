@@ -11,17 +11,20 @@ class LandingList extends Component {
   static contextType = YTContext;
 
   render() {
-    let channel = this.props.channel
+    let channel = this.props.channel;
     return (
       <div className='ind_results'>
         <h3>{channel.channelTitle}</h3>
-        <img src={channel.thumbnails.default.url} alt={`thumbnail for ${channel.title}`} /><br />
+        <img
+          src={channel.thumbnails.default.url}
+          alt={`thumbnail for ${channel.title}`}
+        />
+        <br />
         <Link to={`/channel/${channel.channelId}`} className='link-channel'>
-          <button>
-            Details
-          </button>
+          <button>Details</button>
         </Link>
-        <button onClick={ () => this.context.addFavorite(channel) }>
+        {/* <button onClick={() => this.context.addFavorite(channel)}> */}
+        <button onClick={() => this.props.makeFavorite(channel.channelId)}>
           Add Favorite
         </button>
         <p>{channel.description}</p>

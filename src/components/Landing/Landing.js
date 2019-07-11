@@ -1,39 +1,47 @@
 import React, { Component } from 'react';
+import FavoriteApiService from '../../services/favorite-api-service';
 import { Link } from 'react-router-dom';
 import config from '../../config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons';
+import {
+  faStar,
+  faCheckSquare,
+  faCaretDown
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faStar as farstar,
+  faSmile
+} from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
-import SearchApiService from '../../services/search-api-service'
+import SearchApiService from '../../services/search-api-service';
 import YTContext from '../../contexts/YTContext';
-import LandingList from './LandingList'
-import Autocomplete from "../Autocomplete/Autocomplete";
-import topicIds from '../Channel/channel-helper'
+import LandingList from './LandingList';
+import Autocomplete from '../Autocomplete/Autocomplete';
+import topicIds from '../Channel/channel-helper';
 
 import './Landing.css';
 
 const KEY = process.env.REACT_APP_YTAPI;
 
 class Landing extends Component {
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
-    // handleSubmit = async () => {
-       
-    //     axios.get('https://www.googleapis.com/youtube/v3/search', {
-    //         params: {
-    //             q: 'The Onion',
-    //             part: 'snippet',
-    //             maxResults: 5,
-    //             key: KEY,
-    //             type: 'channel'
-    //         }
-    //       }).then(res => {
-    //         console.log(res)
-    //       })
-    // }
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  // handleSubmit = async () => {
+
+  //     axios.get('https://www.googleapis.com/youtube/v3/search', {
+  //         params: {
+  //             q: 'The Onion',
+  //             part: 'snippet',
+  //             maxResults: 5,
+  //             key: KEY,
+  //             type: 'channel'
+  //         }
+  //       }).then(res => {
+  //         console.log(res)
+  //       })
+  // }
   static contextType = YTContext;
   firstInput = React.createRef();
 
@@ -41,54 +49,57 @@ class Landing extends Component {
     event.preventDefault();
     const { search } = event.target;
     if (this.context.topicSelect !== null || this.context.topicSelect !== '') {
-      SearchApiService.SearchChannelsByTopic(search.value, this.context.topicSelect)
-      .then(results => {
+      SearchApiService.SearchChannelsByTopic(
+        search.value,
+        this.context.topicSelect
+      ).then(results => {
         let filteredResults = results.items.map(item => {
-          return item.snippet
-        })
-        this.context.setChannels(filteredResults)
-      })
-    }
-    else {
-      SearchApiService.SearchChannels(search.value)
-      .then(results => {
+          return item.snippet;
+        });
+        this.context.setChannels(filteredResults);
+      });
+    } else {
+      SearchApiService.SearchChannels(search.value).then(results => {
         let filteredResults = results.items.map(item => {
-          return item.snippet
-        })
-        this.context.setChannels(filteredResults)
-      })
+          return item.snippet;
+        });
+        this.context.setChannels(filteredResults);
+      });
     }
   };
 
   handleTopic = event => {
-    this.context.setTopicSelect(event.target.value)
-  }
+    this.context.setTopicSelect(event.target.value);
+  };
+
+  addFavorite = channelId => {
+    FavoriteApiService.postFavorites(channelId).then(response => {});
+  };
 
   componentDidMount() {
     this.firstInput.current.focus();
-    this.context.setActiveChannel(null)
-    this.context.setTopicSelect(null)
+    this.context.setActiveChannel(null);
+    this.context.setTopicSelect(null);
   }
 
   render() {
     let results = this.context.channels.map(channel => {
-      return <div key={channel.channelId}>
-          <LandingList channel={channel} />
+      return (
+        <div key={channel.channelId}>
+          <LandingList makeFavorite={this.addFavorite} channel={channel} />
         </div>
-    })
-    let topics = []
-    Object.entries(topicIds).forEach(
-      ([key, value]) => topics.push(<option value={key}>{value}</option>)
+      );
+    });
+    let topics = [];
+    Object.entries(topicIds).forEach(([key, value]) =>
+      topics.push(<option value={key}>{value}</option>)
     );
     return (
       <div className='landing_container'>
         <div className='landing_main_banner'>
           <h3>RATE AND REVIEW YOUR FAVORITE YOUTUBE CHANNEL</h3>
 
-          <form
-           
-            onSubmit={event => this.handleSubmit(event)}
-          >
+          <form onSubmit={event => this.handleSubmit(event)}>
             <input
               placeholder='Search'
               name='search'
@@ -96,19 +107,15 @@ class Landing extends Component {
               required
               ref={this.firstInput}
               className='autocomplete'
-              
             />
-            <button type='submit'>
-              Search
-            </button>
+            <button type='submit'>Search</button>
           </form>
-  
         </div>
 
         {/* <button onClick={e => this.handleSubmit(e)}>
           Activate Lasers
         </button> */}
-{/*         <div className='landing_select_container'>
+        {/*         <div className='landing_select_container'>
           <select className='category_select' defaultValue=''>
             <option value=''>
               Category
@@ -124,11 +131,7 @@ class Landing extends Component {
           </select>
 
         </div> */}
-        <div className='results_container'>
-
-        {results}
-
-        </div>
+        <div className='results_container'>{results}</div>
         {/* <div className='landing_boxes red_box'>
           <div className='landing_box_container'>
             <div className='landing_left_box'>
