@@ -4,7 +4,7 @@ import config from '../../config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons';
-import axios from 'axios';
+// import axios from 'axios';
 import SearchApiService from '../../services/search-api-service'
 import YTContext from '../../contexts/YTContext';
 import LandingList from './LandingList'
@@ -20,42 +20,36 @@ class Landing extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
-    // handleSubmit = async () => {
-       
-    //     axios.get('https://www.googleapis.com/youtube/v3/search', {
-    //         params: {
-    //             q: 'The Onion',
-    //             part: 'snippet',
-    //             maxResults: 5,
-    //             key: KEY,
-    //             type: 'channel'
-    //         }
-    //       }).then(res => {
-    //         console.log(res)
-    //       })
-    // }
+
   static contextType = YTContext;
   firstInput = React.createRef();
 
   handleSubmit = event => {
     event.preventDefault();
+    this.context.setChannels([])
     const { search } = event.target;
-    if (this.context.topicSelect !== null || this.context.topicSelect !== '') {
-      SearchApiService.SearchChannelsByTopic(search.value, this.context.topicSelect)
+    if(this.context.topicSelect !== 'none') {
+      // console.log(`searching for "${search.value}", within topic "${this.context.topicSelect}"`)
+      SearchApiService.SearchChannelsByTopic(search.value, this.context.useYtdb, this.context.topicSelect)
       .then(results => {
-        let filteredResults = results.items.map(item => {
-          return item.snippet
-        })
-        this.context.setChannels(filteredResults)
+        // let filteredResults = results.items.map(item => {
+        //   return item.snippet
+        // })
+        // this.context.setChannels(filteredResults)
+        // console.log('results ======>', results.data)
+        return this.context.setChannels(results.data)
       })
     }
     else {
-      SearchApiService.SearchChannels(search.value)
+      // console.log(`searching for "${search.value}"`)
+      SearchApiService.SearchChannels(search.value, this.context.useYtdb)
       .then(results => {
-        let filteredResults = results.items.map(item => {
-          return item.snippet
-        })
-        this.context.setChannels(filteredResults)
+        // let filteredResults = results.items.map(item => {
+        //   return item.snippet
+        // })
+        // this.context.setChannels(filteredResults)
+        // console.log('results ======>', results.data)
+        return this.context.setChannels(results.data)
       })
     }
   };
@@ -64,31 +58,44 @@ class Landing extends Component {
     this.context.setTopicSelect(event.target.value)
   }
 
+  handleDbSwitch = event => {
+    event.preventDefault()
+    this.context.setUseYtdb( !this.context.useYtdb )
+  }
+
+
   componentDidMount() {
     this.firstInput.current.focus();
+    this.context.setChannels([])
     this.context.setActiveChannel(null)
     this.context.setTopicSelect(null)
+    // this.context.setUseYtdb( false )
   }
 
   render() {
     let results = this.context.channels.map(channel => {
-      return <div key={channel.channelId}>
+      return <div key={channel.yt_id}>
           <LandingList channel={channel} />
         </div>
     })
     let topics = []
     Object.entries(topicIds).forEach(
-      ([key, value]) => topics.push(<option value={key}>{value}</option>)
+      ([key, value]) => topics.push(<option key={key} value={key}>{value}</option>)
     );
+    let whichDb = this.context.useYtdb ? `Youtube's db` : `Our db`
     return (
       <div className='landing_container'>
         <div className='landing_main_banner'>
           <h3>RATE AND REVIEW YOUR FAVORITE YOUTUBE CHANNEL</h3>
 
           <form
-           
             onSubmit={event => this.handleSubmit(event)}
           >
+            <button className='db_button' onClick={e => this.handleDbSwitch(e)}>{whichDb}</button>
+            <select className='topic_select' defaultValue='' onChange={e => this.handleTopic(e)}>
+              <option value='none'>Topics</option>
+              {topics}
+            </select>
             <input
               placeholder='Search'
               name='search'
@@ -96,9 +103,11 @@ class Landing extends Component {
               required
               ref={this.firstInput}
               className='autocomplete'
-              
             />
-            <button type='submit'>
+            <button 
+              type='submit'
+              className='submit_button'
+            >
               Search
             </button>
           </form>

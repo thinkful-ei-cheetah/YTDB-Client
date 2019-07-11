@@ -14,9 +14,9 @@ class LandingList extends Component {
     let channel = this.props.channel
     return (
       <div className='ind_results'>
-        <h3>{channel.channelTitle}</h3>
-        <img src={channel.thumbnails.default.url} alt={`thumbnail for ${channel.title}`} /><br />
-        <Link to={`/channel/${channel.channelId}`} className='link-channel'>
+        <h3>{channel.title}</h3>
+        <img src={channel.thumbnail} alt={`thumbnail for ${channel.title}`} /><br />
+        <Link to={`/channel/${channel.yt_id}`} className='link-channel'>
           <button>
             Details
           </button>
@@ -29,5 +29,11 @@ class LandingList extends Component {
     );
   }
 }
+// title: channel.snippet.channelTitle,
+// "yt_id": channel.id.channelId,
+// thumbnail: channel.snippet.thumbnails.default.url,
+// description: channel.snippet.description,
+// "rating_total": null,
+// "rating_count": null
 
 export default LandingList;
