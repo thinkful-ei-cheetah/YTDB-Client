@@ -6,11 +6,10 @@ const RatingsService = {
     getRating(id) {
         console.log('getting rating for channel:', id)
         
-        return fetch(`${config.API_ENDPOINT}/rating`, {
+        return fetch(`${config.API_ENDPOINT}/rating/${id}`, {
             method: 'GET',
             headers: {
-                'content-type': 'application/json',
-                'id': id,
+                'content-type': 'application/json'
             },
         })
             .then(res =>
@@ -26,7 +25,7 @@ const RatingsService = {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                'authorization': `basic ${TokenService.getAuthToken()}`
+                'authorization': `bearer ${TokenService.getAuthToken()}`
             },
             body: JSON.stringify(rating)
         })
