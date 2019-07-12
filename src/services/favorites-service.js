@@ -35,7 +35,7 @@ const FavoritesService = {
     })
       .then(res =>
         (!res.ok)
-          ? res.json().then(e => Promise.reject(e))
+          ?res.json().then(e => Promise.reject(e))
           : res.json()
       )
   },
@@ -53,8 +53,6 @@ const FavoritesService = {
           ? res.json().then(e => Promise.reject(e))
           : res.json()
       )
-  }
-
 }
 
 export default FavoritesService;

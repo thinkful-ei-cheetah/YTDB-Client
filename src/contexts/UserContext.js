@@ -10,6 +10,7 @@ const UserContext = React.createContext({
   setError: () => {},
   clearError: () => {},
   setUser: () => {},
+  getUser: () => {},
   processLogin: () => {},
   processLogout: () => {},
 })
@@ -19,7 +20,7 @@ export default UserContext
 export class UserProvider extends Component {
   constructor(props) {
     super(props)
-    const state = { user: {}, error: null }
+    const state = { user: {id: 'test'}, error: null }
 
     const jwtPayload = TokenService.parseAuthToken()
 
@@ -59,6 +60,11 @@ export class UserProvider extends Component {
 
   setUser = user => {
     this.setState({ user })
+  }
+
+  getUser = () => {
+    console.log('in UserContext getUser');
+    return this.state.user;
   }
 
   processLogin = authToken => {

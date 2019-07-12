@@ -6,6 +6,7 @@ import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-
 import { faStar as farstar } from '@fortawesome/free-regular-svg-icons'
 import YTContext from '../../contexts/YTContext';
 import DashboardList from './DashboardList'
+import FavoritesService from '../../services/favorites-service';
 import './Dashboard.css';
 
 const KEY = process.env.REACT_APP_YTAPI;
@@ -13,6 +14,12 @@ const KEY = process.env.REACT_APP_YTAPI;
 class Dashboard extends Component {
   static contextType = YTContext;
   
+  componentDidMount = async() => {
+    const favorites = await FavoritesService.getFavorites();
+    
+    this.context.setFavorites(favorites);
+  }
+
   render() {
     let results = this.context.favorites.map(favorite => {
       return <div key={favorite.channelId}>
