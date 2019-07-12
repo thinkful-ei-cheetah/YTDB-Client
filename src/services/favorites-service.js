@@ -1,7 +1,7 @@
 import config from '../config';
 
 const FavoritesService = {
-  
+
   getFavorites(id) {
     // /*dummy data. if this is active, the api call 
     // should be commented out and vice versa */
@@ -25,7 +25,7 @@ const FavoritesService = {
     //   title:
     //       "JustWant2PlayAGame"
     // }]
-    
+
     return fetch(`${config.API_ENDPOINT}/dashboard`, {
       method: 'GET',
       headers: {
@@ -53,8 +53,6 @@ const FavoritesService = {
           ? res.json().then(e => Promise.reject(e))
           : res.json()
       )
-  }
-  
 }
 
 export default FavoritesService;

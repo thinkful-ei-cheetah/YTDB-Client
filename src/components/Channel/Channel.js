@@ -4,32 +4,51 @@ import YTContext from '../../contexts/YTContext';
 import topicIds from './channel-helper';
 import AddReview from '../AddReview/addreview';
 import AddRating from '../AddRating/addrating';
+import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { faStar as farstar, faSmile } from '@fortawesome/free-regular-svg-icons'
 
 import './Channel.css';
+import ReviewsService from '../../services/reviews-service';
+import RatingsService from '../../services/ratings-service';
+
 class Channel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.id
+      id: props.id,
+      reviews: [],
+      rating: 0,
     };
   }
   static contextType = YTContext;
 
-  componentDidMount() {
+  componentDidMount = async() => {
     if (this.context.activeChannel === null) {
       console.log(this.props.id)
-      SearchApiService.ChannelsDirtyDetails(this.props.id)
+      await SearchApiService.ChannelsDirtyDetails(this.props.id)
         .then(res => {
           this.context.setActiveChannel(res.items[0])
         })
+        .catch(err => console.log(err))
+      
+      await RatingsService.getRatings(this.props.id)
+        .then(res => this.updateRating(res))
+        .catch(err => console.log(err))
     }
   }
 
   componentWillUnmount() {
     this.context.setActiveChannel(null)
+  }
+
+
+  updateRating = (rating) => {
+    console.log(rating);
+    this.setState({
+      rating: rating
+    })
   }
 
   render() {
@@ -54,12 +73,13 @@ class Channel extends Component {
               {this.context.activeChannel.snippet.title}
               </h2>
               <div className='channel_rating' >
-                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
-                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
-                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
-                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
-                <FontAwesomeIcon icon={faStar} style={{ color: '#EF1362' }}   />
-
+                  <StarRatings
+                    rating={this.state.rating}
+                    starRatedColor="rgb(239,19,99)"
+                    starHoverColor="rgb(239,19,99)"
+                    numberOfStars={5}
+                    name='rating'
+                  />
               </div>
             </div>
           </section>
@@ -86,7 +106,7 @@ class Channel extends Component {
             </div>
 
             <div>
-              <AddReview />
+              <AddReview reviews={this.state.reviews} id= {this.props.id}/>
             </div>
 
             <div className='channel_col_headers' >
