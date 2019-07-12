@@ -27,7 +27,7 @@ const FavoritesService = {
     //       "JustWant2PlayAGame"
     // }]
 
-    return fetch(`${config.API_ENDPOINT}/dashboard`, {
+    return fetch(`${config.API_ENDPOINT}/favorite`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -42,7 +42,7 @@ const FavoritesService = {
   },
 
   addFavorite(obj) {
-    return fetch(`${config.API_ENDPOINT}/dashboard`, {
+    return fetch(`${config.API_ENDPOINT}/favorite`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -58,7 +58,7 @@ const FavoritesService = {
   },
 
   removeFavorite(obj) {
-      return fetch(`${config.API_ENDPOINT}/dashboard`, {
+      return fetch(`${config.API_ENDPOINT}/favorite`, {
         method: 'DELETE',
         headers: {
           'content-type': 'application/json',
