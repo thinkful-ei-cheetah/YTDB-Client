@@ -139,6 +139,7 @@
 
 .ind_results {
   width: 70%;  
+  max-width: 1000px;
   margin: auto;
   text-align: left;
   word-wrap: break-word;
