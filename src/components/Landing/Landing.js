@@ -62,13 +62,13 @@ class Landing extends Component {
     event.preventDefault()
     this.context.setUseYtdb( !this.context.useYtdb )
   }
-
+  // this is a test
 
   componentDidMount() {
     this.firstInput.current.focus();
     this.context.setChannels([])
     this.context.setActiveChannel(null)
-    this.context.setTopicSelect(null)
+    this.context.setTopicSelect('none')
     // this.context.setUseYtdb( false )
   }
 
