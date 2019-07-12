@@ -14,30 +14,17 @@ class LandingList extends Component {
     let channel = this.props.channel
     return (
       <div className='ind_results'>
-
-        <div className='ind_results_top'>
-        
-          <Link to={`/channel/${channel.channelId}`} className='link-channel'>
-            <img src={channel.thumbnails.default.url} alt={`thumbnail for ${channel.title}`} /><br />
-          </Link>
-
-        <div className='ind_results_channel_right_top'>
-          <div className='ind_results_channel_title'>
-            <Link to={`/channel/${channel.channelId}`} className='link-channel'>
-            {channel.channelTitle}
-            </Link>
-            </div>
-
-            <div className='ind_results_channel_description'>
-              {channel.description}
-            </div>
-          </div>
-        </div>
-        <div className='ind_results_bottom'>
-          <button onClick={ () => this.context.addFavorite(channel) }>
-            Add Favorite
+        <h3>{channel.title}</h3>
+        <img src={channel.thumbnail} alt={`thumbnail for ${channel.title}`} /><br />
+        <Link to={`/channel/${channel.yt_id}`} className='link-channel'>
+          <button>
+            Details
           </button>
-        </div>
+        </Link>
+        <button onClick={ () => this.context.addFavorite(channel) }>
+          Add Favorite
+        </button>
+        <p>{channel.description}</p>
       </div>
     );
   }
