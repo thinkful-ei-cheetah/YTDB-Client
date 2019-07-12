@@ -14,26 +14,33 @@ class LandingList extends Component {
     let channel = this.props.channel
     return (
       <div className='ind_results'>
-        <h3>{channel.title}</h3>
-        <img src={channel.thumbnail} alt={`thumbnail for ${channel.title}`} /><br />
-        <Link to={`/channel/${channel.yt_id}`} className='link-channel'>
-          <button>
-            Details
+
+        <div className='ind_results_top'>
+        
+          <Link to={`/channel/${channel.channelId}`} className='link-channel'>
+            <img src={channel.thumbnails.default.url} alt={`thumbnail for ${channel.title}`} /><br />
+          </Link>
+
+        <div className='ind_results_channel_right_top'>
+          <div className='ind_results_channel_title'>
+            <Link to={`/channel/${channel.channelId}`} className='link-channel'>
+            {channel.channelTitle}
+            </Link>
+            </div>
+
+            <div className='ind_results_channel_description'>
+              {channel.description}
+            </div>
+          </div>
+        </div>
+        <div className='ind_results_bottom'>
+          <button onClick={ () => this.context.addFavorite(channel) }>
+            Add Favorite
           </button>
-        </Link>
-        <button onClick={ () => this.context.addFavorite(channel) }>
-          Add Favorite
-        </button>
-        <p>{channel.description}</p>
+        </div>
       </div>
     );
   }
 }
-// title: channel.snippet.channelTitle,
-// "yt_id": channel.id.channelId,
-// thumbnail: channel.snippet.thumbnails.default.url,
-// description: channel.snippet.description,
-// "rating_total": null,
-// "rating_count": null
 
 export default LandingList;
