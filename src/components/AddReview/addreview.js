@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import YTContext from '../../contexts/YTContext';
+import ReviewsService from '../../services/reviews-service';
 
 class AddReview extends Component {
   
@@ -21,17 +22,30 @@ class AddReview extends Component {
       handleSubmitReview = event => {
         event.preventDefault();
         const { search } = event.target;
-        console.log('leaving a review')
+        ReviewsService.addReview(this.state.value);
+        console.log('adding review')
       };
+
+      handleEnter = event => {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          document.getElementById('submit').click();
+        }
+      }
 
     render() {
         return <div>
           <form
             onSubmit={event => this.handleSubmitReview(event)}
           >
-            <textarea value={this.state.value} onChange={this.handleChange} />
-            <button type='submit'>
-            Submit
+            <textarea 
+              value={this.state.value} 
+              onChange={this.handleChange} 
+              onKeyUp={event => this.handleEnter(event)} 
+            />
+
+            <button id='submit' type='submit'>
+              Submit
             </button>
           </form>
         </div>
