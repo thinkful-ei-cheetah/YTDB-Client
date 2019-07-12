@@ -20,7 +20,7 @@ class DashboardList extends Component {
         <Link to={`/channel/${favorite.id}`} className='link-channel'>
           <button>Details</button>
         </Link>
-        <button onClick={() => this.context.removeFavorite(favorite)}>
+        <button onClick={() => this.props.removeFavorite(favorite.id)}>
           Remove
         </button>
         <p>{favorite.description}</p>

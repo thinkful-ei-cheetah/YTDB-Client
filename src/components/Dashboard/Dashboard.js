@@ -25,11 +25,22 @@ class Dashboard extends Component {
     });
   }
 
+  deleteFavorite = channelId => {
+    FavoriteApiService.deleteFavorites(channelId).then(response => {
+      FavoriteApiService.getFavorites().then(favorites => {
+        this.context.setFavorites(favorites);
+      });
+    });
+  };
+
   render() {
     let results = this.context.favorites.map(favorite => {
       return (
         <div key={favorite.id}>
-          <DashboardList favorite={favorite} />
+          <DashboardList
+            removeFavorite={this.deleteFavorite}
+            favorite={favorite}
+          />
         </div>
       );
     });

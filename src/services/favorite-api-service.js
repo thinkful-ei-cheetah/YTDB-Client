@@ -23,6 +23,18 @@ const FavoriteApiService = {
     }).then(res => {
       return !res.ok ? res.json().then(e => Promise.reject(e)) : res.json();
     });
+  },
+  deleteFavorites(channelId) {
+    return fetch(`${config.API_ENDPOINT}/favorite`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify({ channelId })
+    }).then(res => {
+      return !res.ok ? res.json().then(e => Promise.reject(e)) : res.json();
+    });
   }
 };
 
