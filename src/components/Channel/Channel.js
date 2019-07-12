@@ -29,13 +29,14 @@ class Channel extends Component {
       console.log(this.props.id)
       await SearchApiService.ChannelsDirtyDetails(this.props.id)
         .then(res => {
-          this.context.setActiveChannel(res.items[0])
+          // console.log(res)
+          this.context.setActiveChannel(res.data.items[0])
         })
         .catch(err => console.log(err))
       
-      await RatingsService.getRatings(this.props.id)
-        .then(res => this.updateRating(res))
-        .catch(err => console.log(err))
+      // await RatingsService.getRatings(this.props.id)
+      //   .then(res => this.updateRating(res))
+      //   .catch(err => console.log(err))
     }
   }
 
