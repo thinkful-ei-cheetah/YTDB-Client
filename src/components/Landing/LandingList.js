@@ -18,13 +18,13 @@ class LandingList extends Component {
         <div className='ind_results_top'>
         
           <Link to={`/channel/${channel.channelId}`} className='link-channel'>
-            <img src={channel.thumbnails.default.url} alt={`thumbnail for ${channel.title}`} /><br />
+            <img src={channel.thumbnail} alt={`thumbnail for ${channel.title}`} /><br />
           </Link>
 
         <div className='ind_results_channel_right_top'>
           <div className='ind_results_channel_title'>
             <Link to={`/channel/${channel.channelId}`} className='link-channel'>
-            {channel.channelTitle}
+            {channel.title}
             </Link>
             </div>
 
