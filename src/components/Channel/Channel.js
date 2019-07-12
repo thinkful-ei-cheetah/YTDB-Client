@@ -33,10 +33,6 @@ class Channel extends Component {
         })
         .catch(err => console.log(err))
       
-      await ReviewsService.getReviews(this.props.id)
-        .then(res => this.updateReviews(res))
-        .catch(err => console.log(err))
-
       await RatingsService.getRatings(this.props.id)
         .then(res => this.updateRating(res))
         .catch(err => console.log(err))
@@ -47,11 +43,6 @@ class Channel extends Component {
     this.context.setActiveChannel(null)
   }
 
-  updateReviews = (arr) => {
-    this.setState({
-      reviews: arr
-    })
-  }
 
   updateRating = (rating) => {
     console.log(rating);
@@ -115,7 +106,7 @@ class Channel extends Component {
             </div>
 
             <div>
-              <AddReview />
+              <AddReview reviews={this.state.reviews} id= {this.props.id}/>
             </div>
 
             <div className='channel_col_headers' >

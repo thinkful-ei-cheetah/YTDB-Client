@@ -9,11 +9,31 @@ class AddReview extends Component {
         this.handleSubmitReview = this.handleSubmitReview.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            value: 'Please leave a review.'
+            value: 'Please leave a review.',
+            reviews: []
           };
       }
 
       static contextType = YTContext;
+
+      componentDidMount = async() => {
+          console.log(this.props.id)
+          await ReviewsService.getReviews(this.props.id)
+            .then(res => this.updateReviews(res))
+            .catch(err => console.log(err))
+      
+      }
+
+
+      updateReviews = (arr) => {
+
+        console.log(arr)
+        this.setState({
+          reviews: arr.response
+        })
+
+      }
+
 
       handleChange(event) {
         this.setState({value: event.target.value});
@@ -22,7 +42,7 @@ class AddReview extends Component {
       handleSubmitReview = event => {
         event.preventDefault();
         const { search } = event.target;
-        ReviewsService.addReview(this.state.value);
+        ReviewsService.addReview(this.state.value, this.props.id);
         console.log('adding review')
       };
 
@@ -35,6 +55,17 @@ class AddReview extends Component {
 
     render() {
         return <div>
+         
+          {(this.state.reviews.length >0)
+            ? this.state.reviews.map((review) =>{
+
+              return <div>{review.id} left a review at {review.date_created} {review.text}</div>
+       
+
+            })
+            :<span>no reviews</span>
+          }
+
           <form
             onSubmit={event => this.handleSubmitReview(event)}
           >

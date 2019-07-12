@@ -20,15 +20,15 @@ const ReviewsService = {
             )
     },
     
-    addReview(review) {
-        console.log(review);
+    addReview(review, id) {
+        console.log(id);
         return fetch(`${config.API_ENDPOINT}/reviews`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`
             },
-            body: JSON.stringify(review)
+            body: JSON.stringify({text:review, channelId: id})
         })
             .then(res =>
                 (!res.ok)
