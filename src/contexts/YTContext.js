@@ -38,15 +38,15 @@ export class YTProvider extends Component {
   }
   
   addFavorite = async obj => {
+    await FavoritesService.addFavorite(obj);
     await this.setState({ favorites: [...this.state.favorites, obj] })
-    FavoritesService.saveFavorites(this.state.favorites);
   }
 
   removeFavorite = async obj => {
+    await FavoritesService.removeFavorite(obj);
     await this.setState({ 
       favorites: this.state.favorites.filter(favorite => favorite !== obj)
     })
-    FavoritesService.saveFavorites(this.state.favorites);
   }
   
   setActiveChannel = obj => {
