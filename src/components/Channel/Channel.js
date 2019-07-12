@@ -32,10 +32,6 @@ class Channel extends Component {
           this.context.setActiveChannel(res.items[0])
         })
         .catch(err => console.log(err))
-      
-      await RatingsService.getRatings(this.props.id)
-        .then(res => this.updateRating(res))
-        .catch(err => console.log(err))
     }
   }
 
