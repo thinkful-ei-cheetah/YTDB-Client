@@ -5,6 +5,7 @@ import topicIds from './channel-helper';
 import AddReview from '../AddReview/addreview';
 import AddRating from '../AddRating/addrating';
 import StarRatings from 'react-star-ratings';
+import './Channel.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faStar,
@@ -15,8 +16,6 @@ import {
   faStar as farstar,
   faSmile
 } from '@fortawesome/free-regular-svg-icons';
-
-import './Channel.css';
 import ReviewsService from '../../services/reviews-service';
 import RatingsService from '../../services/ratings-service';
 
@@ -37,7 +36,12 @@ class Channel extends Component {
       await SearchApiService.ChannelsDirtyDetails(this.props.id)
         .then(res => {
           // console.log(res)
-          this.context.setActiveChannel(res.data.items[0]);
+          this.context.setActiveChannel(res.data);
+          const channelRating = res.rating_total / res.rating_count;
+          this.setState({
+            rating: channelRating
+          });
+          return res;
         })
         .catch(err => console.log(err));
     }
@@ -47,21 +51,12 @@ class Channel extends Component {
     this.context.setActiveChannel(null);
   }
 
-  updateRating = rating => {
-    console.log(rating);
-    this.setState({
-      rating: rating
-    });
-  };
-
   render() {
     let topicDetails;
     if (this.context.activeChannel) {
-      topicDetails = this.context.activeChannel.topicDetails.topicIds.map(
-        topic => {
-          return topicIds[topic] ? topicIds[topic] : topic;
-        }
-      );
+      topicDetails = this.context.activeChannel.topic_title.map(topic => {
+        return topicIds[topic] ? topicIds[topic] : topic;
+      });
     }
 
     return (
@@ -74,14 +69,11 @@ class Channel extends Component {
                   <div className='channel_image'>
                     <img
                       alt='logo'
-                      src={
-                        this.context.activeChannel.snippet.thumbnails.default
-                          .url
-                      }
+                      src={this.context.activeChannel.thumbnail}
                     />
                   </div>
                   <h2 className='channel_title'>
-                    {this.context.activeChannel.snippet.title}
+                    {this.context.activeChannel.title}
                   </h2>
                   <div className='channel_rating'>
                     <StarRatings
@@ -101,7 +93,7 @@ class Channel extends Component {
                 <div className='about'>About</div>
 
                 <div className='channel_description'>
-                  {this.context.activeChannel.snippet.description}
+                  {this.context.activeChannel.description}
                 </div>
 
                 <div className='channel_col_headers'>
@@ -120,27 +112,26 @@ class Channel extends Component {
               </div>
               <div className='right_col'>
                 <div className='right_col_top_box'>
-                  Total Videos:{' '}
-                  {this.context.activeChannel.statistics.videoCount}
+                  Total Videos: {this.context.activeChannel.total_videos}
                 </div>
 
                 <div className='right_col_top_box'>
                   Comment Count:{' '}
-                  {this.context.activeChannel.statistics.commentCount}
+                  {this.context.activeChannel.statistics.comment_count}
                 </div>
 
                 <div className='right_col_top_box'>
-                  Keywords:{' '}
-                  {this.context.activeChannel.brandingSettings.channel.keywords}
-                  Total Views: {this.context.activeChannel.statistics.viewCount}
-                  Subscribers:{' '}
-                  {this.context.activeChannel.statistics.subscriberCount}
+                  Keywords: {this.context.activeChannel.keyword_title}
+                  Total Views: {this.context.activeChannel.view_count}
+                  Subscribers: {this.context.activeChannel.subscriber_count}
                   Topics: {topicDetails.join(', ')}
                 </div>
 
                 <div className='right_col_top_box'>
                   <a
-                    href={`http://www.youtube.com/channel/${this.props.id}`}
+                    href={`http://www.youtube.com/channel/${
+                      this.context.activeChannel.yt_id
+                    }`}
                     target='blank'
                   >
                     Link
