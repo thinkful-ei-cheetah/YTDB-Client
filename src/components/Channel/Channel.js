@@ -35,12 +35,14 @@ class Channel extends Component {
       console.log(this.props.id);
       await SearchApiService.ChannelsDirtyDetails(this.props.id)
         .then(res => {
-          // console.log(res)
+          console.log(res.data)
           this.context.setActiveChannel(res.data);
-          const channelRating = res.rating_total / res.rating_count;
-          this.setState({
-            rating: channelRating
-          });
+          if((res.data.rating_total !== null) && (res.data.rating_count !== null)){
+            const channelRating = res.data.rating_total / res.data.rating_count;
+            this.setState({
+              rating: channelRating
+            });
+          }
           return res;
         })
         .catch(err => console.log(err));
@@ -52,12 +54,12 @@ class Channel extends Component {
   }
 
   render() {
-    let topicDetails;
-    if (this.context.activeChannel) {
-      topicDetails = this.context.activeChannel.topic_title.map(topic => {
-        return topicIds[topic] ? topicIds[topic] : topic;
-      });
-    }
+    // let topicDetails;
+    // if (this.context.activeChannel) {
+    //   topicDetails = this.context.activeChannel.topic_title.map(topic => {
+    //     return topicIds[topic] ? topicIds[topic] : topic;
+    //   });
+    // }
 
     return (
       <>
@@ -76,6 +78,7 @@ class Channel extends Component {
                     {this.context.activeChannel.title}
                   </h2>
                   <div className='channel_rating'>
+                    <div>Rating: {this.context.activeChannel.rating_total / this.context.activeChannel.rating_count}</div>
                     <StarRatings
                       rating={this.state.rating}
                       starRatedColor='rgb(239,19,99)'
@@ -117,14 +120,25 @@ class Channel extends Component {
 
                 <div className='right_col_top_box'>
                   Comment Count:{' '}
-                  {this.context.activeChannel.statistics.comment_count}
+                  {this.context.activeChannel.comment_count}
                 </div>
 
                 <div className='right_col_top_box'>
-                  Keywords: {this.context.activeChannel.keyword_title}
-                  Total Views: {this.context.activeChannel.view_count}
-                  Subscribers: {this.context.activeChannel.subscriber_count}
-                  Topics: {topicDetails.join(', ')}
+                  <ul>
+                    <li>
+                      <b>Keywords</b>: {this.context.activeChannel.keywords.join(', ')}
+                    </li>
+                    <li>
+                      <b>Total Views</b>: {this.context.activeChannel.view_count}
+                    </li>
+                    <li>
+                      <b>Subscribers</b>: {this.context.activeChannel.subscriber_count}
+                    </li>
+                    <li>
+                      <b>Topics</b>: {this.context.activeChannel.topics.join(', ')}
+                    </li>
+                  </ul>
+                  
                 </div>
 
                 <div className='right_col_top_box'>

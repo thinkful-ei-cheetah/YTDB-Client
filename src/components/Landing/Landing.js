@@ -66,9 +66,9 @@ class Landing extends Component {
 
   componentDidMount() {
     this.firstInput.current.focus();
-    this.context.setChannels([])
+    // this.context.setChannels([])
     this.context.setActiveChannel(null)
-    this.context.setTopicSelect('none')
+    // this.context.setTopicSelect('none')
     // this.context.setUseYtdb( false )
   }
 
