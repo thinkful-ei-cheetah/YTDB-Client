@@ -9,8 +9,7 @@ class AddRating extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rating: 3,
-            avg_rating: 0,
+            rating: 0,
           };
       }
 
@@ -39,7 +38,7 @@ class AddRating extends Component {
         starHoverColor="rgb(239,19,99)"
         changeRating={this.changeRating}
         numberOfStars={5}
-        name={this.props.id}
+        name={this.context.activeChannel.id}
       />
     }  
 }

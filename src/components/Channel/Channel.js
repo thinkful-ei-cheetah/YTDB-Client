@@ -110,7 +110,7 @@ class Channel extends Component {
                 <div className='channel_col_headers'>Add a Rating</div>
 
                 <div>
-                  <AddRating id={this.state.id} />
+                  <AddRating />
                 </div>
               </div>
               <div className='right_col'>
