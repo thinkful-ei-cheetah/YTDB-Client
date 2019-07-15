@@ -59,7 +59,7 @@ class AddReview extends Component {
           {(this.state.reviews.length >0)
             ? this.state.reviews.map((review) =>{
 
-              return <div>{review.id} left a review at {review.date_created} {review.text}</div>
+              return <div key={review.id}>{review.id} left a review at {review.date_created} {review.text}</div>
        
 
             })

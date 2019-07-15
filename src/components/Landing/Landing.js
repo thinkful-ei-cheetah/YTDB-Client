@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import config from '../../config';
+// import { Link } from 'react-router-dom';
+// import config from '../../config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+// import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+// import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons';
 // import axios from 'axios';
 import SearchApiService from '../../services/search-api-service'
 import YTContext from '../../contexts/YTContext';
 import LandingList from './LandingList'
-import Autocomplete from "../Autocomplete/Autocomplete";
+// import Autocomplete from "../Autocomplete/Autocomplete";
 import topicIds from '../Channel/channel-helper'
 
 import './Landing.css';
 
-const KEY = process.env.REACT_APP_YTAPI;
+// const KEY = process.env.REACT_APP_YTAPI;
 
 class Landing extends Component {
     constructor(props) {
@@ -24,32 +25,26 @@ class Landing extends Component {
   static contextType = YTContext;
   firstInput = React.createRef();
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.context.setChannels([])
-    const { search } = event.target;
+    // const { search } = event.target;
+    let searchTerm = this.context.searchTerm
+    this.context.setPrevSearchTerm(searchTerm)
+    this.context.setPrevTopicSelect(this.context.topicSelect)
+    this.context.setSearchTerm('')
     if(this.context.topicSelect !== 'none') {
-      // console.log(`searching for "${search.value}", within topic "${this.context.topicSelect}"`)
-      SearchApiService.SearchChannelsByTopic(search.value, this.context.useYtdb, this.context.topicSelect)
+      SearchApiService.SearchChannelsByTopic(searchTerm, false, this.context.topicSelect)
       .then(results => {
-        // let filteredResults = results.items.map(item => {
-        //   return item.snippet
-        // })
-        // this.context.setChannels(filteredResults)
-        // console.log('results ======>', results.data)
-        return this.context.setChannels(results.data)
+        this.context.setChannels(results.data)
+        return this.context.setYtdbOption(true)
       })
     }
     else {
-      // console.log(`searching for "${search.value}"`)
-      SearchApiService.SearchChannels(search.value, this.context.useYtdb)
+      SearchApiService.SearchChannels(searchTerm, false)
       .then(results => {
-        // let filteredResults = results.items.map(item => {
-        //   return item.snippet
-        // })
-        // this.context.setChannels(filteredResults)
-        // console.log('results ======>', results.data)
-        return this.context.setChannels(results.data)
+        this.context.setChannels(results.data)
+        return this.context.setYtdbOption(true)
       })
     }
   };
@@ -58,18 +53,31 @@ class Landing extends Component {
     this.context.setTopicSelect(event.target.value)
   }
 
-  handleDbSwitch = event => {
-    event.preventDefault()
-    this.context.setUseYtdb( !this.context.useYtdb )
+  handleYtdbSearch = () => {
+    console.log('handleYtdbSearch ran')
+    this.context.setChannels([])
+    if(this.context.prevTopicSelect !== 'none') {
+      SearchApiService.SearchChannelsByTopic(this.context.prevSearchTerm, true, this.context.prevTopicSelect)
+      .then(results => {
+        this.context.setChannels(results.data)
+        return this.context.setYtdbOption(false)
+      })
+    }
+    else {
+      SearchApiService.SearchChannels(this.context.prevSearchTerm, true)
+      .then(results => {
+        this.context.setChannels(results.data)
+        return this.context.setYtdbOption(false)
+      })
+    }
   }
-  // this is a test
 
   componentDidMount() {
     this.firstInput.current.focus();
-    this.context.setChannels([])
-    this.context.setActiveChannel(null)
+    this.context.setSearchTerm('')
     this.context.setTopicSelect('none')
-    // this.context.setUseYtdb( false )
+    this.context.setActiveChannel(null)
+    this.context.setYtdbOption(false)
   }
 
   render() {
@@ -82,7 +90,8 @@ class Landing extends Component {
     Object.entries(topicIds).forEach(
       ([key, value]) => topics.push(<option key={key} value={key}>{value}</option>)
     );
-    let whichDb = this.context.useYtdb ? `Youtube's db` : `Our db`
+    let ytSearch = { display: this.context.ytdbOption ? "block" : "none" }
+    // let whichDb = this.context.useYtdb ? `Youtube's db` : `Our db`
     return (
       <div className='landing_container'>
         <div className='landing_main_banner'>
@@ -91,7 +100,7 @@ class Landing extends Component {
           <form
             onSubmit={event => this.handleSubmit(event)}
           >
-            <button className='db_button' onClick={e => this.handleDbSwitch(e)}>{whichDb}</button>
+            {/* <button className='db_button' onClick={e => this.handleDbSwitch(e)}>{whichDb}</button> */}
             <select className='topic_select' defaultValue='' onChange={e => this.handleTopic(e)}>
               <option value='none'>Topics</option>
               {topics}
@@ -102,107 +111,40 @@ class Landing extends Component {
               id='search-input'
               required
               ref={this.firstInput}
+              value={this.context.searchTerm}
+              onChange={e => this.context.setSearchTerm(e.target.value)}
               className='autocomplete'
             />
             <button 
               type='submit'
               className='submit_button'
             >
-              Search
+              <FontAwesomeIcon icon={faSearch} />
             </button>
           </form>
-  
+            <div 
+            className="not-what-you-wanted"
+            style={ ytSearch }
+            >
+              <p>
+                Not what you're looking for? 
+              </p>  
+              <p>  
+                Try your last search with Youtube's database here {' '}
+                <button 
+                  className='submit_button'
+                  onClick={() => this.handleYtdbSearch()}
+                >
+                  <FontAwesomeIcon icon={faSearch} />
+                </button>
+              </p>
+            </div>
         </div>
-
-        {/* <button onClick={e => this.handleSubmit(e)}>
-          Activate Lasers
-        </button> */}
-{/*         <div className='landing_select_container'>
-          <select className='category_select' defaultValue=''>
-            <option value=''>
-              Category
-            </option>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-          </select>
-          <select className='category_select' defaultValue='' onChange={e => this.handleTopic(e)}>
-            <option value=''>
-              Topics
-            </option>
-            {topics}
-          </select>
-
-        </div> */}
         <div className='results_container'>
 
         {results}
 
         </div>
-        {/* <div className='landing_boxes red_box'>
-          <div className='landing_box_container'>
-            <div className='landing_left_box'>
-              <FontAwesomeIcon icon={faSmile} />
-            </div>
-            <div className='landing_right_box'>
-              Channel 1 Title
-              <br />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={farstar} />
-            </div>
-          </div>
-        </div>
-        <div className='landing_boxes blue_box'>
-          <div className='landing_box_container'>
-            <div className='landing_left_box'>
-              <FontAwesomeIcon icon={faSmile} />
-            </div>
-            <div className='landing_right_box'>
-              Channel 2 Title
-              <br />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={farstar} />
-              <FontAwesomeIcon icon={farstar} />
-              <FontAwesomeIcon icon={farstar} />
-            </div>
-          </div>
-        </div>
-
-        <div className='landing_boxes golden_box'>
-          <div className='landing_box_container'>
-            <div className='landing_left_box'>
-              <FontAwesomeIcon icon={faSmile} />
-            </div>
-            <div className='landing_right_box'>
-              Channel 3 Title
-              <br />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={farstar} />
-              <FontAwesomeIcon icon={farstar} />
-              <FontAwesomeIcon icon={farstar} />
-              <FontAwesomeIcon icon={farstar} />
-            </div>
-          </div>
-        </div>
-        <div className='landing_boxes green_box'>
-          <div className='landing_box_container'>
-            <div className='landing_left_box'>
-              <FontAwesomeIcon icon={faSmile} />
-            </div>
-            <div className='landing_right_box'>
-              Channel 4 Title
-              <br />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={farstar} />
-            </div>
-          </div>
-        </div> */}
       </div>
     );
   }
