@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import TokenService from '../../services/token-service';
 import UserContext from '../../contexts/UserContext';
 import './Nav.css';
@@ -15,15 +17,23 @@ class Nav extends Component {
     return (
       <div>
         <span>
-          {this.context.user.name}
-        </span>
-        <nav role='navigation' className='header-menu-link'>
-          <Link
-            onClick={this.handleLogoutClick}
-            to='/login'>
-            Logout
+          <span>
+            {this.context.user.name}
+          </span>
+          {' '}
+          <Link to='/dashboard'>
+            <FontAwesomeIcon icon={faBookmark} />
           </Link>
-        </nav>
+          {' '}
+          <div className='header-menu-link'>
+            <Link
+              onClick={this.handleLogoutClick}
+              to='/login'>
+              {' '}
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </Link>
+          </div>
+        </span>
       </div>
     )
   }
@@ -48,7 +58,6 @@ class Nav extends Component {
         </h1>
         
         <div className='header-menu'>
-          <Link to='/dashboard'>Favorites</Link>
           {TokenService.hasAuthToken()
             ? this.renderLogoutLink()
             : this.renderLoginLink()}

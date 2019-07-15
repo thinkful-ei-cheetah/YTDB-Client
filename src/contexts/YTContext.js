@@ -5,15 +5,21 @@ const YTContext = React.createContext({
     channels: [],
     activeChannel: {},
     favorites: [],
+    searchTerm: '',
+    prevSearchTerm: '',
     topicSelect: '',
-    useYtdb: false,
+    prevTopicSelect: '',
+    ytdbOption: false,
     setChannels: () => {},
     setActiveChannel: () => {},
+    setSearchTerm: () => {},
+    setPrevSearchTerm: () => {},
     setTopicSelect: () => {},
+    setPrevTopicSelect: () => {},
     addFavorite: () => {},
     removeFavorite: () => {},
     setFavorites: () => {},
-    setUseYtdb: () => {},
+    setYtdbOption: () => {},
 })
 export default YTContext;
 
@@ -24,8 +30,11 @@ export class YTProvider extends Component {
         activeChannel: null,
         channels: [],
         favorites: [],
+        searchTerm: '',
+        prevSearchTerm: '',
         topicSelect: 'none',
-        useYtdb: false,
+        prevTopicSelect: 'none',
+        ytdbOption: false,
     }
   }
 
@@ -53,12 +62,24 @@ export class YTProvider extends Component {
     this.setState({ activeChannel: obj })
   }
 
+  setSearchTerm = searchTerm => {
+    this.setState({ searchTerm })
+  }
+
+  setPrevSearchTerm = prevSearchTerm => {
+    this.setState({ prevSearchTerm })
+  }
+
   setTopicSelect = str => {
     this.setState({ topicSelect: str })
   }
 
-  setUseYtdb = bool => {
-    this.setState({ useYtdb: bool })
+  setPrevTopicSelect = str => {
+    this.setState({ prevTopicSelect: str })
+  }
+
+  setYtdbOption = bool => {
+    this.setState({ ytdbOption: bool })
   }
 
   render() {
@@ -66,15 +87,21 @@ export class YTProvider extends Component {
         activeChannel: this.state.activeChannel,
         channels: this.state.channels,
         favorites: this.state.favorites,
+        searchTerm: this.state.searchTerm,
+        prevSearchTerm: this.state.prevSearchTerm,
         topicSelect: this.state.topicSelect,
-        useYtdb: this.state.useYtdb,
+        prevTopicSelect: this.state.prevTopicSelect,
+        ytdbOption: this.state.ytdbOption,
         setActiveChannel: this.setActiveChannel,
         setChannels: this.setChannels,
         addFavorite: this.addFavorite,
+        setSearchTerm: this.setSearchTerm,
+        setPrevSearchTerm: this.setPrevSearchTerm,
         setTopicSelect: this.setTopicSelect,
+        setPrevTopicSelect: this.setPrevTopicSelect,
         removeFavorite: this.removeFavorite,
         setFavorites: this.setFavorites,
-        setUseYtdb: this.setUseYtdb,
+        setYtdbOption: this.setYtdbOption,
     }
 
     return (
