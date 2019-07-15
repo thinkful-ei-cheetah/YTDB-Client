@@ -9,7 +9,8 @@ const RatingsService = {
         return fetch(`${config.API_ENDPOINT}/rating/${id}`, {
             method: 'GET',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`
             },
         })
             .then(res =>

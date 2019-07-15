@@ -46,7 +46,7 @@ class Channel extends Component {
           return res;
         })
         .catch(err => console.log(err));
-    }
+      };
   };
 
   componentWillUnmount() {
@@ -110,7 +110,7 @@ class Channel extends Component {
                 <div className='channel_col_headers'>Add a Rating</div>
 
                 <div>
-                  <AddRating />
+                  <AddRating id={this.state.id} />
                 </div>
               </div>
               <div className='right_col'>
