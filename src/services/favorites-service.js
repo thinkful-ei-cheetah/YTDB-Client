@@ -42,6 +42,7 @@ const FavoritesService = {
   },
 
   addFavorite(obj) {
+    console.log(obj);
     return fetch(`${config.API_ENDPOINT}/favorite`, {
       method: 'POST',
       headers: {
