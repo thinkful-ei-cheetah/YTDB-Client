@@ -37,17 +37,27 @@ class Channel extends Component {
         .then(res => {
           console.log(res.data)
           this.context.setActiveChannel(res.data);
-          if((res.data.rating_total !== null) && (res.data.rating_count !== null)){
-            const channelRating = res.data.rating_total / res.data.rating_count;
-            this.setState({
-              rating: channelRating
-            });
-          }
+          // if((res.data.rating_total !== null) && (res.data.rating_count !== null)){
+          //   let channelRating = res.data.rating_total / res.data.rating_count;
+          //   this.setState({
+          //     rating: channelRating
+          //   });
+          // }
           return res;
         })
         .catch(err => console.log(err));
       };
+    this.calculateAvg();
   };
+
+  calculateAvg() {
+    let rating = this.context.activeChannel.rating_total / this.context.activeChannel.rating_count;
+    if (rating) {
+      this.setState({
+        rating,
+      })
+    }
+  }
 
   componentWillUnmount() {
     this.context.setActiveChannel(null);
@@ -78,7 +88,7 @@ class Channel extends Component {
                     {this.context.activeChannel.title}
                   </h2>
                   <div className='channel_rating'>
-                    <div>Rating: {this.context.activeChannel.rating_total / this.context.activeChannel.rating_count}</div>
+                    <div>Rating: {this.state.rating}</div>
                     <StarRatings
                       rating={this.state.rating}
                       starRatedColor='rgb(239,19,99)'
