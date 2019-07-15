@@ -14,31 +14,31 @@ class ChannelRoute extends Component {
     };
   }
 
-  componentDidMount() {
-/*    axios.get('https://www.googleapis.com/youtube/v3/search', {
-      params: {
-          q: 'The Onion',
-          part: 'snippet',
-          maxResults: 5,
-          key: KEY,
-          type: 'channel'
-      }
-    }).then(res => {
-      console.log(res)
-    }) */
-    axios.get('https://www.googleapis.com/youtube/v3/channels', {
-      params: {
-          id: "UCfAOh2t5DpxVrgS9NQKjC7A",
-          part: 'snippet,contentDetails,statistics',
-          maxResults: 1,
-          key: KEY,
-      }
-    }).then(res => {
-      this.setState({
-        channel: res.data.items[0]
-       });
-    })
-  }
+//   componentDidMount() {
+// /*    axios.get('https://www.googleapis.com/youtube/v3/search', {
+//       params: {
+//           q: 'The Onion',
+//           part: 'snippet',
+//           maxResults: 5,
+//           key: KEY,
+//           type: 'channel'
+//       }
+//     }).then(res => {
+//       console.log(res)
+//     }) */
+//     axios.get('https://www.googleapis.com/youtube/v3/channels', {
+//       params: {
+//           id: "UCfAOh2t5DpxVrgS9NQKjC7A",
+//           part: 'snippet,contentDetails,statistics',
+//           maxResults: 1,
+//           key: KEY,
+//       }
+//     }).then(res => {
+//       this.setState({
+//         channel: res.data.items[0]
+//        });
+//     })
+//   }
 
   render() {
     return (

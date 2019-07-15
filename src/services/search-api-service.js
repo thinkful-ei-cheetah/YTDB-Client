@@ -63,7 +63,7 @@ const SearchApiService = {
   //     )
   // },
   ChannelsDirtyDetails(channelId) {
-    return fetch(`${baseURL}/channels?part=snippet%2Cstatistics%2CtopicDetails%2CbrandingSettings&id=${channelId}&maxResults=1&key=${apiKEY}`, {
+    return fetch(`${baseServerURL}/channels/${channelId}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -74,7 +74,20 @@ const SearchApiService = {
           ? res.json().then(e => Promise.reject(e))
           : res.json()
       )
-  }
+  },
+  // ChannelsDirtyDetails(channelId) {
+  //   return fetch(`${baseURL}/channels?part=snippet%2Cstatistics%2CtopicDetails%2CbrandingSettings&id=${channelId}&maxResults=1&key=${apiKEY}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //     }
+  //   })
+  //     .then(res =>
+  //       (!res.ok)
+  //         ? res.json().then(e => Promise.reject(e))
+  //         : res.json()
+  //     )
+  // }
 }
 
 export default SearchApiService;

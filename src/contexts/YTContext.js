@@ -5,7 +5,7 @@ const YTContext = React.createContext({
     channels: [],
     activeChannel: {},
     favorites: [],
-    topicSelct: '',
+    topicSelect: '',
     useYtdb: false,
     setChannels: () => {},
     setActiveChannel: () => {},
