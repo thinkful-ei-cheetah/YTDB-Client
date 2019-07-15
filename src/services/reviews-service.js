@@ -10,7 +10,6 @@ const ReviewsService = {
             method: 'GET',
             headers: {
                 'content-type': 'application/json'
-           
             },
         })
             .then(res =>

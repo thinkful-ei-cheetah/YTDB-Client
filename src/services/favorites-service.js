@@ -59,6 +59,7 @@ const FavoritesService = {
   },
 
   removeFavorite(obj) {
+      console.log(obj);
       return fetch(`${config.API_ENDPOINT}/favorite`, {
         method: 'DELETE',
         headers: {
@@ -67,10 +68,10 @@ const FavoritesService = {
         },
         body: JSON.stringify(obj)
       })
-        .then(res =>
-          (!res.ok)
-            ? res.json().then(e => Promise.reject(e))
-            : res.json()
+        .then(res => {
+          if (!res.ok) {
+            res.json().then(e => Promise.reject(e))
+          }}
         )
   }
 }

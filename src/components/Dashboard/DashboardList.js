@@ -16,8 +16,8 @@ class DashboardList extends Component {
     return (
       <div className='ind_results'>
         <h3>{favorite.channelTitle}</h3>
-        <img src={favorite.thumbnails.default.url} alt={`thumbnail for ${favorite.title}`} /><br />
-        <Link to={`/channel/${favorite.channelId}`} className='link-channel'>
+        <img src={favorite.thumbnail} alt={`thumbnail for ${favorite.title}`} /><br />
+        <Link to={`/channel/${favorite.yt_id}`} className='link-channel'>
           <button>
             Details
           </button>
