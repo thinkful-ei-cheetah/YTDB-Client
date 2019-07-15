@@ -46,7 +46,7 @@ class Channel extends Component {
           return res;
         })
         .catch(err => console.log(err));
-    }
+      };
   };
 
   componentWillUnmount() {
