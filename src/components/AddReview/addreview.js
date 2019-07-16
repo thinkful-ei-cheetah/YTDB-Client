@@ -17,10 +17,8 @@ class AddReview extends Component {
 
   static contextType = YTContext;
 
-  componentDidMount = async() => {
-    console.log(this.props.id)
-    
-    await this.getReviews();
+  componentDidMount() {
+    this.getReviews();
   }
 
   componentWillUnmount() {
@@ -35,10 +33,8 @@ class AddReview extends Component {
   }
 
   sortReviews = (arr) => {
-    // const { username } = this.props;
-    console.log(arr);
-    const username = 1;
-
+    const { username } = this.props;
+    
     for (let i = 0; i < arr.length; i++) {
       console.log(i, username, arr[i].user_id)
       if (arr[i].user_id === username) {
