@@ -19,35 +19,55 @@ class AddReview extends Component {
 
   componentDidMount = async() => {
     console.log(this.props.id)
-    await ReviewsService.getReviews(this.props.id)
-      .then(res => this.updateReviews(res))
-      .catch(err => console.log(err))
-
-    this.sortReviews(this.state.reviews);
-  }
-
-  sortReviews = (arr) => {
-
-  }
-
-  deleteReview() {
-    //toggle
-    //send info to router
+    
+    await this.getReviews();
   }
 
   componentWillUnmount() {
-    if (this.state.userReview) { this.toggleReviewedByUser() };
+    this.setState({ userReview: true });
   }
 
-  toggleReviewedByUser() {
-    const { userReview } = this.state;
-    this.setState({ userReview: !userReview })
+  getReviews = async() => {
+    await ReviewsService.getReviews(this.props.id)
+      .then(res => this.sortReviews(res.response))
+      .then(res => this.updateReviews(res))
+      .catch(err => console.log(err))
+  }
+
+  sortReviews = (arr) => {
+    // const { username } = this.props;
+    console.log(arr);
+    const username = 1;
+
+    for (let i = 0; i < arr.length; i++) {
+      console.log(i, username, arr[i].user_id)
+      if (arr[i].user_id === username) {
+        let temp = arr[i];
+        arr[i] = arr[0];
+        arr[0] = temp;
+
+        this.reviewedByUser();
+        this.setText(arr[0].text);
+        return arr; //can delete once server side is fixed
+      }
+    }
+    return arr;
+  }
+
+  setText = async (str) => {
+    this.setState({
+      value: str
+    })
+  }
+
+  reviewedByUser() {
+    this.setState({ userReview: true })
   }
 
   updateReviews = (arr) => {
     console.log(arr)
     this.setState({
-      reviews: arr.response
+      reviews: arr
     })
   }
 
@@ -55,11 +75,16 @@ class AddReview extends Component {
     this.setState({value: event.target.value});
   }
 
-  handleSubmitReview = event => {
+  handleSubmitReview = async event => {
     event.preventDefault();
-    const { search } = event.target;
-    ReviewsService.addReview(this.state.value, this.props.id);
-    console.log('adding review')
+    const { userReview, value, reviews } = this.state;
+    const { id } = this.props;
+
+    userReview ? 
+      await ReviewsService.editReview(value, reviews[0].id) :
+      await ReviewsService.addReview(value, id);
+    
+    this.getReviews();
   };
 
   handleEnter = event => {
@@ -69,16 +94,17 @@ class AddReview extends Component {
     }
   }
 
+  handleButton() {
+    const { userReview: key } = this.state;
+
+    switch(key) {
+      case true: return 'Edit'
+      case false: return 'Submit'
+    }
+  }
+
   render() {
     return <div>
-      
-      {(this.state.reviews.length > 0)
-        ? this.state.reviews.map((review) =>{
-          return <div key={review.id}>{review.id} left a review at {review.date_created} {review.text}</div>
-        })
-        :<span>no reviews</span>
-      }
-
       <form
         onSubmit={event => this.handleSubmitReview(event)}
       >
@@ -89,9 +115,17 @@ class AddReview extends Component {
         />
 
         <button id='submit' type='submit'>
-          Submit
+          {this.handleButton()}
         </button>
       </form>
+      
+      {(this.state.reviews.length > 0)
+        ? this.state.reviews.map((review) =>{
+          return <div key={review.id}>{review.id} left a review at {review.date_created} {review.text}</div>
+        })
+        :<span>no reviews</span>
+      }
+
     </div>
   }  
 }
