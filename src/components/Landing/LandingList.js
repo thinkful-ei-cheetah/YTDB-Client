@@ -5,10 +5,44 @@ import YTContext from '../../contexts/YTContext';
 class LandingList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      favorited: false,
+    };
   }
 
   static contextType = YTContext;
+
+  componentDidMount() {
+    this.handleFavorite();
+  }
+
+  handleFavorite() {
+    const channel = this.props.channel;
+    const favorites = this.context.favorites;
+
+    for (let i = 0; i < favorites.length; i++)
+      if (channel.yt_id === favorites[i].yt_id) {
+        this.isFavorite();
+      }
+  }
+
+  isFavorite() {
+    this.setState({ favorited: true })
+  }
+
+  isNotFavorite() {
+    this.setState({ favorited: false })
+  }
+
+  addFavorite(channel) {
+    this.context.addFavorite(channel);
+    this.isFavorite();
+  }
+
+  removeFavorite(channel) {
+    this.context.removeFavorite(channel);
+    this.isNotFavorite();
+  }
 
   render() {
     let channel = this.props.channel
@@ -34,8 +68,15 @@ class LandingList extends Component {
           </div>
         </div>
         <div className='ind_results_bottom'>
-          <button onClick={ () => this.context.addFavorite(channel) }>
-            Add Favorite
+          <button 
+            onClick={this.state.favorited ?
+              () => this.removeFavorite(channel)
+              : () => this.addFavorite(channel) 
+            }>
+              {this.state.favorited ? 
+                  'Remove Favorite' 
+                  : 'Add Favorite'
+              }
           </button>
         </div>
       </div>
