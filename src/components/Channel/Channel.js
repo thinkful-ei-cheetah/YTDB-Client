@@ -18,13 +18,13 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import ReviewsService from '../../services/reviews-service';
 import RatingsService from '../../services/ratings-service';
+import UserContext from '../../contexts/UserContext';
 
 class Channel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: props.id,
-      reviews: [],
       rating: 0
     };
   }
@@ -114,7 +114,11 @@ class Channel extends Component {
                 </div>
 
                 <div>
-                  <AddReview reviews={this.state.reviews} id={this.props.id} />
+                  <UserContext.Consumer>
+                    {userContext =>
+                      <AddReview reviews={this.state.reviews} username={userContext.user.username} id={this.props.id} />
+                    }
+                  </UserContext.Consumer>
                 </div>
 
                 <div className='channel_col_headers'>Add a Rating</div>
