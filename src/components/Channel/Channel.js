@@ -25,7 +25,8 @@ class Channel extends Component {
     super(props);
     this.state = {
       id: props.id,
-      rating: 0
+      rating: 0,
+      favorited: false,
     };
   }
   static contextType = YTContext;
@@ -48,6 +49,7 @@ class Channel extends Component {
         .catch(err => console.log(err));
       };
     this.calculateAvg();
+    this.handleFavorite();
   };
 
   calculateAvg() {
@@ -57,6 +59,34 @@ class Channel extends Component {
         rating,
       })
     }
+  }
+
+  handleFavorite() {
+    const id = this.state.id;
+    const favorites = this.context.favorites;
+
+    for (let i = 0; i < favorites.length; i++)
+      if (id === favorites[i].yt_id) {
+        this.isFavorite();
+      }
+  }
+
+  isFavorite() {
+    this.setState({ favorited: true })
+  }
+
+  isNotFavorite() {
+    this.setState({ favorited: false })
+  }
+
+  addFavorite(channel) {
+    this.context.addFavorite(channel);
+    this.isFavorite();
+  }
+
+  removeFavorite(channel) {
+    this.context.removeFavorite(channel);
+    this.isNotFavorite();
   }
 
   componentWillUnmount() {
@@ -103,6 +133,18 @@ class Channel extends Component {
 
             <section className='channel_main_body'>
               <div className='left_col'>
+                <div>
+                  <button
+                    onClick={this.state.favorited ?
+                      () => this.removeFavorite(this.context.activeChannel)
+                      : () => this.addFavorite(this.context.activeChannel)
+                    }>
+                    {this.state.favorited ?
+                      'Remove Favorite'
+                      : 'Add Favorite'
+                    }
+                  </button>
+                </div>
                 <div className='about'>About</div>
 
                 <div className='channel_description'>

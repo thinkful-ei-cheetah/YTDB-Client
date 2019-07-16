@@ -19,7 +19,7 @@ class DashboardList extends Component {
         <Link to={`/channel/${favorite.yt_id}`} className='link-channel'>
           <img src={favorite.thumbnail} alt={`thumbnail for ${favorite.title}`} /><br />
         </Link><br />
-        <Link to={`/channel/${favorite.yt_id}`} className='link-channel'>
+        <Link to={`/channel/${favorite.yt_id}`} className='link-channel' >
           <button>
             Details
           </button>

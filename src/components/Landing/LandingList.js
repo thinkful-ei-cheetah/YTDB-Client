@@ -55,16 +55,16 @@ class LandingList extends Component {
             <img src={channel.thumbnail} alt={`thumbnail for ${channel.title}`} /><br />
           </Link>
 
-        <div className='ind_results_channel_right_top'>
-          <div className='ind_results_channel_title'>
-            <Link to={`/channel/${channel.yt_id}`} className='link-channel'>
-            {channel.title}
-            </Link>
-            </div>
+          <div className='ind_results_channel_right_top'>
+            <div className='ind_results_channel_title'>
+              <Link to={`/channel/${channel.yt_id}`} className='link-channel' >
+              {channel.title}
+              </Link>
+              </div>
 
-            <div className='ind_results_channel_description'>
-              {channel.description}
-            </div>
+              <div className='ind_results_channel_description'>
+                {channel.description}
+              </div>
           </div>
         </div>
         <div className='ind_results_bottom'>
