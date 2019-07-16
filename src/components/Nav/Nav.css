@@ -10,6 +10,8 @@
   border-bottom: 1px solid black;
   background: black;
   color: white;
+  position: sticky;
+  top: 0;
 }
 
 .header-grid a {
@@ -18,7 +20,7 @@
 
 .header-menu {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   padding-right: 8px;
   font-size: 15px;
@@ -34,7 +36,7 @@
 }
 
 h1 {
-  text-align: left;
+  text-align: center;
   margin-left: 15px;
 }
 
