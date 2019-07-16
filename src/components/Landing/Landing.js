@@ -104,6 +104,7 @@ class Landing extends Component {
 
           <form
             onSubmit={event => this.handleSubmit(event)}
+            className='search-form'
           >
             {/* <button className='db_button' onClick={e => this.handleDbSwitch(e)}>{whichDb}</button> */}
             <select className='topic_select' defaultValue='' onChange={e => this.handleTopic(e)}>
@@ -137,7 +138,7 @@ class Landing extends Component {
               <p>  
                 Try your last search with Youtube's database here {' '}
                 <button 
-                  className='submit_button'
+                  className='submit_button yt_submit_button'
                   onClick={() => this.handleYtdbSearch()}
                 >
                   <FontAwesomeIcon icon={faSearch} />

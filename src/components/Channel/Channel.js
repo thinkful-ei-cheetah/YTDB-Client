@@ -37,6 +37,8 @@ class Channel extends Component {
       await SearchApiService.ChannelsDirtyDetails(this.props.id)
         .then(res => {
           console.log(res.data)
+          let avgRating = res.data.rating_total / res.data.rating_count
+          res.data.avgRating = avgRating
           this.context.setActiveChannel(res.data);
           // if((res.data.rating_total !== null) && (res.data.rating_count !== null)){
           //   let channelRating = res.data.rating_total / res.data.rating_count;
@@ -94,13 +96,6 @@ class Channel extends Component {
   }
 
   render() {
-    // let topicDetails;
-    // if (this.context.activeChannel) {
-    //   topicDetails = this.context.activeChannel.topic_title.map(topic => {
-    //     return topicIds[topic] ? topicIds[topic] : topic;
-    //   });
-    // }
-
     return (
       <>
         {this.context.activeChannel && (
@@ -118,9 +113,9 @@ class Channel extends Component {
                     {this.context.activeChannel.title}
                   </h2>
                   <div className='channel_rating'>
-                    <div>Rating: {this.state.rating}</div>
+                    {/* <div>Rating: {this.context.activeChannel.avgRating}</div> */}
                     <StarRatings
-                      rating={this.state.rating}
+                      rating={this.context.activeChannel.avgRating}
                       starRatedColor='rgb(239,19,99)'
                       starHoverColor='rgb(239,19,99)'
                       numberOfStars={5}
@@ -166,7 +161,10 @@ class Channel extends Component {
                 <div className='channel_col_headers'>Add a Rating</div>
 
                 <div>
-                  <AddRating />
+                  <AddRating 
+                    id={this.props.id}
+                    calculateAvg={this.calculateAvg}
+                  />
                 </div>
               </div>
               <div className='right_col'>
