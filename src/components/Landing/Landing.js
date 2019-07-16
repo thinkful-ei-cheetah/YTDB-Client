@@ -13,16 +13,17 @@ import LandingList from './LandingList'
 import topicIds from '../Channel/channel-helper'
 import Button from '../Button/Button';
 import { Input } from '../Form/Form';
+import FavoritesService from '../../services/favorites-service';
 
 import './Landing.css';
 
 // const KEY = process.env.REACT_APP_YTAPI;
 
 class Landing extends Component {
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
   static contextType = YTContext;
   firstInput = React.createRef();
@@ -74,12 +75,14 @@ class Landing extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount = async() => {
     this.firstInput.current.focus();
     this.context.setSearchTerm('')
     this.context.setTopicSelect('none')
     this.context.setActiveChannel(null)
     this.context.setYtdbOption(false)
+    const favorites = await FavoritesService.getFavorites();
+    this.context.setFavorites(favorites);
   }
 
   render() {
