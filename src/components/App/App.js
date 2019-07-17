@@ -7,6 +7,7 @@ import RegistrationRoute from '../../routes/RegistrationRoute/RegistrationRoute'
 import LoginRoute from '../../routes/LoginRoute/LoginRoute';
 import LandingRoute from '../../routes/LandingRoute/LandingRoute';
 import ChannelRoute from '../../routes/ChannelRoute/ChannelRoute';
+import AboutRoute from '../../routes/AboutRoute/AboutRoute';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
 import DashboardRoute from '../../routes/DashboardRoute/DashboardRoute';
 import './App.css';
@@ -54,6 +55,11 @@ class App extends Component {
               path={'/dashboard'}
               component={DashboardRoute}
             />
+            <Route
+             path={'/about'}
+              component={AboutRoute}
+            />
+
             <Route
               component={NotFoundRoute}
             />
