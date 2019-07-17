@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 // import config from '../../config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 // import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 // import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons';
 // import axios from 'axios';
@@ -39,14 +39,30 @@ class Landing extends Component {
     if(this.context.topicSelect !== 'none') {
       SearchApiService.SearchChannelsByTopic(searchTerm, false, this.context.topicSelect)
       .then(results => {
-        this.context.setChannels(results.data)
+        const filteredData = results.data.reduce((acc, current) => {
+          const x = acc.find(channel => channel.yt_id === current.yt_id);
+          if (!x) {
+            return acc.concat([current]);
+          } else {
+            return acc;
+          }
+        }, []);
+        this.context.setChannels(filteredData)
         return this.context.setYtdbOption(true)
       })
     }
     else {
       SearchApiService.SearchChannels(searchTerm, false)
       .then(results => {
-        this.context.setChannels(results.data)
+        const filteredData = results.data.reduce((acc, current) => {
+          const x = acc.find(channel => channel.yt_id === current.yt_id);
+          if (!x) {
+            return acc.concat([current]);
+          } else {
+            return acc;
+          }
+        }, []);
+        this.context.setChannels(filteredData)
         return this.context.setYtdbOption(true)
       })
     }
@@ -58,11 +74,13 @@ class Landing extends Component {
 
   handleYtdbSearch = () => {
     console.log('handleYtdbSearch ran')
+    this.context.setLoading(true)
     this.context.setChannels([])
     if(this.context.prevTopicSelect !== 'none') {
       SearchApiService.SearchChannelsByTopic(this.context.prevSearchTerm, true, this.context.prevTopicSelect)
       .then(results => {
         this.context.setChannels(results.data)
+        this.context.setLoading(false)
         return this.context.setYtdbOption(false)
       })
     }
@@ -70,12 +88,14 @@ class Landing extends Component {
       SearchApiService.SearchChannels(this.context.prevSearchTerm, true)
       .then(results => {
         this.context.setChannels(results.data)
+        this.context.setLoading(false)
         return this.context.setYtdbOption(false)
       })
     }
   }
 
   componentDidMount = async() => {
+    this.context.setLoading(false)
     this.firstInput.current.focus();
     this.context.setSearchTerm('')
     this.context.setTopicSelect('none')
@@ -91,6 +111,7 @@ class Landing extends Component {
           <LandingList channel={channel} />
         </div>
     })
+    results = <div className='results_container'>{results}</div>
     let topics = []
     Object.entries(topicIds).forEach(
       ([key, value]) => topics.push(<option key={key} value={key}>{value}</option>)
@@ -124,35 +145,36 @@ class Landing extends Component {
             />
             <button 
               type='submit'
-              className='submit_button'
+              className='button submit_button'
               id='submit-button'
+              disabled={this.context.loading}
             >
               <FontAwesomeIcon icon={faSearch} />
             </button>
           </form>
-            <div 
-            className="not-what-you-wanted"
-            style={ ytSearch }
-            >
-              <p>
-                Not what you're looking for? 
-              </p>  
-              <p>  
-                Try your last search with Youtube's database here {' '}
-                <button 
-                  className='submit_button yt_submit_button'
-                  onClick={() => this.handleYtdbSearch()}
-                >
-                  <FontAwesomeIcon icon={faSearch} />
-                </button>
-              </p>
-            </div>
+          <div 
+          className="not-what-you-wanted"
+          style={ ytSearch }
+          >
+            <p>
+              Not what you're looking for? 
+            </p>  
+            <p>  
+              Try your last search with Youtube's database here {' '}
+              <button 
+                className='button submit_button yt_submit_button'
+                onClick={() => this.handleYtdbSearch()}
+                disabled={this.context.loading}
+              >
+                <FontAwesomeIcon icon={faSearch} />
+              </button>
+            </p>
+          </div>
         </div>
-        <div className='results_container'>
-
-        {results}
-
-        </div>
+        {this.context.loading 
+          ? <FontAwesomeIcon className='loading-spinner' icon={faCircleNotch} spin /> 
+          : results
+        }
       </div>
     );
   }
