@@ -3,6 +3,7 @@ import YTContext from '../../contexts/YTContext';
 import StarRatings from 'react-star-ratings';
 import RatingsService from '../../services/ratings-service';
 import TokenService from '../../services/token-service';
+import SearchApiService from '../../services/search-api-service';
 
 class AddRating extends Component {
   
@@ -16,7 +17,7 @@ class AddRating extends Component {
 
     static contextType = YTContext;
     
-    changeRating( newRating, name ) {
+    changeRating = async ( newRating, name ) => {
       if (!TokenService.hasAuthToken()) {
         console.log('Please sign in to leave a rating');
         return;
@@ -27,8 +28,15 @@ class AddRating extends Component {
         channelId: name,
       }
       
-      RatingsService.addRating(rating);
+      await RatingsService.addRating(rating)
       console.log(newRating, name)
+      let activeChannel = await SearchApiService.ChannelsDirtyDetails(this.props.id)
+      console.log('activeChannel =====>', activeChannel)
+      let avgRating = activeChannel.data.rating_total / activeChannel.data.rating_count
+      activeChannel.data.avgRating = avgRating
+      console.log('activeChannel + avgRating =====>', activeChannel)
+      // this.context.setActiveChannel(null);
+      await this.context.setActiveChannel(activeChannel.data);
     }
 
     render() {

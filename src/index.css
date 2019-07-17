@@ -17,3 +17,22 @@ h3 {
 
 }
 
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #fefefe; 
+}
+ 
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #2B3A5C; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: #EF1362; 
+}

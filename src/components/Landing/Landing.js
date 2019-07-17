@@ -11,16 +11,19 @@ import YTContext from '../../contexts/YTContext';
 import LandingList from './LandingList'
 // import Autocomplete from "../Autocomplete/Autocomplete";
 import topicIds from '../Channel/channel-helper'
+import Button from '../Button/Button';
+import { Input } from '../Form/Form';
+import FavoritesService from '../../services/favorites-service';
 
 import './Landing.css';
 
 // const KEY = process.env.REACT_APP_YTAPI;
 
 class Landing extends Component {
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
   static contextType = YTContext;
   firstInput = React.createRef();
@@ -72,12 +75,14 @@ class Landing extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount = async() => {
     this.firstInput.current.focus();
     this.context.setSearchTerm('')
     this.context.setTopicSelect('none')
     this.context.setActiveChannel(null)
     this.context.setYtdbOption(false)
+    const favorites = await FavoritesService.getFavorites();
+    this.context.setFavorites(favorites);
   }
 
   render() {
@@ -99,6 +104,7 @@ class Landing extends Component {
 
           <form
             onSubmit={event => this.handleSubmit(event)}
+            className='search-form'
           >
             {/* <button className='db_button' onClick={e => this.handleDbSwitch(e)}>{whichDb}</button> */}
             <select className='topic_select' defaultValue='' onChange={e => this.handleTopic(e)}>
@@ -132,7 +138,7 @@ class Landing extends Component {
               <p>  
                 Try your last search with Youtube's database here {' '}
                 <button 
-                  className='submit_button'
+                  className='submit_button yt_submit_button'
                   onClick={() => this.handleYtdbSearch()}
                 >
                   <FontAwesomeIcon icon={faSearch} />

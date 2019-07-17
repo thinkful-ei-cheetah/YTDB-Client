@@ -1,0 +1,14 @@
+.about_container {
+    display: flex; /* or inline-flex */
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-content: stretch;
+    height: 100%;
+    width: 40%;
+    padding: 60px;
+    margin: auto;
+    font-size: 24px;
+    line-height: 2em;
+  }
+

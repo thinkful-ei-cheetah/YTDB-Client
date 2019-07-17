@@ -18,14 +18,15 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import ReviewsService from '../../services/reviews-service';
 import RatingsService from '../../services/ratings-service';
+import UserContext from '../../contexts/UserContext';
 
 class Channel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: props.id,
-      reviews: [],
-      rating: 0
+      rating: 0,
+      favorited: false,
     };
   }
   static contextType = YTContext;
@@ -36,6 +37,8 @@ class Channel extends Component {
       await SearchApiService.ChannelsDirtyDetails(this.props.id)
         .then(res => {
           console.log(res.data)
+          let avgRating = res.data.rating_total / res.data.rating_count
+          res.data.avgRating = avgRating
           this.context.setActiveChannel(res.data);
           // if((res.data.rating_total !== null) && (res.data.rating_count !== null)){
           //   let channelRating = res.data.rating_total / res.data.rating_count;
@@ -48,6 +51,7 @@ class Channel extends Component {
         .catch(err => console.log(err));
       };
     this.calculateAvg();
+    this.handleFavorite();
   };
 
   calculateAvg() {
@@ -59,18 +63,39 @@ class Channel extends Component {
     }
   }
 
+  handleFavorite() {
+    const id = this.state.id;
+    const favorites = this.context.favorites;
+
+    for (let i = 0; i < favorites.length; i++)
+      if (id === favorites[i].yt_id) {
+        this.isFavorite();
+      }
+  }
+
+  isFavorite() {
+    this.setState({ favorited: true })
+  }
+
+  isNotFavorite() {
+    this.setState({ favorited: false })
+  }
+
+  addFavorite(channel) {
+    this.context.addFavorite(channel);
+    this.isFavorite();
+  }
+
+  removeFavorite(channel) {
+    this.context.removeFavorite(channel);
+    this.isNotFavorite();
+  }
+
   componentWillUnmount() {
     this.context.setActiveChannel(null);
   }
 
   render() {
-    // let topicDetails;
-    // if (this.context.activeChannel) {
-    //   topicDetails = this.context.activeChannel.topic_title.map(topic => {
-    //     return topicIds[topic] ? topicIds[topic] : topic;
-    //   });
-    // }
-
     return (
       <>
         {this.context.activeChannel && (
@@ -88,9 +113,9 @@ class Channel extends Component {
                     {this.context.activeChannel.title}
                   </h2>
                   <div className='channel_rating'>
-                    <div>Rating: {this.state.rating}</div>
+                    {/* <div>Rating: {this.context.activeChannel.avgRating}</div> */}
                     <StarRatings
-                      rating={this.state.rating}
+                      rating={this.context.activeChannel.avgRating}
                       starRatedColor='rgb(239,19,99)'
                       starHoverColor='rgb(239,19,99)'
                       numberOfStars={5}
@@ -103,6 +128,18 @@ class Channel extends Component {
 
             <section className='channel_main_body'>
               <div className='left_col'>
+                <div>
+                  <button
+                    onClick={this.state.favorited ?
+                      () => this.removeFavorite(this.context.activeChannel)
+                      : () => this.addFavorite(this.context.activeChannel)
+                    }>
+                    {this.state.favorited ?
+                      'Remove Favorite'
+                      : 'Add Favorite'
+                    }
+                  </button>
+                </div>
                 <div className='about'>About</div>
 
                 <div className='channel_description'>
@@ -114,13 +151,20 @@ class Channel extends Component {
                 </div>
 
                 <div>
-                  <AddReview reviews={this.state.reviews} id={this.props.id} />
+                  <UserContext.Consumer>
+                    {userContext =>
+                      <AddReview reviews={this.state.reviews} username={userContext.user.username} id={this.props.id} />
+                    }
+                  </UserContext.Consumer>
                 </div>
 
                 <div className='channel_col_headers'>Add a Rating</div>
 
                 <div>
-                  <AddRating />
+                  <AddRating 
+                    id={this.props.id}
+                    calculateAvg={this.calculateAvg}
+                  />
                 </div>
               </div>
               <div className='right_col'>
