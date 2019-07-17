@@ -25,7 +25,7 @@ describe(`User story: Answer feedback`, function() {
             cy.request('GET', 'http://localhost:8001/api/channels/search/guardian/false').then(fx => console.log(fx))
           })
 
-          console.log(response)
+        console.log(response)
 
 
      // const guess = 'guardian'

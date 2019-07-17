@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import YTContext from '../../contexts/YTContext';
 import ReviewsService from '../../services/reviews-service';
+import './addreview.css';
+import Moment from 'react-moment';
+import UserContext from '../../contexts/UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import './addreview.css';
+
 
 class AddReview extends Component {
   
@@ -105,33 +109,52 @@ class AddReview extends Component {
 
   render() {
     let reviewDisplay = (this.state.reviews.length > 0)
-        ? this.state.reviews.map((review) =>{
-          return <div key={review.id}>{review.username} left a review at {review.date_created} {review.text}</div>
-        })
-        :<span>no reviews</span>
+    ? this.state.reviews.map((review) =>{
+      return <div className="review" key={review.id}>
+      <div className="review_author">
+        {review.username}
+      </div>
+       reviewed this channel at  
+      <Moment className="review_date" format="MMMM Do, Y"  >
+      {review.date_created} 
+      </Moment>
+        <div className="review_text">
+          "{review.text}"
+        </div>
+      </div>
+    })
+    :<span>no reviews</span>
+
+
     return <div>
-      <form
-        onSubmit={event => this.handleSubmitReview(event)}
-      >
-        <textarea 
-          value={this.state.value} 
-          onChange={this.handleChange} 
-          onKeyUp={event => this.handleEnter(event)} 
-        />
 
-        <button 
-          id='submit' 
-          type='submit'
-          disabled={this.context.loading}
-        >
-          {this.handleButton()}
-        </button>
-      </form>
 
+      
       {this.context.loading 
         ? <FontAwesomeIcon className='loading-spinner-reviews' icon={faCircleNotch} spin /> 
         : reviewDisplay
+
       }
+
+        <UserContext.Consumer>
+          {userContext =>
+            userContext.user.username ?      
+            <form
+            onSubmit={event => this.handleSubmitReview(event)}
+              >
+                <textarea 
+                  value={this.state.value} 
+                  onChange={this.handleChange} 
+                  onKeyUp={event => this.handleEnter(event)} 
+                />
+                <button id='submit' type='submit'>
+                  {this.handleButton()}
+                </button>
+              </form>
+                
+            : console.log('not logged in')
+           }
+        </UserContext.Consumer>
 
     </div>
   }  

@@ -8,7 +8,9 @@ import './Channel.css';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import UserContext from '../../contexts/UserContext';
+import Button from '../Button/Button';
 import TokenService from '../../services/token-service';
+
 
 class Channel extends Component {
   constructor(props) {
@@ -92,6 +94,9 @@ class Channel extends Component {
             <div className='landing_main_banner'>
               <section>
                 <div className='channel_header'>
+
+                <div className='left_col_header'>
+
                   <div className='channel_image'>
                     <img
                       alt='logo'
@@ -101,6 +106,11 @@ class Channel extends Component {
                   <h2 className='channel_title'>
                     {this.context.activeChannel.title}
                   </h2>
+
+
+              </div>
+
+              
                   <div className='channel_rating'>
                     {/* <div>Rating: {this.context.activeChannel.avgRating}</div> */}
                     <StarRatings
@@ -109,6 +119,7 @@ class Channel extends Component {
                       starHoverColor='rgb(239,19,99)'
                       numberOfStars={5}
                       name='rating'
+                      starDimension="40px"
                     />
                   </div>
                 </div>
@@ -118,16 +129,7 @@ class Channel extends Component {
             <section className='channel_main_body'>
               <div className='left_col'>
                 <div>
-                  <button
-                    onClick={this.state.favorited ?
-                      () => this.removeFavorite(this.context.activeChannel)
-                      : () => this.addFavorite(this.context.activeChannel)
-                    }>
-                    {this.state.favorited ?
-                      'Remove Favorite'
-                      : 'Add Favorite'
-                    }
-                  </button>
+
                 </div>
                 <div className='about'>About</div>
 
@@ -135,11 +137,11 @@ class Channel extends Component {
                   {this.context.activeChannel.description}
                 </div>
 
-                <div className='channel_col_headers'>
+                <div className='about'>
                   What People Are Saying
                 </div>
 
-                <div>
+                <div class="add_rating_review">
                   <UserContext.Consumer>
                     {userContext =>
                       <AddReview reviews={this.state.reviews} username={userContext.user.username} id={this.props.id} />
@@ -147,16 +149,33 @@ class Channel extends Component {
                   </UserContext.Consumer>
                 </div>
 
-                <div className='channel_col_headers'>Add a Rating</div>
+                <div className='about'>
+                  Add a Rating
+                  </div>
 
-                <div>
+                <div class="add_rating_review">
                   <AddRating 
                     id={this.props.id}
                     calculateAvg={this.calculateAvg}
+                    class="small"
                   />
                 </div>
               </div>
               <div className='right_col'>
+              <div className='right_col_top_box'>
+                <Button className='button widebutton' onClick={this.state.favorited ?
+                        () => this.removeFavorite(this.context.activeChannel)
+                        : () => this.addFavorite(this.context.activeChannel)
+                      }>
+                      {this.state.favorited ?
+                        'Remove Favorite'
+                        : 'Add Favorite'
+                      }
+                </Button>
+                </div>
+
+
+
                 <div className='right_col_top_box'>
                   Total Videos: {this.context.activeChannel.total_videos}
                 </div>
