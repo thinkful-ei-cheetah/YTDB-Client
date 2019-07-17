@@ -1,0 +1,26 @@
+.review_text {
+
+    font-style: italic;
+    font-size: 16px; 
+    font-family: Georgia, Times, "Times New Roman", serif !important;
+    margin-top: 10px;
+}
+
+
+.review {
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 5px 16px 0px;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.review_author {
+    display: inline;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.review_date {
+    margin-left: 4px;
+}

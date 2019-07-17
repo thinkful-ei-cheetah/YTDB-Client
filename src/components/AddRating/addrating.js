@@ -53,6 +53,7 @@ class AddRating extends Component {
         changeRating={this.changeRating}
         numberOfStars={5}
         name={kluge}
+        starDimension="30px"
       />
     }  
 }

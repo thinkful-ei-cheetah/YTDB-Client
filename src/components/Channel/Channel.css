@@ -17,33 +17,45 @@
   color: white;
   background-color: #2B3A5C;
   width: 100%;
-  margin: auto;
-  padding: 30px;
+  padding: 0px !important;
+  text-align: center;
 
 }
 
 .channel_header {
   display: flex; 
   flex-direction: row;
+  align-items: stretch;
+  flex-wrap:wrap;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 
 .channel_title {
- margin-top: 50px;
- margin-left: 100px;
+
+  display:inline-block;
  font-size: 2rem;
+ margin-top: 100px;
 }
 
-
 .channel_image {
-  padding: 25px;  
+  padding-right: 25px;
+  padding-bottom: 25px;
+  padding-top: 25px;
+  
+}
+
+.channel_image img {
+  width: 200px;  
 }
 
 .channel_rating {
 
   font-size: 25px;
   margin-top: 50px;
-  margin-left: 100px;
+  max-width: 300px;
 
 }
 
@@ -52,6 +64,8 @@
   flex-direction: row;
   align-items: stretch;
   flex-wrap:wrap;
+  justify-content: center;
+  text-align: center;
 
 }
 
@@ -59,7 +73,21 @@
 
   padding: 30px;
   width: 55%;
+  max-width: 900px; 
 }
+
+.left_col_header {
+  width: 55%;
+  max-width: 900px; 
+  display: flex; 
+  flex-direction: row;
+  align-items: stretch;
+  flex-wrap:wrap;
+
+
+}
+
+
 
 
  .channel_description {
@@ -71,9 +99,7 @@
   text-align: left !important;
  }
  
-
  .channel_col_headers {
-
   text-align: left;
   font-weight: 800 !important;
   font-size: 20px;
@@ -88,16 +114,11 @@
   padding: 20px;
  }
 
-
-
-
-
 .right_col {
-
-
   width: 40%;
   position: relative;
-  top: -40px;
+
+  max-width: 300px;
  }
 
  .right_col_top_box {
@@ -107,10 +128,14 @@
   margin-right: 20px;
   margin-top: 24px;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 5px 16px 0px;
-
   border-radius: 10px;
   background-color: #fff;
  }
+ 
+ .add_rating_review {
+    text-align: left;
+    padding: 20px;
 
+ }
 
 

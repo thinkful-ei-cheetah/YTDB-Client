@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import YTContext from '../../contexts/YTContext';
 import ReviewsService from '../../services/reviews-service';
+import './addreview.css';
+import Moment from 'react-moment';
+import UserContext from '../../contexts/UserContext';
 
 class AddReview extends Component {
   
@@ -102,26 +105,45 @@ class AddReview extends Component {
 
   render() {
     return <div>
-      <form
-        onSubmit={event => this.handleSubmitReview(event)}
-      >
-        <textarea 
-          value={this.state.value} 
-          onChange={this.handleChange} 
-          onKeyUp={event => this.handleEnter(event)} 
-        />
 
-        <button id='submit' type='submit'>
-          {this.handleButton()}
-        </button>
-      </form>
       
       {(this.state.reviews.length > 0)
         ? this.state.reviews.map((review) =>{
-          return <div key={review.id}>{review.username} left a review at {review.date_created} {review.text}</div>
+          return <div className="review" key={review.id}>
+          <div className="review_author">
+            {review.username}
+          </div>
+           reviewed this channel at  
+          <Moment className="review_date" format="MMMM Do, Y"  >
+          {review.date_created} 
+          </Moment>
+            <div className="review_text">
+              "{review.text}"
+            </div>
+          </div>
         })
         :<span>no reviews</span>
       }
+
+        <UserContext.Consumer>
+          {userContext =>
+            userContext.user.username ?      
+            <form
+            onSubmit={event => this.handleSubmitReview(event)}
+              >
+                <textarea 
+                  value={this.state.value} 
+                  onChange={this.handleChange} 
+                  onKeyUp={event => this.handleEnter(event)} 
+                />
+                <button id='submit' type='submit'>
+                  {this.handleButton()}
+                </button>
+              </form>
+                
+            : console.log('not logged in')
+           }
+        </UserContext.Consumer>
 
     </div>
   }  
