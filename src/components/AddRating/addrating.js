@@ -33,6 +33,9 @@ class AddRating extends Component {
       let activeChannel = await SearchApiService.ChannelsDirtyDetails(this.props.id)
       console.log('activeChannel =====>', activeChannel)
       let avgRating = activeChannel.data.rating_total / activeChannel.data.rating_count
+      if (isNaN(avgRating)) {
+        avgRating=0;
+      }
       activeChannel.data.avgRating = avgRating
       console.log('activeChannel + avgRating =====>', activeChannel)
       // this.context.setActiveChannel(null);
@@ -40,13 +43,16 @@ class AddRating extends Component {
     }
 
     render() {
+
+        let kluge = this.context.activeChannel.id.toString();
+
         return <StarRatings
         rating={this.state.rating}
         starRatedColor="rgb(239,19,99)"
         starHoverColor="rgb(239,19,99)"
         changeRating={this.changeRating}
         numberOfStars={5}
-        name={this.context.activeChannel.id}
+        name={kluge}
       />
     }  
 }

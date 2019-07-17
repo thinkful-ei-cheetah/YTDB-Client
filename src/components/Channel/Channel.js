@@ -38,8 +38,12 @@ class Channel extends Component {
         .then(res => {
           console.log(res.data)
           let avgRating = res.data.rating_total / res.data.rating_count
+          if (isNaN(avgRating)) {
+            avgRating=0;
+          }
           res.data.avgRating = avgRating
           this.context.setActiveChannel(res.data);
+         
           // if((res.data.rating_total !== null) && (res.data.rating_count !== null)){
           //   let channelRating = res.data.rating_total / res.data.rating_count;
           //   this.setState({
