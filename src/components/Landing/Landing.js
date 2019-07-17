@@ -81,8 +81,8 @@ class Landing extends Component {
     this.context.setTopicSelect('none')
     this.context.setActiveChannel(null)
     this.context.setYtdbOption(false)
-    const favorites = await FavoritesService.getFavorites();
-    this.context.setFavorites(favorites);
+   // const favorites = await FavoritesService.getFavorites();
+   // this.context.setFavorites(favorites);
   }
 
   render() {
@@ -105,6 +105,7 @@ class Landing extends Component {
           <form
             onSubmit={event => this.handleSubmit(event)}
             className='search-form'
+            id='search-form'
           >
             {/* <button className='db_button' onClick={e => this.handleDbSwitch(e)}>{whichDb}</button> */}
             <select className='topic_select' defaultValue='' onChange={e => this.handleTopic(e)}>
@@ -124,6 +125,7 @@ class Landing extends Component {
             <button 
               type='submit'
               className='submit_button'
+              id='submit-button'
             >
               <FontAwesomeIcon icon={faSearch} />
             </button>
