@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import YTContext from '../../contexts/YTContext';
 import ReviewsService from '../../services/reviews-service';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import './addreview.css';
 
 class AddReview extends Component {
   
@@ -101,6 +104,11 @@ class AddReview extends Component {
   }
 
   render() {
+    let reviewDisplay = (this.state.reviews.length > 0)
+        ? this.state.reviews.map((review) =>{
+          return <div key={review.id}>{review.username} left a review at {review.date_created} {review.text}</div>
+        })
+        :<span>no reviews</span>
     return <div>
       <form
         onSubmit={event => this.handleSubmitReview(event)}
@@ -111,16 +119,18 @@ class AddReview extends Component {
           onKeyUp={event => this.handleEnter(event)} 
         />
 
-        <button id='submit' type='submit'>
+        <button 
+          id='submit' 
+          type='submit'
+          disabled={this.context.loading}
+        >
           {this.handleButton()}
         </button>
       </form>
-      
-      {(this.state.reviews.length > 0)
-        ? this.state.reviews.map((review) =>{
-          return <div key={review.id}>{review.username} left a review at {review.date_created} {review.text}</div>
-        })
-        :<span>no reviews</span>
+
+      {this.context.loading 
+        ? <FontAwesomeIcon className='loading-spinner-reviews' icon={faCircleNotch} spin /> 
+        : reviewDisplay
       }
 
     </div>

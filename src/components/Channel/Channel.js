@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import SearchApiService from '../../services/search-api-service';
 import YTContext from '../../contexts/YTContext';
-import topicIds from './channel-helper';
 import AddReview from '../AddReview/addreview';
 import AddRating from '../AddRating/addrating';
 import StarRatings from 'react-star-ratings';
 import './Channel.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faStar,
-  faCheckSquare,
-  faCaretDown
-} from '@fortawesome/free-solid-svg-icons';
-import {
-  faStar as farstar,
-  faSmile
-} from '@fortawesome/free-regular-svg-icons';
-import ReviewsService from '../../services/reviews-service';
-import RatingsService from '../../services/ratings-service';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import UserContext from '../../contexts/UserContext';
+import TokenService from '../../services/token-service';
 
 class Channel extends Component {
   constructor(props) {
@@ -34,27 +24,22 @@ class Channel extends Component {
   componentDidMount = async () => {
     if (this.context.activeChannel === null) {
       console.log(this.props.id);
-      await SearchApiService.ChannelsDirtyDetails(this.props.id)
-        .then(res => {
-          console.log(res.data)
-          let avgRating = res.data.rating_total / res.data.rating_count
-          if (isNaN(avgRating)) {
-            avgRating=0;
-          }
-          res.data.avgRating = avgRating
-          this.context.setActiveChannel(res.data);
-         
-          // if((res.data.rating_total !== null) && (res.data.rating_count !== null)){
-          //   let channelRating = res.data.rating_total / res.data.rating_count;
-          //   this.setState({
-          //     rating: channelRating
-          //   });
-          // }
-          return res;
-        })
-        .catch(err => console.log(err));
-      };
-    this.calculateAvg();
+      let activeChannelDetails = await SearchApiService.ChannelsDirtyDetails(this.props.id)
+      console.log(activeChannelDetails.data)
+      let avgRating = activeChannelDetails.data.rating_total / activeChannelDetails.data.rating_count
+      if (isNaN(avgRating)) {
+        avgRating=0;
+      }
+      activeChannelDetails.data.avgRating = avgRating
+      if(TokenService.hasAuthToken()){
+        let userRating = await SearchApiService.getUserReview(activeChannelDetails.data.id)
+        console.log('userRating ======>', userRating)
+        activeChannelDetails.data.userRating = userRating.rating
+      }
+      this.context.setActiveChannel(activeChannelDetails.data);
+    };
+    console.log('userRating exists? =====>', !(this.context.activeChannel.userRating === undefined))
+    // this.calculateAvg();
     this.handleFavorite();
   };
 
