@@ -52,6 +52,8 @@ class Nav extends Component {
           <Link to='/'>
             YTDB
           </Link>
+
+          <Link to='/about'><div className="about_span">?</div></Link>
         </h1>
         
         <div className='header-menu'>
