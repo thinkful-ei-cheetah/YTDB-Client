@@ -39,15 +39,27 @@ class AddRating extends Component {
       activeChannel.data.avgRating = avgRating
       console.log('activeChannel + avgRating =====>', activeChannel)
       // this.context.setActiveChannel(null);
+      if(TokenService.hasAuthToken()){
+        let userRating = await SearchApiService.getUserReview(activeChannel.data.id)
+        console.log('userRating ======>', userRating)
+        activeChannel.data.userRating = userRating.rating
+      }
       await this.context.setActiveChannel(activeChannel.data);
+      // if(TokenService.hasAuthToken()){
+      //   let userReview = await SearchApiService.getUserReview(activeChannel.id)
+      //   console.log('userReview ======>', userReview)
+      // }
     }
 
     render() {
-
         let kluge = this.context.activeChannel.id.toString();
+        let rating = 0
+        if(!(this.context.activeChannel.userRating === undefined)){
+          rating = this.context.activeChannel.userRating
+        }
 
         return <StarRatings
-        rating={this.state.rating}
+        rating={rating}
         starRatedColor="rgb(239,19,99)"
         starHoverColor="rgb(239,19,99)"
         changeRating={this.changeRating}

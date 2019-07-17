@@ -10,14 +10,28 @@ import ChannelRoute from '../../routes/ChannelRoute/ChannelRoute';
 import AboutRoute from '../../routes/AboutRoute/AboutRoute';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
 import DashboardRoute from '../../routes/DashboardRoute/DashboardRoute';
+import TokenService from '../../services/token-service';
+import AuthApiService from '../../services/auth-api-service';
+import UserContext from '../../contexts/UserContext';
 import './App.css';
-
 class App extends Component {
   state = { hasError: false }
+
+  static contextType = UserContext;
 
   static getDerivedStateFromError(error) {
     console.error(error)
     return { hasError: true }
+  }
+
+  componentDidMount = async() => {
+    if (TokenService.hasAuthToken() && !this.context.user.name) {
+      console.log('We have an AuthToken, but no name');
+      let userInfo = await AuthApiService.getUserInfo()
+      console.log('userInfo =====>', userInfo)
+      userInfo = {...this.context.user, ...userInfo}
+      await this.context.setUser(userInfo);
+    }
   }
 
   render() {

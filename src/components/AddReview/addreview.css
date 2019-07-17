@@ -24,3 +24,13 @@
 .review_date {
     margin-left: 4px;
 }
+
+.loading-spinner-reviews{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  font-size: 5vw;
+  color: #EF1362;
+
+}

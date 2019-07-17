@@ -4,6 +4,10 @@ import ReviewsService from '../../services/reviews-service';
 import './addreview.css';
 import Moment from 'react-moment';
 import UserContext from '../../contexts/UserContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import './addreview.css';
+
 
 class AddReview extends Component {
   
@@ -104,25 +108,32 @@ class AddReview extends Component {
   }
 
   render() {
+    let reviewDisplay = (this.state.reviews.length > 0)
+    ? this.state.reviews.map((review) =>{
+      return <div className="review" key={review.id}>
+      <div className="review_author">
+        {review.username}
+      </div>
+       reviewed this channel at  
+      <Moment className="review_date" format="MMMM Do, Y"  >
+      {review.date_created} 
+      </Moment>
+        <div className="review_text">
+          "{review.text}"
+        </div>
+      </div>
+    })
+    :<span>no reviews</span>
+
+
     return <div>
 
+
       
-      {(this.state.reviews.length > 0)
-        ? this.state.reviews.map((review) =>{
-          return <div className="review" key={review.id}>
-          <div className="review_author">
-            {review.username}
-          </div>
-           reviewed this channel at  
-          <Moment className="review_date" format="MMMM Do, Y"  >
-          {review.date_created} 
-          </Moment>
-            <div className="review_text">
-              "{review.text}"
-            </div>
-          </div>
-        })
-        :<span>no reviews</span>
+      {this.context.loading 
+        ? <FontAwesomeIcon className='loading-spinner-reviews' icon={faCircleNotch} spin /> 
+        : reviewDisplay
+
       }
 
         <UserContext.Consumer>

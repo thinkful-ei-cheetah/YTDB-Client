@@ -36,3 +36,21 @@ h3 {
 *::-webkit-scrollbar-thumb:hover {
   background: #EF1362; 
 }
+
+.loading-spinner{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  font-size: 20vw;
+  color: #EF1362;
+}
+
+.button:disabled {
+  opacity: 0.5;
+}
+
+.button:disabled:hover{
+  color: inherit;
+  background-color:inherit;
+}
