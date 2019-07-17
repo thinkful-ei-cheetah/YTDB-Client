@@ -36,8 +36,9 @@ class AddReview extends Component {
     const { username } = this.props;
     
     for (let i = 0; i < arr.length; i++) {
-      console.log(i, username, arr[i].user_id)
-      if (arr[i].user_id === username) {
+      console.log(i, username, arr[i].username)
+      if (arr[i].username === username) {
+        console.log('found match')
         let temp = arr[i];
         arr[i] = arr[0];
         arr[0] = temp;
