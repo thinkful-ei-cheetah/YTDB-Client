@@ -2,9 +2,7 @@ import config from '../config';
 import TokenService from './token-service';
 
 const FavoritesService = {
-
   getFavorites() {
-
     return fetch(`${config.API_ENDPOINT}/favorite`, {
       method: 'GET',
       headers: {

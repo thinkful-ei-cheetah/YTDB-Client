@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import YTContext from '../../contexts/YTContext';
 import ReviewsService from '../../services/reviews-service';
-import './addreview.css';
 import Moment from 'react-moment';
 import UserContext from '../../contexts/UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
-import './addreview.css';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import TokenService from '../../services/token-service';
-
+import './addreview.css';
 
 class AddReview extends Component {
   constructor(props) {
@@ -56,6 +54,7 @@ class AddReview extends Component {
         return arr; //can delete once server side is fixed
       }
     }
+    
     return arr;
   }
 
