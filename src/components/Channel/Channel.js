@@ -5,8 +5,8 @@ import AddReview from '../AddReview/addreview';
 import AddRating from '../AddRating/addrating';
 import StarRatings from 'react-star-ratings';
 import './Channel.css';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import UserContext from '../../contexts/UserContext';
 import Button from '../Button/Button';
 import TokenService from '../../services/token-service';

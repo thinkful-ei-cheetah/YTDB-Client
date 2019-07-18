@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 // import config from '../../config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faSearch, faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 // import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 // import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons';
 // import axios from 'axios';
@@ -107,7 +107,7 @@ class Landing extends Component {
 
   render() {
     let results = this.context.channels.map(channel => {
-      return <div key={channel.yt_id}>
+      return <div  className='ind_results' key={channel.yt_id}>
           <LandingList channel={channel} />
         </div>
     })
@@ -117,6 +117,9 @@ class Landing extends Component {
       ([key, value]) => topics.push(<option key={key} value={key}>{value}</option>)
     );
     let ytSearch = { display: this.context.ytdbOption ? "block" : "none" }
+
+    let dummy = this.context.ytdbOption ? "block" : "none" ;
+
     // let whichDb = this.context.useYtdb ? `Youtube's db` : `Our db`
     return (
       <div className='landing_container'>
@@ -170,6 +173,11 @@ class Landing extends Component {
               </button>
             </p>
           </div>
+
+            { (dummy==='none') ? <div className="dummy"></div> : null  }
+
+
+          
         </div>
         {this.context.loading 
           ? <FontAwesomeIcon className='loading-spinner' icon={faCircleNotch} spin /> 

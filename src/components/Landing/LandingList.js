@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import YTContext from '../../contexts/YTContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart} from '@fortawesome/free-solid-svg-icons'
 
 class LandingList extends Component {
   constructor(props) {
@@ -47,7 +49,7 @@ class LandingList extends Component {
   render() {
     let channel = this.props.channel
     return (
-      <div className='ind_results'>
+      <div>
 
         <div className='ind_results_top'>
         
@@ -68,16 +70,23 @@ class LandingList extends Component {
           </div>
         </div>
         <div className='ind_results_bottom'>
-          <button 
-            onClick={this.state.favorited ?
-              () => this.removeFavorite(channel)
-              : () => this.addFavorite(channel) 
-            }>
-              {this.state.favorited ? 
-                  'Remove Favorite' 
-                  : 'Add Favorite'
-              }
-          </button>
+        <FontAwesomeIcon icon={faHeart} size="2x" color="rgb(247, 5, 103)" 
+       
+       onClick={this.state.favorited ?
+        () => this.removeFavorite(channel)
+        : () => this.addFavorite(channel) 
+      } />
+       
+       
+{/*         {this.state.favorited ? 
+            'Remove Favorite' 
+            : 'Add Favorite'
+        } */}
+       
+        
+         
+
+         
         </div>
       </div>
     );
