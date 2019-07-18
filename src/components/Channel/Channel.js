@@ -73,13 +73,17 @@ class Channel extends Component {
   }
 
   addFavorite(channel) {
-    this.context.addFavorite(channel);
-    this.isFavorite();
+    if (TokenService.hasAuthToken()) {
+      this.context.addFavorite(channel);
+      this.isFavorite();
+    }
   }
 
   removeFavorite(channel) {
-    this.context.removeFavorite(channel);
-    this.isNotFavorite();
+    if (TokenService.hasAuthToken()) {
+      this.context.removeFavorite(channel);
+      this.isNotFavorite();
+    }
   }
 
   componentWillUnmount() {
