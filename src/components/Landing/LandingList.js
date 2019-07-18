@@ -55,9 +55,7 @@ class LandingList extends Component {
     let channel = this.props.channel
     return (
       <div>
-
         <div className='ind_results_top'>
-        
           <Link to={`/channel/${channel.yt_id}`} className='link-channel'>
             <img src={channel.thumbnail} alt={`thumbnail for ${channel.title}`} /><br />
           </Link>
@@ -75,23 +73,11 @@ class LandingList extends Component {
           </div>
         </div>
         <div className='ind_results_bottom'>
-        <FontAwesomeIcon icon={faHeart} size="2x" color="rgb(247, 5, 103)" 
-       
-       onClick={this.state.favorited ?
-        () => this.removeFavorite(channel)
-        : () => this.addFavorite(channel) 
-      } />
-       
-       
-{/*         {this.state.favorited ? 
-            'Remove Favorite' 
-            : 'Add Favorite'
-        } */}
-       
-        
-         
-
-         
+        <FontAwesomeIcon icon={faHeart} size="2x" color="rgb(247, 5, 103)"  
+        onClick={this.state.favorited ?
+          () => this.removeFavorite(channel)
+          : () => this.addFavorite(channel) 
+        } />
         </div>
       </div>
     );

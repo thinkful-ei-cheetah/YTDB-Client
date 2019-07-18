@@ -2,9 +2,7 @@ import config from '../config';
 import TokenService from './token-service';
 
 const FavoritesService = {
-
   getFavorites() {
-
     return fetch(`${config.API_ENDPOINT}/favorite`, {
       method: 'GET',
       headers: {
@@ -20,7 +18,6 @@ const FavoritesService = {
   },
 
   addFavorite(obj) {
-    console.log(obj);
     return fetch(`${config.API_ENDPOINT}/favorite`, {
       method: 'POST',
       headers: {
@@ -37,7 +34,6 @@ const FavoritesService = {
   },
 
   removeFavorite(obj) {
-      console.log(obj);
       return fetch(`${config.API_ENDPOINT}/favorite`, {
         method: 'DELETE',
         headers: {

@@ -6,7 +6,6 @@ import TokenService from '../../services/token-service';
 import SearchApiService from '../../services/search-api-service';
 
 class AddRating extends Component {
-  
     constructor(props) {
         super(props);
         this.state = {
@@ -14,7 +13,6 @@ class AddRating extends Component {
             error: null,
           };
       }
-
 
     static contextType = YTContext;
 
@@ -34,26 +32,19 @@ class AddRating extends Component {
       }
       
       await RatingsService.addRating(rating)
-      console.log(newRating, name)
       let activeChannel = await SearchApiService.ChannelsDirtyDetails(this.props.id)
-      console.log('activeChannel =====>', activeChannel)
       let avgRating = activeChannel.data.rating_total / activeChannel.data.rating_count
       if (isNaN(avgRating)) {
         avgRating=0;
       }
+
       activeChannel.data.avgRating = avgRating
-      console.log('activeChannel + avgRating =====>', activeChannel)
-      // this.context.setActiveChannel(null);
       if(TokenService.hasAuthToken()){
         let userRating = await SearchApiService.getUserReview(activeChannel.data.id)
-        console.log('userRating ======>', userRating)
         activeChannel.data.userRating = userRating.rating
       }
+      
       await this.context.setActiveChannel(activeChannel.data);
-      // if(TokenService.hasAuthToken()){
-      //   let userReview = await SearchApiService.getUserReview(activeChannel.id)
-      //   console.log('userReview ======>', userReview)
-      // }
     }
 
     setError = async (str) => {

@@ -26,9 +26,7 @@ class App extends Component {
 
   componentDidMount = async() => {
     if (TokenService.hasAuthToken() && !this.context.user.name) {
-      console.log('We have an AuthToken, but no name');
       let userInfo = await AuthApiService.getUserInfo()
-      console.log('userInfo =====>', userInfo)
       userInfo = {...this.context.user, ...userInfo}
       await this.context.setUser(userInfo);
     }
@@ -44,9 +42,6 @@ class App extends Component {
           {hasError && <p className='form-error'>{hasError}</p>}
         <Switch>
             <PublicOnlyRoute
-            // set to Public for testing purposes
-            // <PrivateRoute
-            //
               exact
               path={'/'}
               component={LandingRoute}

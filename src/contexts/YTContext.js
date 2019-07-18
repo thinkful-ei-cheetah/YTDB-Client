@@ -50,13 +50,11 @@ export class YTProvider extends Component {
   }
   
   addFavorite = async obj => {
-    console.log('adding', obj);
     await FavoritesService.addFavorite(obj);
     await this.setState({ favorites: [...this.state.favorites, obj] })
   }
 
   removeFavorite = async obj => {
-    console.log('removing', obj);
     await FavoritesService.removeFavorite(obj);
     await this.setState({ 
       favorites: this.state.favorites.filter(favorite => favorite !== obj)
@@ -121,5 +119,4 @@ export class YTProvider extends Component {
       </YTContext.Provider>
     )
   }
-
 }

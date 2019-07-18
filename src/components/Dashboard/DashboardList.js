@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import YTContext from '../../contexts/YTContext';
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from '../Button/Button';
+
 class DashboardList extends Component {
   constructor(props) {
     super(props);
@@ -14,54 +13,30 @@ class DashboardList extends Component {
 
   render() {
     let favorite = this.props.favorite
+
     return (
-/*       <div className='ind_results'>
-        <h3>{favorite.title}</h3>
-        <Link to={`/channel/${favorite.yt_id}`} className='link-channel'>
-          <img src={favorite.thumbnail} alt={`thumbnail for ${favorite.title}`} /><br />
-        </Link><br />
-        <Link to={`/channel/${favorite.yt_id}`} className='link-channel' >
-          <button>
-            Details
-          </button>
-        </Link>
-          <button onClick={ () => this.context.removeFavorite(favorite) }>
-            Remove
-          </button>
-        <p>{favorite.description}</p>
-      </div> */
-      
-
       <div className='ind_results_top'>
-      
         <Link to={`/channel/${favorite.yt_id}`} className='link-channel'>
           <img src={favorite.thumbnail} alt={`thumbnail for ${favorite.title}`} /><br />
         </Link>
-
         <div className='ind_results_channel_right_top'>
-
           <div className='favorite_button'>     
             <Button className='button' onClick={ () => this.context.removeFavorite(favorite) }>
-                Remove
+              Remove
             </Button>
           </div>
 
           <div className='ind_results_channel_title'>
             <Link to={`/channel/${favorite.yt_id}`} className='link-channel' >
-            {favorite.title}
+              {favorite.title}
             </Link>
-            </div>
+          </div>
 
-            <div className='ind_results_channel_description'>
-              {favorite.description}
-            </div>
+          <div className='ind_results_channel_description'>
+            {favorite.description}
+          </div>
         </div>
       </div>
-
-
-
-
-
     );
   }
 }
