@@ -140,36 +140,34 @@ class AddReview extends Component {
     :<span>no reviews</span>
 
     return <div>
+      <UserContext.Consumer>
+        {userContext =>
+          userContext.user.username ?      
+          <form
+          onSubmit={event => this.handleSubmitReview(event)}
+            >
+              <textarea 
+                value={this.state.value} 
+                onChange={this.handleChange} 
+                onKeyUp={event => this.handleEnter(event)} 
+              />
+              <button id='submit' type='submit'>
+                {this.handleButton()}
+              </button>
+            </form>
+              
+          : 
+          
+          <div role='alert'>
+            {error && <p className='form-error'>{error}</p>}
+          </div>
+          }
+      </UserContext.Consumer>
       
       {this.context.loading 
         ? <FontAwesomeIcon className='loading-spinner-reviews' icon={faCircleNotch} spin /> 
         : reviewDisplay
-
       }
-
-        <UserContext.Consumer>
-          {userContext =>
-            userContext.user.username ?      
-            <form
-            onSubmit={event => this.handleSubmitReview(event)}
-              >
-                <textarea 
-                  value={this.state.value} 
-                  onChange={this.handleChange} 
-                  onKeyUp={event => this.handleEnter(event)} 
-                />
-                <button id='submit' type='submit'>
-                  {this.handleButton()}
-                </button>
-              </form>
-                
-            : 
-            
-            <div role='alert'>
-              {error && <p className='form-error'>{error}</p>}
-            </div>
-           }
-        </UserContext.Consumer>
 
     </div>
   }  
