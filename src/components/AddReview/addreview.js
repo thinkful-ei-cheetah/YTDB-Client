@@ -7,6 +7,7 @@ import UserContext from '../../contexts/UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import './addreview.css';
+import TokenService from '../../services/token-service';
 
 
 class AddReview extends Component {
@@ -19,6 +20,7 @@ class AddReview extends Component {
       value: 'Please leave a review.',
       reviews: [],
       userReview: false,
+      error: null,
     };
   }
 
@@ -26,6 +28,10 @@ class AddReview extends Component {
 
   componentDidMount() {
     this.getReviews();
+    if (!TokenService.hasAuthToken()) {
+      this.setError('Please sign in to leave a review');
+      return;
+    }
   }
 
   componentWillUnmount() {
@@ -98,6 +104,12 @@ class AddReview extends Component {
     }
   }
 
+  setError = async (str) => {
+    await this.setState({
+      error: str
+    })
+  }
+
   handleButton() {
     const { userReview: key } = this.state;
 
@@ -108,6 +120,8 @@ class AddReview extends Component {
   }
 
   render() {
+    let { error } = this.state;
+
     let reviewDisplay = (this.state.reviews.length > 0)
     ? this.state.reviews.map((review) =>{
       return <div className="review" key={review.id}>
@@ -125,10 +139,7 @@ class AddReview extends Component {
     })
     :<span>no reviews</span>
 
-
     return <div>
-
-
       
       {this.context.loading 
         ? <FontAwesomeIcon className='loading-spinner-reviews' icon={faCircleNotch} spin /> 
@@ -152,7 +163,11 @@ class AddReview extends Component {
                 </button>
               </form>
                 
-            : console.log('not logged in')
+            : 
+            
+            <div role='alert'>
+              {error && <p className='form-error'>{error}</p>}
+            </div>
            }
         </UserContext.Consumer>
 

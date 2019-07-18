@@ -41,9 +41,7 @@ class App extends Component {
       <div className='App'>
         <Nav />
         <main>
-          {hasError && (
-            <p>There was an error! Oh no!</p>
-          )}
+          {hasError && <p className='form-error'>{hasError}</p>}
         <Switch>
             <PublicOnlyRoute
             // set to Public for testing purposes

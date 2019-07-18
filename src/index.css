@@ -54,3 +54,11 @@ h3 {
   color: inherit;
   background-color:inherit;
 }
+
+.form-error {
+  border: 1px solid red;
+  padding: 9px;
+  background: pink;
+  color: white;
+  font-weight: bold;
+}

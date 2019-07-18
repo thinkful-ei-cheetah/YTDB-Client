@@ -11,15 +11,20 @@ class AddRating extends Component {
         super(props);
         this.state = {
             rating: 0,
+            error: null,
           };
       }
 
 
     static contextType = YTContext;
+
+    componentWillUnmount() {
+      this.setState({ error: null })
+    }
     
     changeRating = async ( newRating, name ) => {
       if (!TokenService.hasAuthToken()) {
-        console.log('Please sign in to leave a rating');
+        this.setError('Please sign in to leave a rating');
         return;
       }
       
@@ -51,22 +56,37 @@ class AddRating extends Component {
       // }
     }
 
+    setError = async (str) => {
+      await this.setState({
+        error: str
+      })
+    }
+
     render() {
         let kluge = this.context.activeChannel.id.toString();
         let rating = 0
+        let { error } = this.state;
         if(!(this.context.activeChannel.userRating === undefined)){
           rating = this.context.activeChannel.userRating
         }
+        
+        return (
+          <>
+            <div role='alert'>
+              {error && <p className='form-error'>{error}</p>}
+            </div>
 
-        return <StarRatings
-        rating={rating}
-        starRatedColor="rgb(239,19,99)"
-        starHoverColor="rgb(239,19,99)"
-        changeRating={this.changeRating}
-        numberOfStars={5}
-        name={kluge}
-        starDimension="30px"
-      />
+            <StarRatings
+            rating={rating}
+            starRatedColor="rgb(239,19,99)"
+            starHoverColor="rgb(239,19,99)"
+            changeRating={this.changeRating}
+            numberOfStars={5}
+            name={kluge}
+            starDimension="30px"
+            />
+          </>
+        )
     }  
 }
 
