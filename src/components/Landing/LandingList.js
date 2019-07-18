@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import YTContext from '../../contexts/YTContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart} from '@fortawesome/free-solid-svg-icons'
+import TokenService from '../../services/token-service';
 
 class LandingList extends Component {
   constructor(props) {
@@ -37,13 +38,17 @@ class LandingList extends Component {
   }
 
   addFavorite(channel) {
-    this.context.addFavorite(channel);
-    this.isFavorite();
+    if(TokenService.hasAuthToken()){
+      this.context.addFavorite(channel);
+      this.isFavorite();
+    }
   }
 
   removeFavorite(channel) {
-    this.context.removeFavorite(channel);
-    this.isNotFavorite();
+    if (TokenService.hasAuthToken()) {
+      this.context.removeFavorite(channel);
+      this.isNotFavorite();
+    }
   }
 
   render() {
