@@ -4,13 +4,10 @@ import YTContext from '../../contexts/YTContext';
 import AddReview from '../AddReview/addreview';
 import AddRating from '../AddRating/addrating';
 import StarRatings from 'react-star-ratings';
-import './Channel.css';
- import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
- import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import UserContext from '../../contexts/UserContext';
 import Button from '../Button/Button';
 import TokenService from '../../services/token-service';
-
+import './Channel.css';
 
 class Channel extends Component {
   constructor(props) {
@@ -25,23 +22,19 @@ class Channel extends Component {
 
   componentDidMount = async () => {
     if (this.context.activeChannel === null) {
-      console.log(this.props.id);
       let activeChannelDetails = await SearchApiService.ChannelsDirtyDetails(this.props.id)
-      console.log(activeChannelDetails.data)
       let avgRating = activeChannelDetails.data.rating_total / activeChannelDetails.data.rating_count
       if (isNaN(avgRating)) {
         avgRating=0;
       }
+
       activeChannelDetails.data.avgRating = avgRating
-      if(TokenService.hasAuthToken()){
+      if (TokenService.hasAuthToken()) {
         let userRating = await SearchApiService.getUserReview(activeChannelDetails.data.id)
-        console.log('userRating ======>', userRating)
         activeChannelDetails.data.userRating = userRating.rating
       }
       this.context.setActiveChannel(activeChannelDetails.data);
     };
-    console.log('userRating exists? =====>', !(this.context.activeChannel.userRating === undefined))
-    // this.calculateAvg();
     this.handleFavorite();
   };
 
@@ -57,7 +50,6 @@ class Channel extends Component {
   handleFavorite() {
     const id = this.state.id;
     const favorites = this.context.favorites;
-
     for (let i = 0; i < favorites.length; i++)
       if (id === favorites[i].yt_id) {
         this.isFavorite();
@@ -94,23 +86,17 @@ class Channel extends Component {
             <div className='landing_main_banner'>
               <section>
                 <div className='channel_header'>
-
-                <div className='left_col_header'>
-
-                  <div className='channel_image'>
-                    <img
-                      alt='logo'
-                      src={this.context.activeChannel.thumbnail}
-                    />
+                  <div className='left_col_header'>
+                    <div className='channel_image'>
+                      <img
+                        alt='logo'
+                        src={this.context.activeChannel.thumbnail}
+                      />
+                    </div>
+                    <h2 className='channel_title'>
+                      {this.context.activeChannel.title}
+                    </h2>
                   </div>
-                  <h2 className='channel_title'>
-                    {this.context.activeChannel.title}
-                  </h2>
-
-
-              </div>
-
-              
                   <div className='channel_rating'>
                     {/* <div>Rating: {this.context.activeChannel.avgRating}</div> */}
                     <StarRatings
@@ -132,15 +118,12 @@ class Channel extends Component {
 
                 </div>
                 <div className='about'>About</div>
-
                 <div className='channel_description'>
                   {this.context.activeChannel.description}
                 </div>
-
                 <div className='about'>
                   What People Are Saying
                 </div>
-
                 <div class="add_rating_review">
                   <UserContext.Consumer>
                     {userContext =>
@@ -151,7 +134,7 @@ class Channel extends Component {
 
                 <div className='about'>
                   Add a Rating
-                  </div>
+                </div>
 
                 <div class="add_rating_review">
                   <AddRating 
@@ -173,8 +156,6 @@ class Channel extends Component {
                       }
                 </Button>
                 </div>
-
-
 
                 <div className='right_col_top_box'>
                   Total Videos: {this.context.activeChannel.total_videos}
@@ -200,7 +181,6 @@ class Channel extends Component {
                       <b>Topics</b>: {this.context.activeChannel.topics.join(', ')}
                     </li>
                   </ul>
-                  
                 </div>
 
                 <div className='right_col_top_box'>

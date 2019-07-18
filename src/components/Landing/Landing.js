@@ -1,23 +1,11 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-// import config from '../../config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faSearch, faCircleNotch } from '@fortawesome/free-solid-svg-icons'
-// import { faStar, faCheckSquare, faCaretDown } from '@fortawesome/free-solid-svg-icons';
-// import { faStar as farstar, faSmile} from '@fortawesome/free-regular-svg-icons';
-// import axios from 'axios';
+import { faSearch, faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import SearchApiService from '../../services/search-api-service'
 import YTContext from '../../contexts/YTContext';
 import LandingList from './LandingList'
-// import Autocomplete from "../Autocomplete/Autocomplete";
 import topicIds from '../Channel/channel-helper'
-import Button from '../Button/Button';
-import { Input } from '../Form/Form';
-import FavoritesService from '../../services/favorites-service';
-
 import './Landing.css';
-
-// const KEY = process.env.REACT_APP_YTAPI;
 
 class Landing extends Component {
   constructor(props) {
@@ -31,7 +19,6 @@ class Landing extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.context.setChannels([])
-    // const { search } = event.target;
     let searchTerm = this.context.searchTerm
     this.context.setPrevSearchTerm(searchTerm)
     this.context.setPrevTopicSelect(this.context.topicSelect)
@@ -73,7 +60,6 @@ class Landing extends Component {
   }
 
   handleYtdbSearch = () => {
-    console.log('handleYtdbSearch ran')
     this.context.setLoading(true)
     this.context.setChannels([])
     if(this.context.prevTopicSelect !== 'none') {
@@ -83,8 +69,7 @@ class Landing extends Component {
         this.context.setLoading(false)
         return this.context.setYtdbOption(false)
       })
-    }
-    else {
+    } else {
       SearchApiService.SearchChannels(this.context.prevSearchTerm, true)
       .then(results => {
         this.context.setChannels(results.data)
@@ -101,8 +86,6 @@ class Landing extends Component {
     this.context.setTopicSelect('none')
     this.context.setActiveChannel(null)
     this.context.setYtdbOption(false)
-   // const favorites = await FavoritesService.getFavorites();
-   // this.context.setFavorites(favorites);
   }
 
   render() {
@@ -116,11 +99,10 @@ class Landing extends Component {
     Object.entries(topicIds).forEach(
       ([key, value]) => topics.push(<option key={key} value={key}>{value}</option>)
     );
-    let ytSearch = { display: this.context.ytdbOption ? "block" : "none" }
 
+    let ytSearch = { display: this.context.ytdbOption ? "block" : "none" }
     let dummy = this.context.ytdbOption ? "block" : "none" ;
 
-    // let whichDb = this.context.useYtdb ? `Youtube's db` : `Our db`
     return (
       <div className='landing_container'>
         <div className='landing_main_banner'>
@@ -131,7 +113,6 @@ class Landing extends Component {
             className='search-form'
             id='search-form'
           >
-            {/* <button className='db_button' onClick={e => this.handleDbSwitch(e)}>{whichDb}</button> */}
             <select className='topic_select' defaultValue='' onChange={e => this.handleTopic(e)}>
               <option value='none'>Topics</option>
               {topics}
@@ -174,10 +155,8 @@ class Landing extends Component {
             </p>
           </div>
 
-            { (dummy==='none') ? <div className="dummy"></div> : null  }
+          { (dummy==='none') ? <div className="dummy"></div> : null }
 
-
-          
         </div>
         {this.context.loading 
           ? <FontAwesomeIcon className='loading-spinner' icon={faCircleNotch} spin /> 

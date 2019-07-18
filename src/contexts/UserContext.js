@@ -21,9 +21,7 @@ export class UserProvider extends Component {
   constructor(props) {
     super(props)
     const state = { user: {id: 'test'}, error: null }
-
     const jwtPayload = TokenService.parseAuthToken()
-
     if (jwtPayload)
       state.user = {
         id: jwtPayload.user_id,
@@ -63,7 +61,6 @@ export class UserProvider extends Component {
   }
 
   getUser = () => {
-    console.log('in UserContext getUser');
     return this.state.user;
   }
 
@@ -118,6 +115,7 @@ export class UserProvider extends Component {
       processLogin: this.processLogin,
       processLogout: this.processLogout,
     }
+
     return (
       <UserContext.Provider value={value}>
         {this.props.children}

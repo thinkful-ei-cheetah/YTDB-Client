@@ -2,10 +2,7 @@ import config from '../config';
 import TokenService from './token-service';
 
 const RatingsService = {
-
     getRating(id) {
-        console.log('getting rating for channel:', id)
-        
         return fetch(`${config.API_ENDPOINT}/rating/${id}`, {
             method: 'GET',
             headers: {
@@ -21,7 +18,6 @@ const RatingsService = {
     },
 
     addRating(rating) {
-        console.log(rating);
         return fetch(`${config.API_ENDPOINT}/rating`, {
             method: 'POST',
             headers: {

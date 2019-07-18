@@ -2,7 +2,6 @@ import config from '../config';
 import TokenService from './token-service';
 
 const ReviewsService = {
-
     getReviews(id) {
         return fetch(`${config.API_ENDPOINT}/reviews/${id}`, {
             method: 'GET',
@@ -34,7 +33,6 @@ const ReviewsService = {
     },
 
     editReview(review, id) {
-        console.log(review, id);
         return fetch(`${config.API_ENDPOINT}/reviews`, {
             method: 'PUT',
             headers: {
@@ -49,7 +47,6 @@ const ReviewsService = {
                     : res.json()
             )
     }
-
 }
 
 export default ReviewsService;

@@ -20,7 +20,6 @@ const FavoritesService = {
   },
 
   addFavorite(obj) {
-    console.log(obj);
     return fetch(`${config.API_ENDPOINT}/favorite`, {
       method: 'POST',
       headers: {
@@ -37,7 +36,6 @@ const FavoritesService = {
   },
 
   removeFavorite(obj) {
-      console.log(obj);
       return fetch(`${config.API_ENDPOINT}/favorite`, {
         method: 'DELETE',
         headers: {

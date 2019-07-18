@@ -11,7 +11,6 @@ import TokenService from '../../services/token-service';
 
 
 class AddReview extends Component {
-  
   constructor(props) {
     super(props);
     this.handleSubmitReview = this.handleSubmitReview.bind(this);
@@ -47,15 +46,11 @@ class AddReview extends Component {
 
   sortReviews = (arr) => {
     const { username } = this.props;
-    
     for (let i = 0; i < arr.length; i++) {
-      console.log(i, username, arr[i].username)
       if (arr[i].username === username) {
-        console.log('found match')
         let temp = arr[i];
         arr[i] = arr[0];
         arr[0] = temp;
-
         this.reviewedByUser();
         this.setText(arr[0].text);
         return arr; //can delete once server side is fixed
@@ -65,9 +60,7 @@ class AddReview extends Component {
   }
 
   setText = async (str) => {
-    this.setState({
-      value: str
-    })
+    this.setState({ value: str })
   }
 
   reviewedByUser() {
@@ -75,14 +68,13 @@ class AddReview extends Component {
   }
 
   updateReviews = (arr) => {
-    console.log(arr)
     this.setState({
       reviews: arr
     })
   }
 
   handleChange = (event) => {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   handleSubmitReview = async event => {
@@ -112,7 +104,6 @@ class AddReview extends Component {
 
   handleButton() {
     const { userReview: key } = this.state;
-
     switch(key) {
       case true: return 'Edit'
       case false: return 'Submit'
@@ -121,7 +112,6 @@ class AddReview extends Component {
 
   render() {
     let { error } = this.state;
-
     let reviewDisplay = (this.state.reviews.length > 0)
     ? this.state.reviews.map((review) =>{
       return <div className="review" key={review.id}>
@@ -137,7 +127,7 @@ class AddReview extends Component {
         </div>
       </div>
     })
-    :<span>no reviews</span>
+    : <span>no reviews</span>
 
     return <div>
       <UserContext.Consumer>
@@ -155,20 +145,17 @@ class AddReview extends Component {
                 {this.handleButton()}
               </button>
             </form>
-              
           : 
-          
           <div role='alert'>
             {error && <p className='form-error'>{error}</p>}
           </div>
-          }
+        }
       </UserContext.Consumer>
       
       {this.context.loading 
         ? <FontAwesomeIcon className='loading-spinner-reviews' icon={faCircleNotch} spin /> 
         : reviewDisplay
       }
-
     </div>
   }  
 }
