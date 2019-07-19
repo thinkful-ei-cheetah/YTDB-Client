@@ -93,7 +93,7 @@ export class UserProvider extends Component {
   }
 
   fetchRefreshToken = () => {
-    AuthApiService.refreshToken()
+   /*  AuthApiService.refreshToken()
       .then(res => {
         TokenService.saveAuthToken(res.authToken)
         TokenService.queueCallbackBeforeExpiry(() => {
@@ -102,7 +102,7 @@ export class UserProvider extends Component {
       })
       .catch(err => {
         this.setError(err)
-      })
+      }) */
   }
 
   render() {

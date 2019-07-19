@@ -25,6 +25,9 @@ const AuthApiService = {
     );
   },
   refreshToken() {
+    return;
+
+/*     
     return fetch(`${config.API_ENDPOINT}/auth/token`, {
       method: 'PUT',
       headers: {
@@ -32,7 +35,7 @@ const AuthApiService = {
       }
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
-    );
+    ); */
   },
   getUserInfo() {
     return fetch(`${config.API_ENDPOINT}/user`, {
