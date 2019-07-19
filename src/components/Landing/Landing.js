@@ -5,6 +5,7 @@ import SearchApiService from '../../services/search-api-service'
 import YTContext from '../../contexts/YTContext';
 import LandingList from './LandingList'
 import topicIds from '../Channel/channel-helper'
+import FavoritesService from '../../services/favorites-service';
 import './Landing.css';
 
 class Landing extends Component {
@@ -80,6 +81,10 @@ class Landing extends Component {
   }
 
   componentDidMount = async() => {
+
+    const favorites = await FavoritesService.getFavorites();
+    this.context.setFavorites(favorites);
+
     this.context.setLoading(false)
     this.firstInput.current.focus();
     this.context.setSearchTerm('')

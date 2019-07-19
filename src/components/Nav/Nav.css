@@ -1,17 +1,17 @@
 .header {
   height: 13vh;
-  background: black;
+  background: #21273d;
   color: white;
 }
 
 .header-grid {
   display: grid;
   grid-template-columns: 50% 50%;
-  border-bottom: 1px solid black;
-  background: black;
+  background:#21273d;
   color: white;
   position: sticky;
   top: 0;
+  z-index: 100;
 }
 
 .header-grid a {
@@ -53,12 +53,26 @@ header h1 {
   margin-right: 30%;
 }
 
+.login-link {
+  font-size: 16px !important;
+
+}
+
+
 .register-link{
   color: white;
   font-size: 16px;
   padding: 6px;
- background-color: #EF1362;
+  background-color: #EF1362;
+  font-size: 16px !important;
 }
+
+.register-link:hover 
+{
+  color: #21273d !important;
+
+}
+
 
 .nav-username{
   vertical-align: bottom;

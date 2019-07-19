@@ -34,3 +34,24 @@
   color: #EF1362;
 
 }
+
+.review_textarea {
+    width: 70%;
+    height: 100px;
+    display: block;
+    margin-bottom: 10px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7em;
+    border-radius: 5px;
+
+    font-family: Montserrat,Montserrat Light,Helvetica Neue,Helvetica,arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+.review_textarea:focus {
+   
+  }

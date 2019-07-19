@@ -6,6 +6,7 @@ import UserContext from '../../contexts/UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import TokenService from '../../services/token-service';
+import Button from '../Button/Button';
 import './addreview.css';
 
 class AddReview extends Component {
@@ -14,7 +15,7 @@ class AddReview extends Component {
     this.handleSubmitReview = this.handleSubmitReview.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      value: 'Please leave a review.',
+      value: '',
       reviews: [],
       userReview: false,
       error: null,
@@ -126,7 +127,9 @@ class AddReview extends Component {
         </div>
       </div>
     })
-    : <span>no reviews</span>
+    : <div>
+        no reviews
+      </div>
 
     return <div>
       <UserContext.Consumer>
@@ -136,13 +139,16 @@ class AddReview extends Component {
           onSubmit={event => this.handleSubmitReview(event)}
             >
               <textarea 
+                className="review_textarea"
+                placeholder="Add a review!"
+               
                 value={this.state.value} 
                 onChange={this.handleChange} 
                 onKeyUp={event => this.handleEnter(event)} 
               />
-              <button id='submit' type='submit'>
+              <Button  className='button' id='submit' type='submit'>
                 {this.handleButton()}
-              </button>
+              </Button>
             </form>
           : 
           <div role='alert'>

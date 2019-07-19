@@ -170,6 +170,8 @@ div.landing_main_banner{
 .ind_results_bottom{
  width: 100%;
  padding: 10px;
+ display: flex;
+ justify-content: space-between;
 }
 
 .ind_results_channel_title {
@@ -192,6 +194,10 @@ div.landing_main_banner{
 .link-channel {
   text-decoration: none;
   color: inherit;
+}
+
+.link-channel img {
+  width: 175px;
 }
 
 .autocomplete::placeholder {
@@ -304,4 +310,15 @@ div.landing_main_banner{
 .dummy {
 
   height: 115px;
+}
+
+.bottom_favorite {
+
+  padding-bottom: 3px;
+
+}
+
+.bottom_stars {
+
+  margin-right: 25px;
 }
