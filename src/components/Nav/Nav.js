@@ -25,7 +25,7 @@ class Nav extends Component {
           <Link
             onClick={this.handleLogoutClick}
             to='/login'>
-            <FontAwesomeIcon icon={faSignOutAlt} />
+           logout
           </Link>
         </div>
       </nav>
