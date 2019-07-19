@@ -4,12 +4,14 @@ import YTContext from '../../contexts/YTContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart} from '@fortawesome/free-solid-svg-icons'
 import TokenService from '../../services/token-service';
+import StarRatings from 'react-star-ratings';
 
 class LandingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       favorited: false,
+      avgRating: 0
     };
   }
 
@@ -17,12 +19,17 @@ class LandingList extends Component {
 
   componentDidMount() {
     this.handleFavorite();
+    let avgRating = this.props.channel.rating_total / this.props.channel.rating_count
+    if (isNaN(avgRating)) {
+      avgRating=0;
+    } else {
+      this.setState({ avgRating: avgRating })
+    }
   }
 
   handleFavorite() {
     const channel = this.props.channel;
     const favorites = this.context.favorites;
-
     for (let i = 0; i < favorites.length; i++)
       if (channel.yt_id === favorites[i].yt_id) {
         this.isFavorite();
@@ -53,6 +60,7 @@ class LandingList extends Component {
 
   render() {
     let channel = this.props.channel
+
     return (
       <div>
         <div className='ind_results_top'>
@@ -73,11 +81,32 @@ class LandingList extends Component {
           </div>
         </div>
         <div className='ind_results_bottom'>
-        <FontAwesomeIcon icon={faHeart} size="2x" color="rgb(247, 5, 103)"  
-        onClick={this.state.favorited ?
-          () => this.removeFavorite(channel)
-          : () => this.addFavorite(channel) 
-        } />
+
+
+
+          <div className="bottom_favorite">
+
+            {this.state.favorited ?
+              <FontAwesomeIcon icon={faHeart} size="2x" color="rgb(247, 5, 103)"  
+                onClick={() => this.removeFavorite(channel)} 
+              />
+              :
+              <FontAwesomeIcon icon={faHeart} size="2x" color="#ccc"  
+                onClick={() => this.addFavorite(channel)} 
+              />
+            } 
+
+          </div>
+          <div className="bottom_stars">
+            <StarRatings
+              rating={this.state.avgRating}
+              starRatedColor='rgb(239,19,99)'
+              starHoverColor='rgb(239,19,99)'
+              numberOfStars={5}
+              name='rating'
+              starDimension="25px"
+            />
+          </div>
         </div>
       </div>
     );

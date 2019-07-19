@@ -25,7 +25,7 @@ class Nav extends Component {
           <Link
             onClick={this.handleLogoutClick}
             to='/login'>
-            <FontAwesomeIcon icon={faSignOutAlt} />
+           logout
           </Link>
         </div>
       </nav>
@@ -35,11 +35,11 @@ class Nav extends Component {
   renderLoginLink() {
     return (
       <nav role='navigation' className='header-menu-link nav-wrapper'>
-        <Link to='/login'>
-          <FontAwesomeIcon icon={faSignInAlt} />
+        <Link className='login-link' to='/login'>
+          Login
         </Link>
         <Link className='register-link' to='/register'>
-          <FontAwesomeIcon icon={faUserPlus} />
+         Register
         </Link>
       </nav>
     )
