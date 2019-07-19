@@ -68,7 +68,7 @@ class LandingList extends Component {
             <img src={channel.thumbnail} alt={`thumbnail for ${channel.title}`} /><br />
           </Link>
 
-          <div className='ind_results_channel_right_top'>
+          <div className='favoriate_results_channel_right_top'>
             <div className='ind_results_channel_title'>
               <Link to={`/channel/${channel.yt_id}`} className='link-channel' >
               {channel.title}
@@ -87,11 +87,19 @@ class LandingList extends Component {
           <div className="bottom_favorite">
 
             {this.state.favorited ?
-              <FontAwesomeIcon icon={faHeart} size="2x" color="rgb(247, 5, 103)"  
+              <FontAwesomeIcon 
+                icon={faHeart} 
+                size="2x" 
+                color="rgb(247, 5, 103)" 
+                className="bottom_favorite"
                 onClick={() => this.removeFavorite(channel)} 
               />
               :
-              <FontAwesomeIcon icon={faHeart} size="2x" color="#ccc"  
+              <FontAwesomeIcon
+                icon={faHeart}
+                size="2x"
+                color="#ccc"
+                className="bottom_favorite" 
                 onClick={() => this.addFavorite(channel)} 
               />
             } 

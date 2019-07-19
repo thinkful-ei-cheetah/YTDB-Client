@@ -212,28 +212,31 @@ div.landing_main_banner{
   padding-right:5vw;
   padding-top: 0.5vh;
   padding-bottom: 0.5vh;
-  font-size: 3.0vw;
-  font-size: 20px;
+  padding-left: 10px;
+  font-size: 18px;
+
   width: 35vw;
-  height:3.5vh;
+  height:35px;
   max-width: 350px;
-  /* border-radius: .1em; */
-  border:  2px solid #fefefe
+  border-radius: 5px;
+  border:  1px solid #fefefe;
+  font-family: Montserrat,Montserrat Light,Helvetica Neue,Helvetica,arial,sans-serif;
 }
 
 .topic_select{
-  height:5vh;
-  width: 35vw;
-  max-width: 300px;
+  height:48px;
+  max-width: 200px;
+  margin-right: 5px;
 }
 .submit_button{
   color: #2B3A5C;
-  width: 5vw;
-  height:5vh;
+  width: 50px;
+  height:48px;
   max-width: 30px;
   background-color: #fefefe;
   max-width: 300px;
   padding: 0px;
+  margin-left: 5px;
 }
 
 .yt_submit_button{
@@ -245,10 +248,10 @@ div.landing_main_banner{
 }
 
 .topic_select:hover, .autocomplete:hover{
-  border-color: #EF1362;
+  border-color: #f2f2f2;
 }
 .submit_button:hover{
-  color: #EF1362;
+  color: #f2f2f2 !important;
 }
 .topic_select:focus, .autocomplete:focus, .submit_button:focus {
   /* background-color: #fefefee5; */
@@ -272,7 +275,7 @@ div.landing_main_banner{
 
 /* Handle on hover */
 .topic_select::-webkit-scrollbar-thumb:hover {
-  background: #EF1362; 
+  background: #f2f2f2; 
 }
 
 @media screen and (max-width: 700px) {
@@ -321,4 +324,14 @@ div.landing_main_banner{
 .bottom_stars {
 
   margin-right: 25px;
+}
+
+.bottom_favorite {
+
+  cursor: pointer;
+}
+
+.favoriate_results_channel_right_top {
+
+  padding: 10px;
 }

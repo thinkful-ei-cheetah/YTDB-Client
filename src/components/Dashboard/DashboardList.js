@@ -19,22 +19,26 @@ class DashboardList extends Component {
         <Link to={`/channel/${favorite.yt_id}`} className='link-channel'>
           <img src={favorite.thumbnail} alt={`thumbnail for ${favorite.title}`} /><br />
         </Link>
-        <div className='ind_results_channel_right_top'>
-          <div className='favorite_button'>     
-            <Button className='button' onClick={ () => this.context.removeFavorite(favorite) }>
-              Remove
-            </Button>
-          </div>
-
+        <div className='favorite_results_channel_right_top'>
+         
+      <div>
           <div className='ind_results_channel_title'>
             <Link to={`/channel/${favorite.yt_id}`} className='link-channel' >
               {favorite.title}
             </Link>
           </div>
-
           <div className='ind_results_channel_description'>
             {favorite.description}
           </div>
+        </div>
+
+        <div className='favorite_button'>     
+            <Button className='button' onClick={ () => this.context.removeFavorite(favorite) }>
+              Remove
+            </Button>
+        </div>
+
+  
         </div>
       </div>
     );

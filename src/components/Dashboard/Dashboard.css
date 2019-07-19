@@ -16,8 +16,13 @@
 
 
 .favorite_button {
+ 
+}
 
-  float: right;
+.favorite_results_channel_right_top {
+  padding: 20px;
+  display: flex;
+  width: 100%;
 
-
+  justify-content: space-between !important;
 }

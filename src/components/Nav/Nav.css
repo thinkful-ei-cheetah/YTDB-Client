@@ -27,18 +27,18 @@
   justify-content: flex-end;
   align-items: center;
   /* padding-right: 8px; */
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .header-menu-link {
   display: inline;
   margin: 0 10px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .header-menu-link a {
   margin-left: 8px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 header h1 {
@@ -169,6 +169,10 @@ header h1 {
   font-size: 16px;
   bottom: 5px;
   position: relative;
+}
+
+.nav-username {
+  font-size: 16px;
 }
 
 /* @media screen and (min-width: 1000px) {
