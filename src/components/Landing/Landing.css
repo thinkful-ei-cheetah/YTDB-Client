@@ -347,3 +347,9 @@ div.landing_main_banner{
 
   padding: 10px;
 }
+
+.no-results{
+  font-size: 30px;
+  margin: 20px;
+  color: #2B3A5C; 
+}

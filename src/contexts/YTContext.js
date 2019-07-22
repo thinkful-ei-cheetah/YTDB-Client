@@ -11,6 +11,7 @@ const YTContext = React.createContext({
     prevTopicSelect: '',
     ytdbOption: false,
     loading: false,
+    noResults: false,
     setChannels: () => {},
     setActiveChannel: () => {},
     setSearchTerm: () => {},
@@ -22,6 +23,7 @@ const YTContext = React.createContext({
     setFavorites: () => {},
     setYtdbOption: () => {},
     setLoading: () => {},
+    setNoResults: () => {},
 })
 export default YTContext;
 
@@ -38,6 +40,7 @@ export class YTProvider extends Component {
         prevTopicSelect: 'none',
         ytdbOption: false,
         loading: false,
+        noResults: false,
     }
   }
 
@@ -89,6 +92,10 @@ export class YTProvider extends Component {
     this.setState({ loading: bool})
   }
 
+  setNoResults =  bool => {
+    this.setState({ noResults: bool })
+  }
+
   render() {
     const value = {
         activeChannel: this.state.activeChannel,
@@ -100,6 +107,7 @@ export class YTProvider extends Component {
         prevTopicSelect: this.state.prevTopicSelect,
         ytdbOption: this.state.ytdbOption,
         loading: this.state.loading,
+        noResults: this.state.noResults,
         setActiveChannel: this.setActiveChannel,
         setChannels: this.setChannels,
         addFavorite: this.addFavorite,
@@ -111,6 +119,7 @@ export class YTProvider extends Component {
         setFavorites: this.setFavorites,
         setYtdbOption: this.setYtdbOption,
         setLoading: this.setLoading,
+        setNoResults: this.setNoResults,
     }
 
     return (

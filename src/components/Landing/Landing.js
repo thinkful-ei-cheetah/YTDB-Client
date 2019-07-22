@@ -6,6 +6,7 @@ import YTContext from '../../contexts/YTContext';
 import LandingList from './LandingList'
 import topicIds from '../Channel/channel-helper'
 import FavoritesService from '../../services/favorites-service';
+import TokenService from '../../services/token-service';
 import './Landing.css';
 
 class Landing extends Component {
@@ -19,6 +20,8 @@ class Landing extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.context.setNoResults(false)
+    this.context.setLoading(true)
     this.context.setChannels([])
     let searchTerm = this.context.searchTerm
     this.context.setPrevSearchTerm(searchTerm)
@@ -35,7 +38,11 @@ class Landing extends Component {
             return acc;
           }
         }, []);
+        if(results.data.length === 0){
+          this.context.setNoResults(true)
+        }
         this.context.setChannels(filteredData)
+        this.context.setLoading(false)
         return this.context.setYtdbOption(true)
       })
     }
@@ -50,7 +57,11 @@ class Landing extends Component {
             return acc;
           }
         }, []);
+        if(results.data.length === 0){
+          this.context.setNoResults(true)
+        }
         this.context.setChannels(filteredData)
+        this.context.setLoading(false)
         return this.context.setYtdbOption(true)
       })
     }
@@ -61,6 +72,7 @@ class Landing extends Component {
   }
 
   handleYtdbSearch = () => {
+    this.context.setNoResults(false)
     this.context.setLoading(true)
     this.context.setChannels([])
     if(this.context.prevTopicSelect !== 'none') {
@@ -68,6 +80,9 @@ class Landing extends Component {
       .then(results => {
         this.context.setChannels(results.data)
         this.context.setLoading(false)
+        if(results.data.length === 0){
+          this.context.setNoResults(true)
+        }
         return this.context.setYtdbOption(false)
       })
     } else {
@@ -75,16 +90,20 @@ class Landing extends Component {
       .then(results => {
         this.context.setChannels(results.data)
         this.context.setLoading(false)
+        if(results.data.length === 0){
+          this.context.setNoResults(true)
+        }
         return this.context.setYtdbOption(false)
       })
     }
   }
 
   componentDidMount = async() => {
-
-    const favorites = await FavoritesService.getFavorites();
-    this.context.setFavorites(favorites);
-
+    if (TokenService.hasAuthToken()) {
+      const favorites = await FavoritesService.getFavorites();
+      this.context.setFavorites(favorites);
+    }
+    this.context.setNoResults(false)
     this.context.setLoading(false)
     this.firstInput.current.focus();
     this.context.setSearchTerm('')
@@ -107,6 +126,12 @@ class Landing extends Component {
 
     let ytSearch = { display: this.context.ytdbOption ? "block" : "none" }
     let dummy = this.context.ytdbOption ? "block" : "none" ;
+    let message = `Sorry, we could not find any channels by "${this.context.prevSearchTerm}"`
+    if (this.context.prevTopicSelect !== 'none'){
+      let topic = topicIds[this.context.prevTopicSelect]
+      message += `, under topic "${topic}"`
+    }
+    let noResults = <div className='no-results'>{message}</div>
 
     return (
       <div className='landing_container'>
@@ -163,6 +188,10 @@ class Landing extends Component {
           { (dummy==='none') ? <div className="dummy"></div> : null }
 
         </div>
+        {this.context.noResults
+          ? noResults
+          : ''
+        }
         {this.context.loading 
           ? <FontAwesomeIcon className='loading-spinner' icon={faCircleNotch} spin /> 
           : results
