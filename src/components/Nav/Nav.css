@@ -91,7 +91,7 @@ header h1 {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 950px) {
   .nav-username {
     width: 230px;
   }
@@ -103,33 +103,33 @@ header h1 {
   }
 }
 
-@media screen and (max-width: 800px) {
-  .nav-username {
-    width: 220px;
-  }
-}
-
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 850px) {
   .nav-username {
     width: 200px;
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 770px) {
   .nav-username {
     width: 175px;
   }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 700px) {
   .nav-username {
-    width: 150px;
+    width: 160px;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .nav-username {
+    width: 120px;
   }
 }
 
 @media screen and (max-width: 600px) {
   .nav-username {
-    width: 120px;
+    width: 100px;
   }
   header h1 {
     margin-left: 20%;

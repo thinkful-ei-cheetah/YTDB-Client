@@ -128,7 +128,7 @@ class Channel extends Component {
                 <div className='about'>
                   What People Are Saying
                 </div>
-                <div class="add_rating_review">
+                <div className="add_rating_review">
                   <UserContext.Consumer>
                     {userContext =>
                       <AddReview reviews={this.state.reviews} username={userContext.user.username} id={this.props.id} />
@@ -140,7 +140,7 @@ class Channel extends Component {
                   Add a Rating
                 </div>
 
-                <div class="add_rating_review">
+                <div className="add_rating_review">
                   <AddRating 
                     id={this.props.id}
                     calculateAvg={this.calculateAvg}
@@ -188,13 +188,23 @@ class Channel extends Component {
                 </div>
 
                 <div className='right_col_top_box'>
+                  {/* <a
+                    href={`http://www.youtube.com/channel/${
+                      this.context.activeChannel.yt_id
+                    }`}
+                    target='blank'
+                  >
+                    Go to Channel
+                  </a> */}
                   <a
                     href={`http://www.youtube.com/channel/${
                       this.context.activeChannel.yt_id
                     }`}
                     target='blank'
                   >
-                    Link
+                    <button type="button" className='button'>
+                      Go to Channel
+                    </button>
                   </a>
                 </div>
               </div>

@@ -288,6 +288,17 @@ div.landing_main_banner{
   .ind_results{
     width: 80%
   }
+  /* .topic_select, .submit_button, .autocomplete {
+    display: block;
+  } */
+  /* .topic_select {
+    display: block;
+    width: 90vw;
+  } */
+  form .search-form {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -299,7 +310,8 @@ div.landing_main_banner{
     width: 100%;
   }
   .ind_results{
-    width: 90%
+    display: inline-block;
+    width: 90%;
   }
 }
 
