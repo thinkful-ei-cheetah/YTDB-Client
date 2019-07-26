@@ -95,6 +95,7 @@ class Channel extends Component {
                       <img
                         alt='logo'
                         src={this.context.activeChannel.thumbnail}
+                        className='thumbnail'
                       />
                     </div>
                     <h2 className='channel_title'>

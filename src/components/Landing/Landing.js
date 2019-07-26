@@ -118,7 +118,8 @@ class Landing extends Component {
           <LandingList channel={channel} />
         </div>
     })
-    results = <div className='results_container'>{results}</div>
+    let resultSummary = this.context.channels.length ? <h3 className='results-summary'>Results for <span className='results-summary-keyword'>"{this.context.prevSearchTerm}"</span></h3> : null
+    results = <div className='results_container'><div></div>{resultSummary}{results}</div>
     let topics = []
     Object.entries(topicIds).forEach(
       ([key, value]) => topics.push(<option key={key} value={key}>{value}</option>)
@@ -136,7 +137,7 @@ class Landing extends Component {
     return (
       <div className='landing_container'>
         <div className='landing_main_banner'>
-          <h3>RATE AND REVIEW YOUR FAVORITE YOUTUBE CHANNEL</h3>
+          <h1>RATE AND REVIEW YOUR FAVORITE YOUTUBE CHANNEL</h1>
 
           <form
             onSubmit={event => this.handleSubmit(event)}

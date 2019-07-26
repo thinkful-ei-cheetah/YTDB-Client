@@ -5,9 +5,13 @@
     flex-direction: column;
     align-content: stretch;
     height: 100%;
-    width: 40%;
-    padding: 60px;
+    /* width: 40%; */
+    /* padding: 60px; */
+    max-width: 450px;
     margin: auto;
+    padding-top: 60px;
+    padding-left: 2vw;
+    padding-right: 2vw;
     font-size: 24px;
     line-height: 2em;
   }

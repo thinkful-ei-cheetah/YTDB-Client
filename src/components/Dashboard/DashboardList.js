@@ -15,30 +15,30 @@ class DashboardList extends Component {
     let favorite = this.props.favorite
 
     return (
-      <div className='ind_results_top'>
-        <Link to={`/channel/${favorite.yt_id}`} className='link-channel'>
-          <img src={favorite.thumbnail} alt={`thumbnail for ${favorite.title}`} /><br />
-        </Link>
-        <div className='favorite_results_channel_right_top'>
-         
-      <div>
-          <div className='ind_results_channel_title'>
-            <Link to={`/channel/${favorite.yt_id}`} className='link-channel' >
-              {favorite.title}
-            </Link>
-          </div>
-          <div className='ind_results_channel_description'>
-            {favorite.description}
-          </div>
+      <div className='fav_results'>
+        <div className='ind_results_top col col-1'>
+          <Link to={`/channel/${favorite.yt_id}`} className='link-channel'>
+            <img src={favorite.thumbnail} alt={`thumbnail for ${favorite.title}`} className='thumbnail' /><br />
+          </Link>
         </div>
-
-        <div className='favorite_button'>     
-            <Button className='button' onClick={ () => this.context.removeFavorite(favorite) }>
-              Remove
-            </Button>
-        </div>
-
-  
+        <div className='favorite_results_channel_right_top col col-2'>
+          <div className='row fav-channel-title-button-wrapper'>
+            <div className='ind_results_channel_title col'>
+              <Link to={`/channel/${favorite.yt_id}`} className='link-channel' >
+                {favorite.title}
+              </Link>
+            </div>
+            <div className='favorite_button col'>     
+              <Button className='button' onClick={ () => this.context.removeFavorite(favorite) }>
+                Remove
+              </Button>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='ind_results_channel_description col'>
+              {favorite.description}
+            </div>
+          </div>
         </div>
       </div>
     );

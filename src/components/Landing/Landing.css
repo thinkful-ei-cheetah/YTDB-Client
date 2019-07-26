@@ -193,7 +193,8 @@ div.landing_main_banner{
 
 .link-channel {
   text-decoration: none;
-  color: inherit;
+  /* color: inherit; */
+  color: #2B3A5C;
 }
 
 .link-channel img {
@@ -216,7 +217,7 @@ div.landing_main_banner{
   font-size: 18px;
 
   width: 35vw;
-  height:35px;
+  /* height:35px; */
   max-width: 350px;
   border-radius: 5px;
   border:  1px solid #fefefe;
@@ -224,14 +225,14 @@ div.landing_main_banner{
 }
 
 .topic_select{
-  height:48px;
+  /* height:48px; */
   max-width: 200px;
   margin-right: 5px;
 }
 .submit_button{
   color: #2B3A5C;
   width: 50px;
-  height:48px;
+  /* height:48px; */
   max-width: 30px;
   background-color: #fefefe;
   max-width: 300px;
@@ -278,9 +279,65 @@ div.landing_main_banner{
   background: #f2f2f2; 
 }
 
+.dummy {
+
+  height: 80px;
+}
+
+.bottom_favorite {
+
+  padding-bottom: 3px;
+
+}
+
+.bottom_stars {
+
+  margin-right: 25px;
+}
+
+.bottom_favorite {
+
+  cursor: pointer;
+}
+
+.favoriate_results_channel_right_top {
+  padding: 10px;
+}
+
+.no-results{
+  font-size: 30px;
+  margin: 20px;
+  color: #2B3A5C; 
+}
+
+.results-summary {
+  margin-top: 3vh;
+  margin-bottom: 0;
+  color: #2B3A5C;
+}
+
+.results-summary-keyword {
+  background: #2B3A5C;
+  color: white;
+  padding: 3px;
+}
+
 @media screen and (max-width: 700px) {
   .autocomplete, .topic_select, .submit_button{
     font-size: 14px;
+  }
+  .ind_results_top {
+    flex-direction: column;
+  }
+  .link-channel .thumbnail {
+    margin-top: 2vh;
+    margin-bottom: 0;
+  }
+  .favoriate_results_channel_right_top {
+    padding-top: 0;
+  }
+  .ind_results_channel_title {
+    margin-bottom: 8px;
   }
 }
 
@@ -320,36 +377,4 @@ div.landing_main_banner{
     padding-left: 20%;
     padding-right: 20%;
   }
-}
-
-.dummy {
-
-  height: 115px;
-}
-
-.bottom_favorite {
-
-  padding-bottom: 3px;
-
-}
-
-.bottom_stars {
-
-  margin-right: 25px;
-}
-
-.bottom_favorite {
-
-  cursor: pointer;
-}
-
-.favoriate_results_channel_right_top {
-
-  padding: 10px;
-}
-
-.no-results{
-  font-size: 30px;
-  margin: 20px;
-  color: #2B3A5C; 
 }

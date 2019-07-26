@@ -65,7 +65,7 @@ class LandingList extends Component {
       <div>
         <div className='ind_results_top'>
           <Link to={`/channel/${channel.yt_id}`} className='link-channel'>
-            <img src={channel.thumbnail} alt={`thumbnail for ${channel.title}`} /><br />
+            <img src={channel.thumbnail} alt={`thumbnail for ${channel.title}`} className='thumbnail' /><br />
           </Link>
 
           <div className='favoriate_results_channel_right_top'>

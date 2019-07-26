@@ -48,13 +48,13 @@ class Nav extends Component {
   render() {
     return (
       <header role='banner' className='header-grid'>
-        <h1>
+        <h2>
           <Link to='/'>
             YTDB
           </Link>
 
           <Link to='/about'><div className="about_span">?</div></Link>
-        </h1>
+        </h2>
         
         <div className='header-menu'>
           {TokenService.hasAuthToken()

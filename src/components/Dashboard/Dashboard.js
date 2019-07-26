@@ -17,7 +17,7 @@ class Dashboard extends Component {
 
   render() {
     let results = this.context.favorites.map(favorite => {
-      return <div className='ind_results' key={favorite.channelId}>
+      return <div className='ind_results' key={favorite.yt_id} >
         <DashboardList favorite={favorite} />
       </div>
     })

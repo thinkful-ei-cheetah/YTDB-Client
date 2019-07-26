@@ -16,8 +16,11 @@
   margin: auto;
   border-radius: 5px;
   border: 1px solid black;
-  width: 100%;
-  padding: 15px;
+  width: 95%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 3vw;
+  padding-right: 3vw;
   max-width: 350px;
 }
 

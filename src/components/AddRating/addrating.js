@@ -45,6 +45,15 @@ class AddRating extends Component {
       }
       
       await this.context.setActiveChannel(activeChannel.data);
+      if(this.context.channels.length){
+        let newChannels = this.context.channels
+        newChannels.forEach((channel, index) => {
+          if(channel.yt_id === this.context.activeChannel.yt_id){
+            newChannels[index] = this.context.activeChannel
+          }
+        })
+        await this.context.setChannels(newChannels)
+      }
     }
 
     setError = async (str) => {

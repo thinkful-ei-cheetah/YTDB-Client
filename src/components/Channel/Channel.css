@@ -92,8 +92,8 @@
 
  .channel_description {
   padding: 30px;
-  font-size: 1rem;
-  font-weight: 200;
+  font-size: 1em;
+  font-weight: 400;
   line-height: 28px !important;
   color: rgb(0, 0, 0) !important;
   text-align: left !important;
